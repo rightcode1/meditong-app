@@ -79,100 +79,105 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       child: DefaultLayout(
           showAppBar: true,
           showClose: true,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'medical\ntreatment',
-                style: TextStyle(
-                  fontSize: 24.0.sp,
-                  fontWeight: FontWeight.w800,
-                  color: AppColor.primary,
-                ),
-              ),
-              SizedBox(height: 8.0.h),
-              Text(
-                '모든 의료 뉴스를 한곳에',
-                style: TextStyle(
-                  fontSize: 16.0.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(height: 20.0.h),
-              Expanded(
-                child: Column(
-                  children: [
-                    // 로그인 폼
-                    AuthLoginFormColumn(
-                      onLoginIdChanged: (loginId) {
-                        if (loginId != null) {
-                          ref.read(authLoginFormProvider.notifier).changeLoginId(loginId.trim());
-                        }
-                      },
-                      onPasswordChanged: (password) {
-                        if (password != null) {
-                          ref.read(authLoginFormProvider.notifier).changePassword(password.trim());
-                        }
-                      },
+          child: Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 60.0.h),
+                  Text(
+                    'medical\ntreatment',
+                    style: TextStyle(
+                      fontSize: 32.0.sp,
+                      fontWeight: FontWeight.w800,
+                      color: AppColor.primary,
+                      height: 0.8.h,
                     ),
-                    AuthLoginFindRow(
-                      onFindIdBtnClicked: () => context.push(AppRouter.findId.path),
-                      onFindPasswordBtnClicked: () => context.push(AppRouter.findPassword.path),
+                  ),
+                  SizedBox(height: 8.0.h),
+                  Text(
+                    '모든 의료 뉴스를 한곳에',
+                    style: TextStyle(
+                      fontSize: 20.0.sp,
+                      fontWeight: FontWeight.w500,
                     ),
-                    SizedBox(
-                      height: 15.5.h,
-                    ),
-                    // 회원가입 및 로그인 버튼
-                    AuthLoginButtonColumn(
-                      isLoginLoading: _isLoginLoading,
-                      canLogin: formState.isAllValidated,
-                      onLoginBtnClicked: () async {
-                        try {
-                          setState(() {
-                            _isLoginLoading = true;
-                          });
-                          final result = await ref.read(authLoginProvider.future);
-
-                          if (!context.mounted) return;
-
-                          // 로그인에 실패했을 경우 (아이디 혹은 비밀번호 불일치)
-                          if (!result) {
-                            DialogUtils.showOneButton(
-                              context: context,
-                              title: '로그인 실패!',
-                              content: '아이디 혹은 비밀번호가\n올바르지 않습니다.',
-                              buttonText: '확인',
-                              onButtonPressed: () {
-                                context.pop();
-                              },
-                            );
+                  ),
+                  SizedBox(height: 50.0.h),
+                  Column(
+                    children: [
+                      // 로그인 폼
+                      AuthLoginFormColumn(
+                        onLoginIdChanged: (loginId) {
+                          if (loginId != null) {
+                            ref.read(authLoginFormProvider.notifier).changeLoginId(loginId.trim());
                           }
-                          // 로그인 성공 시, 기존에 이동하려고 했던 페이지로 이동한다.
-                          context.goNamed(AppRouter.home.name);
-                          // GoRouterUtils.moveToExpectedRouteAfterSingingIn(context, ref);
-                        } on RequestException catch (err, stack) {
-                          ToastUtils.showToast(context, toastText: err.message);
-                        } finally {
-                          setState(() {
-                            _isLoginLoading = false;
-                          });
-                        }
-                      },
-                      onJoinBtnClicked: () {
-                        context.push(AppRouter.join.path);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              // 아이디 찾기 및 비밀번호 찾기 텍스트 버튼
+                        },
+                        onPasswordChanged: (password) {
+                          if (password != null) {
+                            ref.read(authLoginFormProvider.notifier).changePassword(password.trim());
+                          }
+                        },
+                      ),
+                      AuthLoginFindRow(
+                        onFindIdBtnClicked: () => context.push(AppRouter.findId.path),
+                        onFindPasswordBtnClicked: () => context.push(AppRouter.findPassword.path),
+                      ),
+                      SizedBox(
+                        height: 60.0.h,
+                      ),
+                      // 회원가입 및 로그인 버튼
+                      AuthLoginButtonColumn(
+                        isLoginLoading: _isLoginLoading,
+                        canLogin: formState.isAllValidated,
+                        onLoginBtnClicked: () async {
+                          try {
+                            setState(() {
+                              _isLoginLoading = true;
+                            });
+                            final result = await ref.read(authLoginProvider.future);
 
-              /*
-                        SNS 로그인 버튼
-                       */
-              // if (_enableSocialLogin) const AuthSnsLoginButtonColumn(),
-              // if (_enableSocialLogin) SizedBox(height: 48.0.h),
-            ],
+                            if (!context.mounted) return;
+
+                            // 로그인에 실패했을 경우 (아이디 혹은 비밀번호 불일치)
+                            if (!result) {
+                              DialogUtils.showOneButton(
+                                context: context,
+                                title: '로그인 실패!',
+                                content: '아이디 혹은 비밀번호가\n올바르지 않습니다.',
+                                buttonText: '확인',
+                                onButtonPressed: () {
+                                  context.pop();
+                                },
+                              );
+                            }
+                            // 로그인 성공 시, 기존에 이동하려고 했던 페이지로 이동한다.
+                            context.goNamed(AppRouter.home.name);
+                            // GoRouterUtils.moveToExpectedRouteAfterSingingIn(context, ref);
+                          } on RequestException catch (err, stack) {
+                            ToastUtils.showToast(context, toastText: err.message);
+                          } finally {
+                            setState(() {
+                              _isLoginLoading = false;
+                            });
+                          }
+                        },
+                        onJoinBtnClicked: () {
+                          context.push(AppRouter.join.path);
+                        },
+                      ),
+                    ],
+                  ),
+                  // 아이디 찾기 및 비밀번호 찾기 텍스트 버튼
+
+                  /*
+                            SNS 로그인 버튼
+                           */
+                  // if (_enableSocialLogin) const AuthSnsLoginButtonColumn(),
+                  // if (_enableSocialLogin) SizedBox(height: 48.0.h),
+                ],
+              ),
+            ),
           )),
     );
   }

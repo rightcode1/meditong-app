@@ -98,7 +98,7 @@ class _MediportState extends ConsumerState<Mediport> {
         routerConfig: routerConfig,
         // 기본 폰트 지정
         theme: ThemeData(
-          fontFamily: 'NotoSansKR',
+          fontFamily: 'Pretendard',
           progressIndicatorTheme: const ProgressIndicatorThemeData(color: AppColor.primary),
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.white,
@@ -106,9 +106,11 @@ class _MediportState extends ConsumerState<Mediport> {
             surfaceTint: Colors.white,
             background: Colors.white,
           ),
-          bottomAppBarColor: Colors.white,
           canvasColor: Colors.white,
           dividerColor: AppColor.grey500,
+          bottomAppBarTheme: const BottomAppBarTheme(
+            color: Colors.white,
+          ),
           // colorScheme: const ColorScheme.light(
           //   primary: AppColor.green500,
           //   surfaceTint: Colors.white,

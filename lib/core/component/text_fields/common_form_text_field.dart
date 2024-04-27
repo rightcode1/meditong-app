@@ -709,7 +709,7 @@ class CommonForm extends StatefulWidget {
       helperStyle: helperStyle ?? TextStyle(fontSize: 12.spMin, fontWeight: FontWeight.w400, color: AppColor.primary),
       helperMaxLines: helperMaxLines,
       hintText: hintText,
-      hintStyle: hintStyle ?? TextStyle(fontSize: 14.spMin, fontWeight: FontWeight.w400, color: AppColor.grey700),
+      hintStyle: hintStyle ?? TextStyle(fontSize: 14.spMin, fontWeight: FontWeight.w400, color: AppColor.grey600),
       hintTextDirection: hintTextDirection,
       hintMaxLines: hintMaxLines,
       hintFadeDuration: hintFadeDuration,
@@ -721,7 +721,7 @@ class CommonForm extends StatefulWidget {
       floatingLabelAlignment: floatingLabelAlignment,
       isCollapsed: isCollapsed,
       isDense: isDense,
-      contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 16.h, horizontal: 17.w),
+      contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
       prefixIcon: prefixIcon != null
           ? Padding(
               padding: EdgeInsets.only(right: 8.w),
@@ -749,19 +749,19 @@ class CommonForm extends StatefulWidget {
       errorBorder: errorBorder,
       focusedBorder: focusedBorder ??
           OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(5.r),
             borderSide: const BorderSide(color: AppColor.grey500),
           ),
       focusedErrorBorder: focusedErrorBorder,
       disabledBorder: disabledBorder,
       enabledBorder: enabledBorder ??
           OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(5.r),
             borderSide: const BorderSide(color: AppColor.grey500),
           ),
       border: border ??
           OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(5.r),
             borderSide: const BorderSide(color: AppColor.grey500),
           ),
       decorationEnabled: decorationEnabled ?? true,

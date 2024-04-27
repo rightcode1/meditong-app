@@ -133,7 +133,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                 SizedBox(
                   height: 22.0.h,
                 ),
-              if (!_isSnsJoin)
+              if (!_isSnsJoin) ...[
                 CommonLabel(
                   label: '비밀번호',
                   child: CommonForm.create(
@@ -141,10 +141,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     obscureText: true,
                     counterText: '',
                     hintText: '8-16자리 영문 대소문자, 숫자, 특수문자 중 3가지 이상',
-                    hintStyle: TextStyle(
-                      color: AppColor.grey400,
-                      fontSize: 11.0.sp,
-                    ),
                     helperText: formState.isPasswordVerified == AuthVerificationStatus.verified ? '사용할 수 있는 비밀번호입니다.' : null,
                     maxLength: 16,
                     keyboardType: TextInputType.text,
@@ -158,11 +154,15 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                           errorText: '최소 8자리 이상 문자, 숫자, 특수문자 포함'),
                     ]),
                     onChanged: (controller) {
-                        final pPassword = formState.password;
-                        ref.read(authJoinFormProvider.notifier).checkAvailablePassword(pPassword, controller.text);
+                      final pPassword = formState.password;
+                      ref.read(authJoinFormProvider.notifier).checkAvailablePassword(pPassword, controller.text);
                     },
                   ),
                 ),
+                SizedBox(
+                  height: 22.0.h,
+                ),
+              ],
               if (!_isSnsJoin)
                 CommonLabel(
                   label: '비밀번호 확인',
@@ -175,7 +175,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     keyboardType: TextInputType.text,
                     helperText: formState.isPasswordConfirmVerified == AuthVerificationStatus.verified ? '비밀번호가 일치합니다.' : null,
                     errorText: formState.isPasswordConfirmVerified == AuthVerificationStatus.unverified ||
-                        formState.isPasswordConfirmVerified == AuthVerificationStatus.none
+                            formState.isPasswordConfirmVerified == AuthVerificationStatus.none
                         ? '비밀번호가 일치하지 않습니다.'
                         : null,
                     inputFormatters: [
@@ -186,7 +186,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                       FormBuilderValidators.required(errorText: '비밀번호 확인란을 입력해주세요.'),
                     ]),
                     onChanged: (controller) {
-                        ref.read(authJoinFormProvider.notifier).checkPasswordConfirmEqualToPassword(controller.text);
+                      ref.read(authJoinFormProvider.notifier).checkPasswordConfirmEqualToPassword(controller.text);
                     },
                   ),
                 ),
@@ -197,18 +197,17 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
               CommonLabel(
                 label: '이름',
                 child: CommonForm.create(
-                  name: 'name',
-                  hintText: '실명 기입',
-                  maxLength: 15,
-                  counterText: '',
-                  keyboardType: TextInputType.text,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.singleLineFormatter,
-                    FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9ㄱ-힣ㆍᆢ]'), replacementString: ''),
-                  ],
-                  validator: FormBuilderValidators.required(errorText: '성함을 입력해주세요.'),
-                  onChanged: (controller) => ref.read(authJoinFormProvider.notifier).changeState(name: controller.text)
-                ),
+                    name: 'name',
+                    hintText: '실명 기입',
+                    maxLength: 15,
+                    counterText: '',
+                    keyboardType: TextInputType.text,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.singleLineFormatter,
+                      FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9ㄱ-힣ㆍᆢ]'), replacementString: ''),
+                    ],
+                    validator: FormBuilderValidators.required(errorText: '성함을 입력해주세요.'),
+                    onChanged: (controller) => ref.read(authJoinFormProvider.notifier).changeState(name: controller.text)),
               ),
               SizedBox(
                 height: 22.0.h,
@@ -308,10 +307,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
 
                     return CommonButton(
                       text: '회원가입',
-                      isActive: _isSnsJoin
-                          ? formState.isCommonSnsAllValidated
-                          : formState.isCommonAllValidated &&
-                          !_isRegisterLoading,
+                      isActive: _isSnsJoin ? formState.isCommonSnsAllValidated : formState.isCommonAllValidated && !_isRegisterLoading,
                       isLoading: _isRegisterLoading,
                       onPressed: () async {
                         // 현재 Form 데이터를 Model 로 변환 후, 서버로 전송한다..

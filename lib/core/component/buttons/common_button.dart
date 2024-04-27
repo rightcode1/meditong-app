@@ -62,8 +62,8 @@ class CommonButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: isActive ? onPressed : null,
       style: ElevatedButton.styleFrom(
-        backgroundColor: isActive ? buttonColor : AppColor.grey400,
-        shape: RoundedRectangleBorder(borderRadius: borderRadius ?? BorderRadius.circular(12.5)),
+        backgroundColor: isActive ? buttonColor : AppColor.grey500,
+        shape: RoundedRectangleBorder(borderRadius: borderRadius ?? BorderRadius.circular(5.0.r)),
         elevation: elevation ?? 0.0,
         disabledBackgroundColor: AppColor.grey500,
       ),
@@ -72,9 +72,9 @@ class CommonButton extends StatelessWidget {
           : textWidget ?? Text(
               text!,
               style: TextStyle(
-                fontSize: fontSize ?? 13.0.sp,
-                fontWeight: fontWeight,
-                color: isActive ? textColor : AppColor.darkGrey400,
+                fontSize: fontSize ?? 14.0.sp,
+                fontWeight: fontWeight ?? FontWeight.w500,
+                color: isActive ? textColor : AppColor.grey550,
               ),
             ),
     );
