@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediport/core/constant/app_color.dart';
 
 class ThickDivider extends StatelessWidget {
   final double? height;
@@ -12,9 +13,9 @@ class ThickDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      thickness: 6.0.h,
-      height: height ?? 6.0.h,
-      color: Colors.grey[100],
+      thickness: 10.0.h,
+      height: height ?? 0.0.h,
+      color: AppColor.grey400,
     );
   }
 }

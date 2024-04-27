@@ -5,6 +5,8 @@ import 'package:mediport/core/component/tabbar/bottom_tab_bar.dart';
 import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/provider/app_router_observer.dart';
 import 'package:mediport/core/view/web_view/term_web_view.dart';
+import 'package:mediport/presentation/alert/view/alert_list_screen.dart';
+import 'package:mediport/presentation/alert/view/register/alert_register_screen.dart';
 import 'package:mediport/presentation/auth/view/auth_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_id_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_password_screen.dart';
@@ -14,7 +16,6 @@ import 'package:mediport/presentation/splash_screen.dart';
 
 import '../../presentation/auth/view/find/auth_update_password_screen.dart';
 import '../../presentation/auth/view/join/join_screen.dart';
-import '../../presentation/home/view/component_view_screen.dart';
 import 'auth_provider.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -109,6 +110,22 @@ final routerConfigProvider = Provider<GoRouter>(
         ],
       ),
 
+      /// 알림 스크린
+      GoRoute(
+        parentNavigatorKey: rootNavigatorKey,
+        path: AppRouter.alert.path,
+        name: AppRouter.alert.name,
+        builder: (context, state) => const AlertListScreen(),
+        routes: [
+          GoRoute(
+            parentNavigatorKey: rootNavigatorKey,
+            path: AppRouter.alertRegister.subPath,
+            name: AppRouter.alertRegister.name,
+            builder: (context, state) => const AlertRegisterScreen(),
+          ),
+        ],
+      ),
+
       /* 바텀 탭바가 표시할 각 루트 스크린 */
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
@@ -124,14 +141,6 @@ final routerConfigProvider = Provider<GoRouter>(
             path: AppRouter.my.path,
             name: AppRouter.my.name,
             pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const MyScreen()),
-            // routes: [
-            //   GoRoute(
-            //     parentNavigatorKey: rootNavigatorKey,
-            //     path: AppRouter.exampleSub.subPath,
-            //     name: AppRouter.exampleSub.name,
-            //     builder: (context, state) => const ExampleSubScreen(),
-            //   ),
-            // ]
           ),
         ],
       ),

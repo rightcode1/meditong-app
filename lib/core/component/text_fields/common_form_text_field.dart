@@ -659,7 +659,7 @@ class CommonForm extends StatefulWidget {
       cursorWidth: cursorWidth ?? 2.0,
       cursorHeight: cursorHeight,
       keyboardType: keyboardType,
-      style: style ?? TextStyle(fontSize: 14.spMin, fontWeight: FontWeight.w400),
+      style: style ?? TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
       controller: controller,
       textInputAction: textInputAction,
       strutStyle: strutStyle,

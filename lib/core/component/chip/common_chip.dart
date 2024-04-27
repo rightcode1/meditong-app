@@ -48,7 +48,7 @@ class CommonChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor ?? const Color.fromRGBO(250, 250, 250, 1.0),
         borderRadius: borderRadius ?? BorderRadius.circular(7.0.w),
-        border: !useBorder ? null : Border.all(color: const Color.fromRGBO(226, 229, 234, 1.0), width: 1.0.w),
+        border: !useBorder ? null : Border.all(color: AppColor.grey500, width: 1.0.w),
       ),
       child: textWidget ?? Text(
         text!,
