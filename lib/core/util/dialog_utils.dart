@@ -1,7 +1,7 @@
-import 'package:meditong/core/constant/app_color.dart';
+import 'package:mediport/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:meditong/core/component/buttons/common_button.dart';
+import 'package:mediport/core/component/buttons/common_button.dart';
 
 class DialogUtils {
   /// 버튼 하나 형태의 기본 다이얼로그, 형태에 맞게 적절히 변형하여 사용하거나 재정의한다. (기본 형태는 학원나우 다이얼로그)

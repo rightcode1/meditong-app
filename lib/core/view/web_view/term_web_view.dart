@@ -1,5 +1,5 @@
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/layout/default_layout.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/layout/default_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';

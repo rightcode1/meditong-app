@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:meditong/core/config/http_override.dart';
+import 'package:mediport/core/config/http_override.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,7 +25,7 @@ void main() async {
     /// RivderPod 스코프 활성화
     UncontrolledProviderScope(
       container: container,
-      child: const Meditong(),
+      child: const Mediport(),
     ),
   );
 }

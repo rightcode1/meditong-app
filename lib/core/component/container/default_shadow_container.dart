@@ -1,4 +1,4 @@
-import 'package:meditong/core/constant/color.dart';
+import 'package:mediport/core/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

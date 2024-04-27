@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:meditong/domain/model/base_image_res.dart';
+import 'package:mediport/domain/model/base_image_res.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
-import 'package:meditong/core/component/delegate/korean_asset_picker_delegate.dart';
-import 'package:meditong/core/component/delegate/korean_camera_picker_delegate.dart';
-import 'package:meditong/core/component/image/image_container.dart';
-import 'package:meditong/core/enum/add_image_element_mode.dart';
-import 'package:meditong/core/util/data_utils.dart';
-import 'package:meditong/core/util/toast_utils.dart';
+import 'package:mediport/core/component/delegate/korean_asset_picker_delegate.dart';
+import 'package:mediport/core/component/delegate/korean_camera_picker_delegate.dart';
+import 'package:mediport/core/component/image/image_container.dart';
+import 'package:mediport/core/enum/add_image_element_mode.dart';
+import 'package:mediport/core/util/data_utils.dart';
+import 'package:mediport/core/util/toast_utils.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

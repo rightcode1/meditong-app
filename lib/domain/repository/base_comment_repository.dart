@@ -1,7 +1,7 @@
-import 'package:meditong/domain/model/base_comment_req_register.dart';
-import 'package:meditong/domain/model/base_comment_req_update.dart';
-import 'package:meditong/domain/model/base_comment_res.dart';
-import 'package:meditong/domain/model/base_res.dart';
+import 'package:mediport/domain/model/base_comment_req_register.dart';
+import 'package:mediport/domain/model/base_comment_req_update.dart';
+import 'package:mediport/domain/model/base_comment_res.dart';
+import 'package:mediport/domain/model/base_res.dart';
 
 abstract class BaseCommentRepository {
   Future<BaseResponse> register({

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meditong/core/constant/data.dart';
-import 'package:meditong/core/provider/secure_storage_provider.dart';
+import 'package:mediport/core/constant/data.dart';
+import 'package:mediport/core/provider/secure_storage_provider.dart';
 
 import '../../../core/util/sns/impl/auth_sign_in_apple.dart';
 import '../../../core/util/sns/impl/auth_sign_in_kakao.dart';

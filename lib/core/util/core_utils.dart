@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:meditong/core/enum/app_router.dart';
-import 'package:meditong/core/util/toast_utils.dart';
-import 'package:meditong/core/variable/global_var.dart';
+import 'package:mediport/core/enum/app_router.dart';
+import 'package:mediport/core/util/toast_utils.dart';
+import 'package:mediport/core/variable/global_var.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

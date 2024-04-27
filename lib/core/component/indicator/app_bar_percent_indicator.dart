@@ -1,4 +1,4 @@
-import 'package:meditong/core/constant/app_color.dart';
+import 'package:mediport/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/percent_indicator.dart';

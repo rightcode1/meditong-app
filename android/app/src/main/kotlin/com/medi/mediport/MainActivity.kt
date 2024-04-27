@@ -1,4 +1,4 @@
-package com.meditong.app
+package com.medi.mediport
 
 import io.flutter.embedding.android.FlutterActivity
 

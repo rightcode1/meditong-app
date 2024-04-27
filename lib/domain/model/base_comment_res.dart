@@ -1,4 +1,4 @@
-import 'package:meditong/domain/model/user/res/user_res.dart';
+import 'package:mediport/domain/model/user/res/user_res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'base_comment_res.g.dart';

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.meditong.app">
+          package="com.medi.mediport">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -45,7 +45,7 @@
         <application
                 android:name="${applicationName}"
                 android:icon="@mipmap/ic_launcher"
-                android:label="meditong"
+                android:label="메디포트"
                 android:usesCleartextTraffic="true"
                 android:showWhenLocked="true"
                 android:turnScreenOn="true"
@@ -54,7 +54,7 @@
     <application
             android:name="${applicationName}"
             android:icon="@mipmap/ic_launcher"
-            android:label="meditong"
+            android:label="메디포트"
             android:usesCleartextTraffic="true"
     >
         <activity
@@ -97,7 +97,7 @@
                 <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
                 <data
                         android:host="main"
-                        android:scheme="meditong"/>
+                        android:scheme="mediport"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:collection/collection.dart';
-import 'package:meditong/core/component/checkbox/common_checkbox.dart';
+import 'package:mediport/core/component/checkbox/common_checkbox.dart';
 
 typedef AllCheckboxSelectedCallback = void Function(bool isAllSelected);
 

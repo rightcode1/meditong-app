@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/constant/data.dart';
-import 'package:meditong/domain/model/version/res/version_res.dart';
-import 'package:meditong/domain/repository/version/version_repository.dart';
-import 'package:meditong/service/version/version_providers.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/constant/data.dart';
+import 'package:mediport/domain/model/version/res/version_res.dart';
+import 'package:mediport/domain/repository/version/version_repository.dart';
+import 'package:mediport/service/version/version_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

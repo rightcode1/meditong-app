@@ -5,12 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meditong/core/component/buttons/common_button.dart';
-import 'package:meditong/core/component/label/common_label.dart';
-import 'package:meditong/core/component/text_fields/common_form_text_field.dart';
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/layout/default_layout.dart';
-import 'package:meditong/core/util/dialog_utils.dart';
+import 'package:mediport/core/component/buttons/common_button.dart';
+import 'package:mediport/core/component/label/common_label.dart';
+import 'package:mediport/core/component/text_fields/common_form_text_field.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/layout/default_layout.dart';
+import 'package:mediport/core/util/dialog_utils.dart';
 
 import '../../../../service/auth/join/auth_join_provider.dart';
 import '../../enum/auth_enum.dart';

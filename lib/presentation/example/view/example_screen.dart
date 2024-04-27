@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meditong/core/layout/default_layout.dart';
+import 'package:mediport/core/layout/default_layout.dart';
 
 class ExampleScreen extends StatefulWidget {
   static get routeName => 'example';

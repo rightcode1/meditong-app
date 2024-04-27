@@ -15,6 +15,7 @@ enum AppRouter {
   join(path: '/auth/join', name: 'join', subPath: 'join'),
   findId(path: '/auth/findId', name: 'findId', subPath: 'findId'),
   findPassword(path: '/auth/findPassword', name: 'findPassword', subPath: 'findPassword'),
+  findPasswordUpdate(path: '/auth/findPassword/update', name: 'findPasswordUpdate', subPath: 'findPasswordUpdate'),
 
   // Home Router
   home(path: '/home', name: 'home', subPath: 'home'),

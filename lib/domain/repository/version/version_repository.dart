@@ -1,8 +1,8 @@
-import 'package:meditong/core/constant/data.dart';
-import 'package:meditong/core/provider/dio_provider.dart';
-import 'package:meditong/domain/model/base_res.dart';
-import 'package:meditong/domain/model/version/req/version_req_update.dart';
-import 'package:meditong/domain/model/version/res/version_res.dart';
+import 'package:mediport/core/constant/data.dart';
+import 'package:mediport/core/provider/dio_provider.dart';
+import 'package:mediport/domain/model/base_res.dart';
+import 'package:mediport/domain/model/version/req/version_req_update.dart';
+import 'package:mediport/domain/model/version/res/version_res.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';

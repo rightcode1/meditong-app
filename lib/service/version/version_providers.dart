@@ -1,6 +1,6 @@
-import 'package:meditong/core/exception/request_exception.dart';
-import 'package:meditong/domain/model/version/req/version_req_update.dart';
-import 'package:meditong/domain/repository/version/version_repository.dart';
+import 'package:mediport/core/exception/request_exception.dart';
+import 'package:mediport/domain/model/version/req/version_req_update.dart';
+import 'package:mediport/domain/repository/version/version_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

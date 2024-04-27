@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:meditong/core/component/.etc/custom_will_pop_scope.dart';
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/layout/default_layout.dart';
-import 'package:meditong/core/util/bottom_sheet_utils.dart';
-import 'package:meditong/core/util/toast_utils.dart';
+import 'package:mediport/core/component/.etc/custom_will_pop_scope.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/layout/default_layout.dart';
+import 'package:mediport/core/util/bottom_sheet_utils.dart';
+import 'package:mediport/core/util/toast_utils.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +18,6 @@ import '../../enum/auth_enum.dart';
 import '../../provider/form/find/auth_find_password_form_provider.dart';
 
 class AuthUpdatePasswordScreen extends ConsumerStatefulWidget {
-  static get routeName => 'AuthUpdatePasswordScreen';
 
   /// 비밀번호 변경 공용 스크린
   const AuthUpdatePasswordScreen({Key? key}) : super(key: key);

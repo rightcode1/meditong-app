@@ -1,7 +1,7 @@
-import 'package:meditong/service/visitors/visitors_providers.dart';
+import 'package:mediport/service/visitors/visitors_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meditong/core/layout/default_layout.dart';
+import 'package:mediport/core/layout/default_layout.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   static get routeName => 'SplashScreen';

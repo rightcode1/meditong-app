@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:android_id/android_id.dart';
-import 'package:meditong/core/exception/request_exception.dart';
+import 'package:mediport/core/exception/request_exception.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

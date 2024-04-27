@@ -1,28 +1,28 @@
-import 'package:meditong/core/component/carousel/image_carousel.dart';
-import 'package:meditong/core/component/chip/common_chip.dart';
-import 'package:meditong/core/component/image/common_add_image.dart';
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/enum/app_router.dart';
-import 'package:meditong/core/util/core_utils.dart';
-import 'package:meditong/core/util/go_router_utils.dart';
+import 'package:mediport/core/component/carousel/image_carousel.dart';
+import 'package:mediport/core/component/chip/common_chip.dart';
+import 'package:mediport/core/component/image/common_add_image.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/enum/app_router.dart';
+import 'package:mediport/core/util/core_utils.dart';
+import 'package:mediport/core/util/go_router_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:meditong/core/component/buttons/add_image_button.dart';
-import 'package:meditong/core/component/buttons/common_button.dart';
-import 'package:meditong/core/component/buttons/common_outlined_button.dart';
-import 'package:meditong/core/component/buttons/more_toggle_button.dart';
-import 'package:meditong/core/component/checkbox/checkbox_list_with_all_check.dart';
-import 'package:meditong/core/component/divider/thick_divider.dart';
-import 'package:meditong/core/component/.etc/no_list_widget.dart';
-import 'package:meditong/core/component/image/image_container.dart';
-import 'package:meditong/core/component/label/common_label.dart';
-import 'package:meditong/core/component/tabbar/common_tab_bar.dart';
-import 'package:meditong/core/layout/default_layout.dart';
-import 'package:meditong/core/util/bottom_sheet_utils.dart';
-import 'package:meditong/core/util/dialog_utils.dart';
-import 'package:meditong/core/util/toast_utils.dart';
+import 'package:mediport/core/component/buttons/add_image_button.dart';
+import 'package:mediport/core/component/buttons/common_button.dart';
+import 'package:mediport/core/component/buttons/common_outlined_button.dart';
+import 'package:mediport/core/component/buttons/more_toggle_button.dart';
+import 'package:mediport/core/component/checkbox/checkbox_list_with_all_check.dart';
+import 'package:mediport/core/component/divider/thick_divider.dart';
+import 'package:mediport/core/component/.etc/no_list_widget.dart';
+import 'package:mediport/core/component/image/image_container.dart';
+import 'package:mediport/core/component/label/common_label.dart';
+import 'package:mediport/core/component/tabbar/common_tab_bar.dart';
+import 'package:mediport/core/layout/default_layout.dart';
+import 'package:mediport/core/util/bottom_sheet_utils.dart';
+import 'package:mediport/core/util/dialog_utils.dart';
+import 'package:mediport/core/util/toast_utils.dart';
 import 'package:go_router/go_router.dart';
 
 class ComponentViewScreen extends ConsumerStatefulWidget {
@@ -68,6 +68,7 @@ class _ComponentViewScreenState extends ConsumerState<ComponentViewScreen> with 
           child: Center(
             child: Column(
               children: [
+                ElevatedButton(onPressed: () => context.goNamed(AppRouter.my.name), child: Text('1234')),
                 /* 해당 버튼을 클릭하면, 로그인 후 홈 화면으로 이동시킨다. */
                 ElevatedButton(
                     onPressed: () => GoRouterUtils.recordExpectedRouteAndGoToAuth(context, ref, expectedRoute: AppRouter.home.name),

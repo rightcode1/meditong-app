@@ -1,8 +1,8 @@
-import 'package:meditong/core/constant/prefs_keys.dart';
-import 'package:meditong/core/enum/app_router.dart';
-import 'package:meditong/core/enum/permission_type.dart';
-import 'package:meditong/core/provider/shared_prefs_provider.dart';
-import 'package:meditong/core/util/permission_utils.dart';
+import 'package:mediport/core/constant/prefs_keys.dart';
+import 'package:mediport/core/enum/app_router.dart';
+import 'package:mediport/core/enum/permission_type.dart';
+import 'package:mediport/core/provider/shared_prefs_provider.dart';
+import 'package:mediport/core/util/permission_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
