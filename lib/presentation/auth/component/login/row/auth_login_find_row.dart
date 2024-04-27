@@ -16,8 +16,9 @@ class AuthLoginFindRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle btnTextStyle = TextStyle(
-      color: const Color(0xFF575757),
-      fontSize: 13.0.sp,
+      color: AppColor.cyan700,
+      fontSize: 14.0.sp,
+      fontWeight: FontWeight.w600,
     );
 
     return Row(
