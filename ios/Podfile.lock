@@ -222,7 +222,7 @@ SPEC CHECKSUMS:
   flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
   flutter_naver_login: 1dbf6d21aae5235cdf76a28ac79cf6871899282f
   flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
-  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
+  fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
   FMDB: eae540775bf7d0c87a5af926ae37af69effe5a19
   gal: 61e868295d28fe67ffa297fae6dacebf56fd53e1
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
@@ -247,4 +247,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 85bfc7f32eaf9d1fc2d8f610529a8d0f318cff05
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

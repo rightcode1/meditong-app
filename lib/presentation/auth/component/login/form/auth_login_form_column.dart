@@ -1,8 +1,8 @@
-import 'package:meditong/core/component/label/common_label.dart';
-import 'package:meditong/core/component/text_fields/custom_form_builder_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meditong/core/component/label/common_label.dart';
+import 'package:meditong/core/component/text_fields/common_form_text_field.dart';
 
 /// 로그인 기본 폼, 형태에 맞게 재정의하여 사용한다.
 class AuthLoginFormColumn extends ConsumerWidget {
@@ -22,10 +22,10 @@ class AuthLoginFormColumn extends ConsumerWidget {
       children: [
         CommonLabel(
           label: '이메일',
-          child: CustomFormBuilderTextField(
+          child: CommonForm.create(
             name: 'loginId',
             hintText: '이메일을 입력해주세요.',
-            onChanged: onLoginIdChanged,
+            onChanged: (controller) => onLoginIdChanged(controller.text),
           ),
         ),
         SizedBox(
@@ -33,10 +33,10 @@ class AuthLoginFormColumn extends ConsumerWidget {
         ),
         CommonLabel(
           label: '비밀번호',
-          child: CustomFormBuilderTextField(
+          child: CommonForm.create(
             name: 'password',
             hintText: '비밀번호를 입력해주세요.',
-            onChanged: onPasswordChanged,
+            onChanged: (controller) => onPasswordChanged(controller.text),
           ),
         ),
       ],

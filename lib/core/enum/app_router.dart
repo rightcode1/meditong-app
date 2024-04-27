@@ -19,6 +19,9 @@ enum AppRouter {
   // Home Router
   home(path: '/home', name: 'home', subPath: 'home'),
 
+  // 마이 탭 라우터
+  my(path: '/my', name: '/my', subPath: 'my'),
+
   example2(path: '/example2', name: 'example2', subPath: 'example2'),
   exampleSub(path: '/example2/sub', name: 'exampleSub', subPath: 'exampleSub'),
   temp(path:'temp', name:'temp', subPath:'temp');

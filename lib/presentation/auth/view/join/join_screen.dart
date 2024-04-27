@@ -1,9 +1,3 @@
-import 'package:meditong/core/component/buttons/common_button.dart';
-import 'package:meditong/core/component/label/common_label.dart';
-import 'package:meditong/core/component/text_fields/custom_form_builder_text_field.dart';
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/layout/default_layout.dart';
-import 'package:meditong/core/util/dialog_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -11,6 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meditong/core/component/buttons/common_button.dart';
+import 'package:meditong/core/component/label/common_label.dart';
+import 'package:meditong/core/component/text_fields/common_form_text_field.dart';
+import 'package:meditong/core/constant/app_color.dart';
+import 'package:meditong/core/layout/default_layout.dart';
+import 'package:meditong/core/util/dialog_utils.dart';
 
 import '../../../../service/auth/join/auth_join_provider.dart';
 import '../../enum/auth_enum.dart';
@@ -107,11 +107,11 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
               if (!_isSnsJoin)
                 CommonLabel(
                   label: '이메일',
-                  child: CustomFormBuilderTextField(
+                  child: CommonForm.create(
                     name: 'loginId',
                     hintText: '이메일을 입력해주세요.',
                     maxLength: 30,
-                    showCounterText: false,
+                    counterText: '',
                     keyboardType: TextInputType.emailAddress,
                     inputFormatters: [
                       FilteringTextInputFormatter.singleLineFormatter,
@@ -122,9 +122,8 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                       FormBuilderValidators.email(errorText: '올바른 이메일을 입력해주세요.'),
                     ]),
                     // Debouncer 를 통해 동작한다.
-                    onChanged: (nickname) async {
-                      final pNickname = formState.formData['loginId'];
-                      await ref.read(authJoinFormProvider.notifier).checkAvailableLoginId(pNickname, nickname!);
+                    onChanged: (controller) async {
+                      await ref.read(authJoinFormProvider.notifier).checkAvailableLoginId(controller.text);
                     },
                     helperText: formState.isLoginIdVerified == AuthVerificationStatus.verified ? '사용할 수 있는 아이디입니다.' : null,
                     errorText: formState.isLoginIdVerified == AuthVerificationStatus.unverified ? '이미 존재하는 아이디입니다.' : null,
@@ -137,9 +136,10 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
               if (!_isSnsJoin)
                 CommonLabel(
                   label: '비밀번호',
-                  child: CustomFormBuilderTextField(
+                  child: CommonForm.create(
                     name: 'password',
                     obscureText: true,
+                    counterText: '',
                     hintText: '8-16자리 영문 대소문자, 숫자, 특수문자 중 3가지 이상',
                     hintStyle: TextStyle(
                       color: AppColor.grey400,
@@ -147,7 +147,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     ),
                     helperText: formState.isPasswordVerified == AuthVerificationStatus.verified ? '사용할 수 있는 비밀번호입니다.' : null,
                     maxLength: 16,
-                    showCounterText: false,
                     keyboardType: TextInputType.text,
                     inputFormatters: [
                       FilteringTextInputFormatter.singleLineFormatter,
@@ -158,23 +157,21 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                       FormBuilderValidators.match(r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$",
                           errorText: '최소 8자리 이상 문자, 숫자, 특수문자 포함'),
                     ]),
-                    onChanged: (value) {
-                      if (value != null) {
-                        final pPassword = formState.formData['password'];
-                        ref.read(authJoinFormProvider.notifier).checkAvailablePassword(pPassword, value);
-                      }
+                    onChanged: (controller) {
+                        final pPassword = formState.password;
+                        ref.read(authJoinFormProvider.notifier).checkAvailablePassword(pPassword, controller.text);
                     },
                   ),
                 ),
               if (!_isSnsJoin)
                 CommonLabel(
                   label: '비밀번호 확인',
-                  child: CustomFormBuilderTextField(
+                  child: CommonForm.create(
                     name: 'passwordConfirm',
                     hintText: '비밀번호 확인',
                     obscureText: true,
                     maxLength: 16,
-                    showCounterText: false,
+                    counterText: '',
                     keyboardType: TextInputType.text,
                     helperText: formState.isPasswordConfirmVerified == AuthVerificationStatus.verified ? '비밀번호가 일치합니다.' : null,
                     errorText: formState.isPasswordConfirmVerified == AuthVerificationStatus.unverified ||
@@ -188,10 +185,8 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(errorText: '비밀번호 확인란을 입력해주세요.'),
                     ]),
-                    onChanged: (value) {
-                      if (value != null) {
-                        ref.read(authJoinFormProvider.notifier).checkPasswordConfirmEqualToPassword(value);
-                      }
+                    onChanged: (controller) {
+                        ref.read(authJoinFormProvider.notifier).checkPasswordConfirmEqualToPassword(controller.text);
                     },
                   ),
                 ),
@@ -201,17 +196,18 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                 ),
               CommonLabel(
                 label: '이름',
-                child: CustomFormBuilderTextField(
+                child: CommonForm.create(
                   name: 'name',
                   hintText: '실명 기입',
                   maxLength: 15,
-                  showCounterText: false,
+                  counterText: '',
                   keyboardType: TextInputType.text,
                   inputFormatters: [
                     FilteringTextInputFormatter.singleLineFormatter,
                     FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9ㄱ-힣ㆍᆢ]'), replacementString: ''),
                   ],
                   validator: FormBuilderValidators.required(errorText: '성함을 입력해주세요.'),
+                  onChanged: (controller) => ref.read(authJoinFormProvider.notifier).changeState(name: controller.text)
                 ),
               ),
               SizedBox(
@@ -219,7 +215,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
               ),
               CommonLabel(
                 label: '휴대폰 번호',
-                child: CustomFormBuilderTextField(
+                child: CommonForm.create(
                   name: 'tel',
                   hintText: '- 없이 입력',
                   keyboardType: TextInputType.number,
@@ -229,6 +225,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                   ],
                   validator: FormBuilderValidators.required(errorText: '휴대폰 번호를 입력해주세요.'),
                   enabled: formState.verificationNumberStatus == AuthVerificationNumberStatus.none,
+                  onChanged: (controller) => ref.read(authJoinFormProvider.notifier).changeState(tel: controller.text),
                 ),
               ),
               SizedBox(height: 10.0.h),
@@ -242,7 +239,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     text: formState.verificationNumberStatus == AuthVerificationNumberStatus.none ? '인증 번호 받기' : '인증 번호 전송 완료!',
                     // FIXME: 휴대폰 정규식 도입 고려
                     // 인증번호 받기가 전송된 상태가 아닐 경우, 전화번호가 10자 이상인 경우 버튼을 활성화시킨다.
-                    isActive: formState.verificationNumberStatus == AuthVerificationNumberStatus.none && formState.formData['tel'].toString().length >= 10,
+                    isActive: formState.verificationNumberStatus == AuthVerificationNumberStatus.none && formState.tel.toString().length >= 10,
                     onPressed: () {
                       FocusManager.instance.primaryFocus?.unfocus();
                       ref.read(authJoinFormProvider.notifier).sendVerificationNumber();
@@ -261,7 +258,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                 children: [
                   // Row 안에서 TextFormField 는 Width 가 얼마나 될지 Flutter 가 판단할 수 없다. 따라서 Expanded 를 적용한다.
                   Expanded(
-                    child: CustomFormBuilderTextField(
+                    child: CommonForm.create(
                       name: 'verificationNumber',
                       hintText: '인증번호 입력',
                       keyboardType: TextInputType.number,
@@ -274,6 +271,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                       ]),
                       helperText: formState.verificationNumberStatus == AuthVerificationNumberStatus.confirmed ? '인증이 완료되었습니다.' : null,
                       errorText: formState.verificationNumberStatus == AuthVerificationNumberStatus.invalid ? '인증번호가 올바르지 않습니다.' : null,
+                      onChanged: (controller) => ref.read(authJoinFormProvider.notifier).changeState(telVerificationCode: controller.text),
                     ),
                   ),
                   SizedBox(
