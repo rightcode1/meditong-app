@@ -1,0 +1,1 @@
+int appExitCount = 0;
