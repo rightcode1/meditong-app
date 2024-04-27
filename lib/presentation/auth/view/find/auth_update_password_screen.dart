@@ -18,7 +18,6 @@ import '../../enum/auth_enum.dart';
 import '../../provider/form/find/auth_find_password_form_provider.dart';
 
 class AuthUpdatePasswordScreen extends ConsumerStatefulWidget {
-  static get routeName => 'AuthUpdatePasswordScreen';
 
   /// 비밀번호 변경 공용 스크린
   const AuthUpdatePasswordScreen({Key? key}) : super(key: key);

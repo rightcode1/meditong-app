@@ -11,6 +11,7 @@ import 'package:mediport/presentation/auth/view/find/find_password_screen.dart';
 import 'package:mediport/presentation/my/my_screen.dart';
 import 'package:mediport/presentation/splash_screen.dart';
 
+import '../../presentation/auth/view/find/auth_update_password_screen.dart';
 import '../../presentation/auth/view/join/join_screen.dart';
 import '../../presentation/home/view/component_view_screen.dart';
 import 'auth_provider.dart';
@@ -95,14 +96,15 @@ final routerConfigProvider = Provider<GoRouter>(
             builder: (context, state) => const FindPasswordScreen(),
           ),
 
-          // 비밀번호 변경 페이지
-          // GoRoute(
-          //   path: '/update-password',
-          //   name: AuthUpdatePasswordScreen.routeName,
-          //   builder: (context, state) {
-          //     return const AuthUpdatePasswordScreen();
-          //   },
-          // ),
+          // // 비밀번호 변경 페이지
+          GoRoute(
+            parentNavigatorKey: rootNavigatorKey,
+            path: AppRouter.findPasswordUpdate.name,
+            name: AppRouter.findPasswordUpdate.name,
+            builder: (context, state) {
+              return const AuthUpdatePasswordScreen();
+            },
+          ),
         ],
       ),
 
