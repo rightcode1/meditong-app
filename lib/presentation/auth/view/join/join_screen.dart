@@ -8,9 +8,9 @@ import 'package:go_router/go_router.dart';
 import 'package:mediport/core/component/buttons/common_button.dart';
 import 'package:mediport/core/component/label/common_label.dart';
 import 'package:mediport/core/component/text_fields/common_form_text_field.dart';
-import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/layout/default_layout.dart';
 import 'package:mediport/core/util/dialog_utils.dart';
+import 'package:mediport/core/util/toast_utils.dart';
 
 import '../../../../service/auth/join/auth_join_provider.dart';
 import '../../enum/auth_enum.dart';
@@ -234,7 +234,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                 child: SizedBox(
                   height: 40.0.h,
                   child: CommonButton(
-                    buttonColor: AppColor.green500,
+                    // buttonColor: AppColor.green500,
                     text: formState.verificationNumberStatus == AuthVerificationNumberStatus.none ? '인증 번호 받기' : '인증 번호 전송 완료!',
                     // FIXME: 휴대폰 정규식 도입 고려
                     // 인증번호 받기가 전송된 상태가 아닐 경우, 전화번호가 10자 이상인 경우 버튼을 활성화시킨다.
@@ -277,9 +277,8 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     width: 10.0.w,
                   ),
                   SizedBox(
-                    height: 53.0.h,
+                    height: 46.0.h,
                     child: CommonButton(
-                      buttonColor: AppColor.green500,
                       text: '확인',
                       // 인증번호 전송 상태가 초기 상태가 아니고, 인증에 성공한 상황이 아닐 경우에만 인증완료 버튼을 활성화시킨다.
                       isActive: formState.verificationNumberStatus != AuthVerificationNumberStatus.none &&
@@ -313,6 +312,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                         // 현재 Form 데이터를 Model 로 변환 후, 서버로 전송한다..
                         await ref.read(authJoinProvider.notifier).join();
                         if (context.mounted) {
+                          ToastUtils.showToast(context, toastText: '회원가입이 완료되었습니다.');
                           context.pop();
                         }
                       },
