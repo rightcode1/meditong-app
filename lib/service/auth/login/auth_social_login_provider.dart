@@ -35,9 +35,8 @@ class AuthSocialLoginStateNotifier extends StateNotifier<AuthReqSocialLogin> {
   /// 현재 회원가입 폼을 모델로 변환한다.
   Future<void> toModel() async {
     final formState = ref.read(authJoinFormProvider);
-    print(formState.formData);
 
-    state = AuthReqSocialLogin.fromJson(formState.formData);
+    // state = formState.toDto();
   }
 
   /// 현재 관리되고 있는 모델을 서버로 전송시켜 회원가입시킨다.

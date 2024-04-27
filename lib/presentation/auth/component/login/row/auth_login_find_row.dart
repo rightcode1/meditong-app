@@ -21,7 +21,7 @@ class AuthLoginFindRow extends StatelessWidget {
     );
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextButton(
           onPressed: onFindIdBtnClicked,
@@ -36,7 +36,7 @@ class AuthLoginFindRow extends StatelessWidget {
         TextButton(
           onPressed: onFindPasswordBtnClicked,
             child: Text(
-              '비밀번호 찾기',
+              '비밀번호 변경',
               style: btnTextStyle,
             )),
       ],

@@ -4,12 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meditong/core/extension/string_extentions.dart';
 
 import '../../../../../domain/repository/auth/auth_repository.dart';
 import '../../../enum/auth_enum.dart';
 import '../../../model/form/join/auth_join_form_model.dart';
 
-final authJoinFormProvider = StateNotifierProvider<AuthSignUpFormStateNotifier, AuthJoinFormModel>(
+final authJoinFormProvider = StateNotifierProvider.autoDispose<AuthSignUpFormStateNotifier, AuthJoinFormModel>(
   name: 'authJoinFormProvider',
   (ref) {
     final authRepository = ref.watch(authRepositoryProvider);
@@ -24,10 +25,24 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
     required this.authRepository,
   }) : super(AuthJoinFormModel());
 
-  /// FormBuilder 의 현재 상태를 저장한다.
-  void saveForm(Map<String, dynamic> formData) {
-    state = state.copyWith(formData: formData);
-  }
+  /// 폼 상태를 변경한다.
+  void changeState({
+    String? loginId,
+    String? password,
+    String? passwordConfirm,
+    String? name,
+    String? tel,
+    String? telVerificationCode,
+}) {
+    state = state.copyWith(
+      loginId: loginId,
+      password: password,
+      passwordConfirm: passwordConfirm,
+      name: name,
+      tel: tel,
+      telVerificationCode: telVerificationCode,
+    );
+}
 
   /// 아이디 검증이 완료되었을 경우, 완료 상태로 변경한다.
   void completeLoginIdVerified() {
@@ -90,8 +105,8 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
 ////////////////////////////////////////////////////////////////////
 
   /// 사용할 수 있는 로그인 아이디인지 Debouncer 를 적용하여 체크한다.
-  /// 파라미터로 이전 아이디를 의미하는 [pLoginId] 과, 새로운 아이디를 의미하는 [loginId] 을 받는다.
-  Future<void> checkAvailableLoginId(String? pLoginId, String loginId) async {
+  Future<void> checkAvailableLoginId(String loginId) async {
+    changeState(loginId: loginId);
     // 공백일 경우, 기존에 모든 Debounce 요청을 취소한다.
     if (loginId.isEmpty) {
       resetLoginIdVerified();
@@ -101,7 +116,7 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
     }
 
     // 정규식을 체크한다. 일치하지 않을 경우 모든 Debounce 요청을 취소한다.
-    if (!RegExp(r'^[a-z]+[a-z0-9]{5,15}$').hasMatch(loginId)) {
+    if (!loginId.validateEmail()) {
       // debugPrint('아이디 정규식이 올바르지 않습니다.');
       resetLoginIdVerified();
       EasyDebounce.cancel('existsLoginId');
@@ -109,38 +124,40 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
       return;
     }
 
-    // 만일, 이전 닉네임과 새로운 닉네임이 다를 경우, Debouncer 를 동작시켜 닉네임 사용 여부를 검사한다.
-    if ((pLoginId != loginId)) {
-      EasyDebounce.debounce('existsLoginId', const Duration(milliseconds: 500), () async {
-        try {
-          final response = await authRepository.existLoginId(loginId: loginId);
+    EasyDebounce.debounce('existsLoginId', const Duration(milliseconds: 500), () async {
+      try {
+        final response = await authRepository.existLoginId(loginId: loginId);
 
-          if (response.statusCode == HttpStatus.ok) {
-            // debugPrint('사용가능한 아이디입니다. loginId=$loginId');
-            completeLoginIdVerified();
-          } else if (response.statusCode == HttpStatus.accepted) {
-            incompleteLoginIdVerified();
-          } else {
-            resetLoginIdVerified();
-            throw Exception('정의되지 않은 상태코드입니다. statusCode=${response.statusCode}, message=${response.message}');
-          }
-        } catch (err, stack) {
-          if (err is DioException && err.response?.statusCode == HttpStatus.badRequest) {
-            // debugPrint('사용할 수 없는 아이디입니다. loginId=$loginId');
-            incompleteLoginIdVerified();
-          } else {
-            debugPrint(err.toString());
-            debugPrint(stack.toString());
-            resetLoginIdVerified();
-            throw Exception('시스템 오류입니다. 스택을 확인해주세요.');
-          }
+        if (response.statusCode == HttpStatus.ok) {
+          debugPrint('사용가능한 아이디입니다. loginId=$loginId');
+          completeLoginIdVerified();
+        } else if (response.statusCode == HttpStatus.accepted) {
+          incompleteLoginIdVerified();
+        } else {
+          resetLoginIdVerified();
+          throw Exception('정의되지 않은 상태코드입니다. statusCode=${response.statusCode}, message=${response.message}');
         }
-      });
-    }
+      } catch (err, stack) {
+        if (err is DioException && err.response?.statusCode == HttpStatus.badRequest) {
+          // debugPrint('사용할 수 없는 아이디입니다. loginId=$loginId');
+          incompleteLoginIdVerified();
+        } else {
+          debugPrint(err.toString());
+          debugPrint(stack.toString());
+          resetLoginIdVerified();
+          throw Exception('시스템 오류입니다. 스택을 확인해주세요.');
+        }
+      }
+    });
+
+    // // 만일, 이전 닉네임과 새로운 닉네임이 다를 경우, Debouncer 를 동작시켜 닉네임 사용 여부를 검사한다.
+    // if ((pLoginId != loginId)) {
+    // }
   }
 
   /// 사용가능한 비밀번호인지, 비밀번호가 일치한지 정규식을 통해 체크한다.
   void checkAvailablePassword(String? pPassword, String password) {
+    changeState(password: password);
     if (password.isEmpty) {
       // debugPrint('비밀번호가 비어있습니다. 모든 상태를 초기화시킵니다.');
       resetPasswordVerified();
@@ -150,9 +167,9 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
 
     if (pPassword != password) {
       resetPasswordConfirmVerified();
-      checkPasswordConfirmEqualToPassword(state.formData['passwordConfirm']);
+      checkPasswordConfirmEqualToPassword(state.passwordConfirm);
       if (passwordRegExp.hasMatch(password)) {
-        // debugPrint('사용가능한 비밀번호입니다.');
+        debugPrint('사용가능한 비밀번호입니다.');
         completePasswordVerified();
         return;
       } else {
@@ -165,7 +182,8 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
 
   /// 현재 비밀번호와 일치하는지 체크한다.
   void checkPasswordConfirmEqualToPassword(String passwordConfirm) {
-    final String password = state.formData['password'];
+    changeState(passwordConfirm: passwordConfirm);
+    final String password = state.password;
 
     if (passwordConfirm.isEmpty) {
       // debugPrint('비밀번호 확인 란이 비어있습니다.');
@@ -175,7 +193,7 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
     }
 
     if (passwordConfirm == password) {
-      // debugPrint('비밀번호가 일치합니다.');
+      debugPrint('비밀번호가 일치합니다.');
       completePasswordConfirmVerified();
       return;
     } else {
@@ -191,7 +209,7 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
     changeVerificationNumberStatus(AuthVerificationNumberStatus.sending);
 
     try {
-      final tel = state.formData['tel'];
+      final tel = state.tel;
       final response = await authRepository.certificationNumberSMS(tel: tel, diff: AuthDiff.join);
 
       if (response.statusCode == HttpStatus.ok) {
@@ -217,8 +235,8 @@ class AuthSignUpFormStateNotifier extends StateNotifier<AuthJoinFormModel> {
 
   /// 유저가 입력한 인증번호를 통해 올바른 인증코드인지 체크한다.
   Future<bool> checkVerificationNumber() async {
-    final tel = state.formData['tel'];
-    final verificationNumber = state.formData['verificationNumber'];
+    final tel = state.tel;
+    final verificationNumber = state.telVerificationCode;
 
     try {
       final response = await authRepository.confirm(tel: tel, confirm: verificationNumber);

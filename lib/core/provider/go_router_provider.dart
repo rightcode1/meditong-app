@@ -1,16 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meditong/core/component/tabbar/bottom_tab_bar.dart';
 import 'package:meditong/core/enum/app_router.dart';
 import 'package:meditong/core/provider/app_router_observer.dart';
-import 'package:meditong/core/view/splash_screen.dart';
 import 'package:meditong/core/view/web_view/term_web_view.dart';
 import 'package:meditong/presentation/auth/view/auth_screen.dart';
 import 'package:meditong/presentation/auth/view/find/find_id_screen.dart';
 import 'package:meditong/presentation/auth/view/find/find_password_screen.dart';
-import 'package:meditong/presentation/example/view/example2_screen.dart';
-import 'package:meditong/presentation/example/view/example_sub_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:meditong/presentation/my/my_screen.dart';
+import 'package:meditong/presentation/splash_screen.dart';
 
 import '../../presentation/auth/view/join/join_screen.dart';
 import '../../presentation/home/view/component_view_screen.dart';
@@ -20,6 +19,8 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 /// Default Transition 이 필요한 경우 각 GoRoute 메소드 내의 pageBuilder 프로퍼티 내에서 해당 함수를 호출하여 사용한다.
+///
+/// ex. pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const Example2Screen())
 CustomTransitionPage buildPageWithDefaultTransition<T>({
   required BuildContext context,
   required GoRouterState state,
@@ -69,8 +70,8 @@ final routerConfigProvider = Provider<GoRouter>(
             path: AppRouter.join.name,
             name: AppRouter.join.name,
             builder: (context, state) {
-              final String? loginId = state.uri.queryParameters['loginId'];
-              final String? snsProvider = state.uri.queryParameters['snsProvider'];
+              final String? loginId = state.uri.queryParameters['loginId']; // SNS 회원가입 시, SNS Identifier
+              final String? snsProvider = state.uri.queryParameters['snsProvider']; // ex. kakao, naver, apple ...
               return JoinScreen(
                 loginId: loginId,
                 snsProvider: snsProvider,
@@ -115,18 +116,21 @@ final routerConfigProvider = Provider<GoRouter>(
             name: AppRouter.home.name,
             pageBuilder: (context, state) => const NoTransitionPage(child: ComponentViewScreen()),
           ),
+          /* 마이 탭 */
           GoRoute(
-              path: AppRouter.example2.path,
-              name: AppRouter.example2.name,
-              pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const Example2Screen()),
-              routes: [
-                GoRoute(
-                  parentNavigatorKey: rootNavigatorKey,
-                  path: AppRouter.exampleSub.subPath,
-                  name: AppRouter.exampleSub.name,
-                  builder: (context, state) => const ExampleSubScreen(),
-                ),
-              ]),
+            path: AppRouter.my.path,
+            name: AppRouter.my.name,
+            builder: (context, state) => const MyScreen(),
+            // pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const Example2Screen()),
+            // routes: [
+            //   GoRoute(
+            //     parentNavigatorKey: rootNavigatorKey,
+            //     path: AppRouter.exampleSub.subPath,
+            //     name: AppRouter.exampleSub.name,
+            //     builder: (context, state) => const ExampleSubScreen(),
+            //   ),
+            // ]
+          ),
         ],
       ),
     ];

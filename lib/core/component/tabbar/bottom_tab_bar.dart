@@ -22,6 +22,15 @@ class _BottomTabBarState extends State<BottomTabBar> {
       case 1:
         context.goNamed(AppRouter.example2.name);
         break;
+      case 2:
+        context.goNamed(AppRouter.example2.name);
+        break;
+      case 3:
+        context.goNamed(AppRouter.example2.name);
+        break;
+      case 4:
+        context.goNamed(AppRouter.my.name);
+        break;
       default:
         context.goNamed(AppRouter.home.name);
         break;
@@ -45,8 +54,20 @@ class _BottomTabBarState extends State<BottomTabBar> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Icon(Icons.device_unknown),
-            label: 'Example2',
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person),
+            label: '마이',
           )
         ],
       ),

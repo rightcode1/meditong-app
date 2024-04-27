@@ -30,7 +30,7 @@ class AuthJoinStateNotifier extends StateNotifier<AuthReqJoin> {
   Future<void> toModel() async {
     AuthJoinFormModel formState = ref.read(authJoinFormProvider);
 
-    state = AuthReqJoin.fromJson(formState.formData);
+    state = formState.toDto();
   }
 
   /// 현재 관리되고 있는 모델을 서버로 전송시켜 회원가입시킨다..

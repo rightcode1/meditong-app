@@ -709,7 +709,7 @@ class CommonForm extends StatefulWidget {
       helperStyle: helperStyle ?? TextStyle(fontSize: 12.spMin, fontWeight: FontWeight.w400, color: AppColor.primary),
       helperMaxLines: helperMaxLines,
       hintText: hintText,
-      hintStyle: hintStyle ?? TextStyle(fontSize: 14.spMin, fontWeight: FontWeight.w400, color: AppColor.grey500),
+      hintStyle: hintStyle ?? TextStyle(fontSize: 14.spMin, fontWeight: FontWeight.w400, color: AppColor.grey700),
       hintTextDirection: hintTextDirection,
       hintMaxLines: hintMaxLines,
       hintFadeDuration: hintFadeDuration,
@@ -740,29 +740,29 @@ class CommonForm extends StatefulWidget {
       suffixIconColor: suffixIconColor,
       suffixIconConstraints: suffixIconConstraints ?? BoxConstraints(minHeight: 24.h, minWidth: 24.h),
       counter: counter,
-      counterText: counterText,
+      counterText: counterText == null ? null : '',
       counterStyle: counterStyle,
       filled: filled ?? true,
-      fillColor: fillColor ?? AppColor.grey300,
+      fillColor: enabled == false ? AppColor.grey500 : fillColor ?? Colors.white,
       focusColor: focusColor,
       hoverColor: hoverColor,
       errorBorder: errorBorder,
       focusedBorder: focusedBorder ??
           OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide.none.copyWith(color: AppColor.primary),
+            borderSide: const BorderSide(color: AppColor.grey500),
           ),
       focusedErrorBorder: focusedErrorBorder,
       disabledBorder: disabledBorder,
       enabledBorder: enabledBorder ??
           OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide.none,
+            borderSide: const BorderSide(color: AppColor.grey500),
           ),
       border: border ??
           OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide.none,
+            borderSide: const BorderSide(color: AppColor.grey500),
           ),
       decorationEnabled: decorationEnabled ?? true,
       semanticCounterText: semanticCounterText,

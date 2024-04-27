@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 /// AppColor 를 정의.
 class AppColor {
   /// 주 색상
   static const lightPrimary = Color.fromRGBO(240, 255, 232, 1.0);
-  static const primary = Color.fromRGBO(36, 155, 0, 1.0);
+  static const primary = Colors.blue;
 
   // 초록 색상 계얄
   static const green100 = Color.fromRGBO(240, 255, 232, 1.0);
