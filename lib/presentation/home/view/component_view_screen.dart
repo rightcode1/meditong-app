@@ -68,6 +68,7 @@ class _ComponentViewScreenState extends ConsumerState<ComponentViewScreen> with 
           child: Center(
             child: Column(
               children: [
+                ElevatedButton(onPressed: () => context.goNamed(AppRouter.my.name), child: Text('1234')),
                 /* 해당 버튼을 클릭하면, 로그인 후 홈 화면으로 이동시킨다. */
                 ElevatedButton(
                     onPressed: () => GoRouterUtils.recordExpectedRouteAndGoToAuth(context, ref, expectedRoute: AppRouter.home.name),

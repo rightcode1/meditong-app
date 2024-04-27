@@ -23,7 +23,6 @@ class UserRes extends UserResBase {
   final String tel;
   final String role;
   final bool active;
-  final String createdAt;
 
   UserRes({
     required this.id,
@@ -32,7 +31,6 @@ class UserRes extends UserResBase {
     required this.name,
     required this.role,
     required this.active,
-    required this.createdAt,
   });
 
   factory UserRes.fromJson(Map<String, dynamic> json) => _$UserResFromJson(json);

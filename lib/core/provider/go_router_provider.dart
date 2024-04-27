@@ -109,19 +109,18 @@ final routerConfigProvider = Provider<GoRouter>(
       /* 바텀 탭바가 표시할 각 루트 스크린 */
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) => BottomTabBar(child: child),
+        builder: (context, state, child) => BottomTabBar(state: state, child: child),
         routes: [
           GoRoute(
             path: AppRouter.home.path,
             name: AppRouter.home.name,
-            pageBuilder: (context, state) => const NoTransitionPage(child: ComponentViewScreen()),
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const ComponentViewScreen()),
           ),
           /* 마이 탭 */
           GoRoute(
             path: AppRouter.my.path,
             name: AppRouter.my.name,
-            builder: (context, state) => const MyScreen(),
-            // pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const Example2Screen()),
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const MyScreen()),
             // routes: [
             //   GoRoute(
             //     parentNavigatorKey: rootNavigatorKey,

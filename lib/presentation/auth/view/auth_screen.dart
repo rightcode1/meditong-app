@@ -11,6 +11,10 @@ import 'package:mediport/core/util/go_router_utils.dart';
 import 'package:mediport/domain/repository/version/version_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../core/exception/request_exception.dart';
+import '../../../core/util/dialog_utils.dart';
+import '../../../core/util/toast_utils.dart';
+import '../../../service/auth/login/auth_login_provider.dart';
 import '../component/login/column/auth_login_button_column.dart';
 import '../component/login/form/auth_login_form_column.dart';
 import '../component/login/row/auth_login_find_row.dart';
@@ -123,39 +127,36 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                       isLoginLoading: _isLoginLoading,
                       canLogin: formState.isAllValidated,
                       onLoginBtnClicked: () async {
-                        // TODO: 실 로직 작성 시, 하기 로직 제거
-                        GoRouterUtils.moveToExpectedRouteAfterSingingIn(context, ref);
+                        try {
+                          setState(() {
+                            _isLoginLoading = true;
+                          });
+                          final result = await ref.read(authLoginProvider.future);
 
-                        // TODO: 실 로직 작성 시, 하기 주석 해제하여 사용한다.
-                        // try {
-                        //   setState(() {
-                        //     _isLoginLoading = true;
-                        //   });
-                        //   final result = await ref.read(authLoginProvider.future);
-                        //
-                        //   if (!context.mounted) return;
-                        //
-                        //   // 로그인에 실패했을 경우 (아이디 혹은 비밀번호 불일치)
-                        //   if (!result) {
-                        //     DialogUtils.showOneButtonDialog(
-                        //       context: context,
-                        //       title: '로그인 실패!',
-                        //       content: '아이디 혹은 비밀번호가\n올바르지 않습니다.',
-                        //       buttonText: '확인',
-                        //       onButtonPressed: () {
-                        //         context.pop();
-                        //       },
-                        //     );
-                        //   }
-                        //   // 로그인 성공 시, 기존에 이동하려고 했던 페이지로 이동한다.
-                        //   GoRouterUtils.moveToExpectedRouteAfterSingingIn(context, ref);
-                        // } on RequestException catch (err, stack) {
-                        //   ToastUtils.showToast(context, toastText: err.message);
-                        // } finally {
-                        //   setState(() {
-                        //     _isLoginLoading = false;
-                        //   });
-                        // }
+                          if (!context.mounted) return;
+
+                          // 로그인에 실패했을 경우 (아이디 혹은 비밀번호 불일치)
+                          if (!result) {
+                            DialogUtils.showOneButton(
+                              context: context,
+                              title: '로그인 실패!',
+                              content: '아이디 혹은 비밀번호가\n올바르지 않습니다.',
+                              buttonText: '확인',
+                              onButtonPressed: () {
+                                context.pop();
+                              },
+                            );
+                          }
+                          // 로그인 성공 시, 기존에 이동하려고 했던 페이지로 이동한다.
+                          context.goNamed(AppRouter.home.name);
+                          // GoRouterUtils.moveToExpectedRouteAfterSingingIn(context, ref);
+                        } on RequestException catch (err, stack) {
+                          ToastUtils.showToast(context, toastText: err.message);
+                        } finally {
+                          setState(() {
+                            _isLoginLoading = false;
+                          });
+                        }
                       },
                       onJoinBtnClicked: () {
                         context.push(AppRouter.join.path);
