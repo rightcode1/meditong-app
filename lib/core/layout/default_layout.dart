@@ -287,7 +287,7 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
       automaticallyImplyLeading: widget.showBack ? true : false,
       // App Bar 의 뒤로가기 버튼 출력 여부
       backgroundColor: Colors.white,
-      centerTitle: widget.centerTitle ?? true,
+      centerTitle: widget.centerTitle ?? false,
       // 앱바 타이틀 가운데 적용 여부
       elevation: 0.0,
       // 앱바 Shadow 해제
