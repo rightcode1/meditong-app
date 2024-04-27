@@ -7,16 +7,17 @@ class ToastUtils {
     final fToast = FToast();
     fToast.init(context);
     Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h),
+      width: 328.0.w,
+      padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 12.0.h),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15.0.h),
-        color: const Color(0x99555555),
+        borderRadius: BorderRadius.circular(5.0.r),
+        color: const Color.fromRGBO(38, 50, 56, 0.5),
       ),
       child: Center(
         child: Text(
           toastText,
           style: TextStyle(
-            fontSize: 13.0.sp,
+            fontSize: 14.0.sp,
             fontWeight: FontWeight.w400,
             color: Colors.white,
           ),

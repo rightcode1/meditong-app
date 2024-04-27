@@ -41,8 +41,8 @@ class _AlertRegisterScreenState extends ConsumerState<AlertRegisterScreen> {
             suffixIcon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 6.0.w, vertical: 6.0.h),
               child: CommonButton(
-                buttonColor: AppColor.grey500,
-                textColor: AppColor.primary,
+                buttonColor: _keywordController.text.isEmpty ? AppColor.grey500 : AppColor.lightPrimary,
+                textColor: _keywordController.text.isEmpty ? AppColor.cyan700 : AppColor.primary,
                 text: '등록',
                 onPressed: () async {
                   if (_keywordController.text.isEmpty) {
@@ -62,9 +62,7 @@ class _AlertRegisterScreenState extends ConsumerState<AlertRegisterScreen> {
                 },
               ),
             ),
-            onChanged: (controller) {
-
-            },
+            onChanged: (controller) => setState(() {}),
           ),
           /* 등록한 키워드 */
           Expanded(
