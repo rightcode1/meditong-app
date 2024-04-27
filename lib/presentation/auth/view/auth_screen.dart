@@ -79,6 +79,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       child: DefaultLayout(
           showAppBar: true,
           showClose: true,
+          onClosePressed: () {
+            GoRouterUtils.removeExpectedRoute(ref);
+            !context.canPop() ? context.goNamed(AppRouter.home.name) : context.pop();
+          },
           child: Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
             child: SingleChildScrollView(
@@ -152,8 +156,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                               );
                             }
                             // 로그인 성공 시, 기존에 이동하려고 했던 페이지로 이동한다.
-                            context.goNamed(AppRouter.home.name);
-                            // GoRouterUtils.moveToExpectedRouteAfterSingingIn(context, ref);
+                            GoRouterUtils.moveToExpectedRouteAfterSingingIn(context, ref);
                           } on RequestException catch (err, stack) {
                             ToastUtils.showToast(context, toastText: err.message);
                           } finally {

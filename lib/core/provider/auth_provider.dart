@@ -30,8 +30,7 @@ class AuthChangeNotifier extends ChangeNotifier {
   /// 권한 체크
   Future<void> _doPermissionCheck(BuildContext context) async {
     await Future.forEach(PermissionType.values, (eachPermission) async {
-      await PermissionUtils.checkAndRequestPermission(
-          context, eachPermission.type);
+      await PermissionUtils.checkAndRequestPermission(context, eachPermission.type);
     });
 
     await Future.delayed(const Duration(milliseconds: 1000));
@@ -51,7 +50,9 @@ class AuthChangeNotifier extends ChangeNotifier {
     final isAuth = currentLocation.startsWith(AppRouter.auth.path);
 
     /// 로그인 필요 라우트 리스트 (로그인 후, 원래 이동하려고 했던 페이지로 이동한다.)
-    final List<String> loginNeededRouteList = [];
+    final List<String> loginNeededRouteList = [
+      AppRouter.alert.path,
+    ];
 
     // User 정보가 없는 (UserResLoading, UserResError, Null) 상태
     if (user is! UserRes) {

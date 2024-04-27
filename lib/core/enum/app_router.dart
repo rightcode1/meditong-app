@@ -20,9 +20,9 @@ enum AppRouter {
   // Home Router
   home(path: '/home', name: 'home', subPath: 'home'),
 
-  // 알림(Alert) 라우터
-  alert(path: '/alert', name: 'alert', subPath: 'alert'),
-  alertRegister(path: '/alert/register', name: 'alertRegister', subPath: 'register'),
+  // 홈 > 알림(Alert) 라우터
+  alert(path: '/home/alert', name: 'alert', subPath: 'alert'),
+  alertRegister(path: '/home/alert/register', name: 'alertRegister', subPath: 'register'),
 
   // 마이 탭 라우터
   my(path: '/my', name: '/my', subPath: 'my'),

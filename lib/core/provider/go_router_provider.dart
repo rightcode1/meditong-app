@@ -110,22 +110,6 @@ final routerConfigProvider = Provider<GoRouter>(
         ],
       ),
 
-      /// 알림 스크린
-      GoRoute(
-        parentNavigatorKey: rootNavigatorKey,
-        path: AppRouter.alert.path,
-        name: AppRouter.alert.name,
-        builder: (context, state) => const AlertListScreen(),
-        routes: [
-          GoRoute(
-            parentNavigatorKey: rootNavigatorKey,
-            path: AppRouter.alertRegister.subPath,
-            name: AppRouter.alertRegister.name,
-            builder: (context, state) => const AlertRegisterScreen(),
-          ),
-        ],
-      ),
-
       /* 바텀 탭바가 표시할 각 루트 스크린 */
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
@@ -135,6 +119,23 @@ final routerConfigProvider = Provider<GoRouter>(
             path: AppRouter.home.path,
             name: AppRouter.home.name,
             pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const HomeScreen()),
+            routes: [
+              /// 알림 스크린
+              GoRoute(
+                parentNavigatorKey: rootNavigatorKey,
+                path: AppRouter.alert.subPath,
+                name: AppRouter.alert.name,
+                builder: (context, state) => const AlertListScreen(),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: rootNavigatorKey,
+                    path: AppRouter.alertRegister.subPath,
+                    name: AppRouter.alertRegister.name,
+                    builder: (context, state) => const AlertRegisterScreen(),
+                  ),
+                ],
+              ),
+            ]
           ),
           /* 마이 탭 */
           GoRoute(
