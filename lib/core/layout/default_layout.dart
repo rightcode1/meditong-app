@@ -320,23 +320,17 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
               ) // 액션
             ],
       leading: widget.showBack
-          ? Transform.translate(
-              offset: Offset(4.0.w, 0),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                ),
-                onPressed: widget.onBackPressed ??
-                    () {
-                      // 스택에 남아있는 페이지가 없을 경우, 에외를 발생시킨다.
-                      if (!context.canPop()) {
-                        throw Exception('뒤로갈 수 있는 페이지가 존재하지 않습니다. 코드를 다시 확인해주세요.');
-                      }
-                      context.pop();
-                    },
-              ),
-            )
+          ? IconButton(
+            icon: Image.asset('assets/icons/common/arrow_back_black@3x.png', height: 24.0.h),
+            onPressed: widget.onBackPressed ??
+                () {
+                  // 스택에 남아있는 페이지가 없을 경우, 에외를 발생시킨다.
+                  if (!context.canPop()) {
+                    throw Exception('뒤로갈 수 있는 페이지가 존재하지 않습니다. 코드를 다시 확인해주세요.');
+                  }
+                  context.pop();
+                },
+          )
           : null,
       // title 이 위젯일 경우, 위젯을 그대로 렌더링하고, 아닐 경우 text 로 구성된 title 을 렌더링한다. widgetTitle, title 은 동시에 사용될 수 없다.
       title: widget.titleWidget ??
@@ -345,11 +339,11 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: Colors.black,
-              fontWeight: FontWeight.w700,
-              fontSize: 15.0.sp,
+              fontWeight: FontWeight.w600,
+              fontSize: 20.0.sp,
             ),
           ),
-      titleSpacing: 24.0,
+      titleSpacing: widget.showBack ? -8.0 : 16.0,
       // 앱바 하단 Divider 적용
       bottom: widget.bottomWidget != null
           ? widget.bottomWidget!

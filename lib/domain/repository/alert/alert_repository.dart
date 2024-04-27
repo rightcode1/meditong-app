@@ -5,6 +5,7 @@ import 'package:mediport/domain/model/alert/req/alert_req_register.dart';
 import 'package:mediport/domain/model/alert/req/alert_req_update.dart';
 import 'package:mediport/domain/model/alert/res/alert_res_detail.dart';
 import 'package:mediport/domain/model/alert/res/alert_res_list.dart';
+import 'package:mediport/domain/model/alert/res/alert_res_register.dart';
 import 'package:mediport/domain/model/base_res.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,7 +21,7 @@ abstract class AlertRepository {
 
   @POST('/register')
   @Headers({'authorization': 'true'})
-  Future<BaseResponse> register({
+  Future<BaseResponse<AlertResRegister>> register({
     @Body() required AlertReqRegister body,
   });
 

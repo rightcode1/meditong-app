@@ -16,7 +16,21 @@ class AlertResList {
     required this.createdAt,
   });
 
-  factory AlertResList.fromJson(Map<String ,dynamic> json) => _$AlertResListFromJson(json);
+  AlertResList copyWith({
+    int? id,
+    String? content,
+    int? userId,
+    DateTime? createdAt,
+  }) {
+    return AlertResList(
+      id: id ?? this.id,
+      content: content ?? this.content,
+      userId: userId ?? this.userId,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  factory AlertResList.fromJson(Map<String, dynamic> json) => _$AlertResListFromJson(json);
 
   @override
   String toString() {

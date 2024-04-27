@@ -43,6 +43,8 @@ class AuthChangeNotifier extends ChangeNotifier {
 
     // 로그인 및 회원가입에 대하여 리다이렉트를 방지할 라우팅 플래그 변수 정의
     final String currentLocation = state.uri.path;
+
+    debugPrint(currentLocation);
     // Splash Router 인지 확인.
     final isSplash = currentLocation == AppRouter.splash.path;
     // Auth Router 인지 확인.

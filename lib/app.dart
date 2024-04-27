@@ -78,7 +78,7 @@ class _MediportState extends ConsumerState<Mediport> {
     // ScreenUtils 활성화
     return ScreenUtilInit(
       // 기준이 될 초기 디바이스 크기를 세팅한다.
-      designSize: const Size(360, 720),
+      designSize: MediaQuery.of(context).size.shortestSide < 600 ? const Size(360, 720) : const Size(1024, 720),
       minTextAdapt: true,
       // MaterialApp.router 를 통해 GoRouter 를 적용한다.
       builder: (_, child) => MaterialApp.router(

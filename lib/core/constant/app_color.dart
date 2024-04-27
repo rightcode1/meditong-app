@@ -16,7 +16,7 @@ class AppColor {
   static const green700 = Color.fromRGBO(53, 112, 21, 1.0);
 
   /// 검정 색상 계열
-  static const darkGrey300 = Color.fromRGBO(121, 121, 121, 1.0);
+  static const darkGrey300 = Color.fromRGBO(117, 117, 117, 1.0);
   static const darkGrey400 = Color.fromRGBO(111, 111, 111, 1.0);
   static const darkGrey500 = Color.fromRGBO(87, 87, 87, 1.0);
   static const darkGrey600 = Color.fromRGBO(75, 75, 75, 1.0);
