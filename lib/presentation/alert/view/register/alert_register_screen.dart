@@ -50,6 +50,8 @@ class _AlertRegisterScreenState extends ConsumerState<AlertRegisterScreen> {
                     return;
                   }
 
+                  FocusManager.instance.primaryFocus?.unfocus();
+
                   final result = await ref.read(alertProvider.notifier).register(keyword: _keywordController.text);
                   if (!context.mounted) return;
 
