@@ -1,4 +1,4 @@
-import 'package:meditong/presentation/auth/enum/auth_enum.dart';
+import 'package:mediport/presentation/auth/enum/auth_enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_find_password_form.g.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/util/toast_utils.dart';
-import 'package:meditong/domain/model/base_image_res.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/util/toast_utils.dart';
+import 'package:mediport/domain/model/base_image_res.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';

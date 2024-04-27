@@ -1,4 +1,4 @@
-import 'package:meditong/core/provider/go_router_provider.dart';
+import 'package:mediport/core/provider/go_router_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,14 +10,14 @@ import 'core/constant/app_color.dart';
 import 'core/provider/shared_prefs_provider.dart';
 
 /// TODO: 앱의 엔트리 포인트를 지정한다. 이때, 엔트리포인트 클래스의 이름은 프로젝트 명으로 정한다.
-class Meditong extends ConsumerStatefulWidget {
-  const Meditong({super.key});
+class Mediport extends ConsumerStatefulWidget {
+  const Mediport({super.key});
 
   @override
-  ConsumerState<Meditong> createState() => _MeditongState();
+  ConsumerState<Mediport> createState() => _MediportState();
 }
 
-class _MeditongState extends ConsumerState<Meditong> {
+class _MediportState extends ConsumerState<Mediport> {
   @override
   initState() {
     super.initState();

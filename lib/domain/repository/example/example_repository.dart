@@ -1,6 +1,6 @@
-import 'package:meditong/domain/model/example/req/example_req_list.dart';
+import 'package:mediport/domain/model/example/req/example_req_list.dart';
 import 'package:dio/dio.dart' hide Headers;
-import 'package:meditong/core/provider/dio_provider.dart';
+import 'package:mediport/core/provider/dio_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/http.dart';
 

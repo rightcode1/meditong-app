@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:meditong/core/component/.etc/no_list_widget.dart';
-import 'package:meditong/core/component/list_view/comment_list_view/element/comment_list_view_element.dart';
-import 'package:meditong/core/component/text_fields/comment_text_field.dart';
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/domain/model/base_comment_req_register.dart';
-import 'package:meditong/domain/model/base_comment_req_update.dart';
-import 'package:meditong/domain/model/base_comment_res.dart';
-import 'package:meditong/domain/model/user/res/user_res.dart';
-import 'package:meditong/domain/repository/base_comment_repository.dart';
+import 'package:mediport/core/component/.etc/no_list_widget.dart';
+import 'package:mediport/core/component/list_view/comment_list_view/element/comment_list_view_element.dart';
+import 'package:mediport/core/component/text_fields/comment_text_field.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/domain/model/base_comment_req_register.dart';
+import 'package:mediport/domain/model/base_comment_req_update.dart';
+import 'package:mediport/domain/model/base_comment_res.dart';
+import 'package:mediport/domain/model/user/res/user_res.dart';
+import 'package:mediport/domain/repository/base_comment_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

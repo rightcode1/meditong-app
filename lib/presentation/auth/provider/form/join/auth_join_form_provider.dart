@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meditong/core/extension/string_extentions.dart';
+import 'package:mediport/core/extension/string_extentions.dart';
 
 import '../../../../../domain/repository/auth/auth_repository.dart';
 import '../../../enum/auth_enum.dart';

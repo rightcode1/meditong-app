@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:meditong/core/component/image/cached_image_with_skeleton.dart';
+import 'package:mediport/core/component/image/cached_image_with_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

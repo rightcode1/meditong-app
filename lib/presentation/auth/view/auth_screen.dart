@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/enum/app_router.dart';
-import 'package:meditong/core/layout/default_layout.dart';
-import 'package:meditong/core/util/go_router_utils.dart';
-import 'package:meditong/domain/repository/version/version_repository.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/enum/app_router.dart';
+import 'package:mediport/core/layout/default_layout.dart';
+import 'package:mediport/core/util/go_router_utils.dart';
+import 'package:mediport/domain/repository/version/version_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../component/login/column/auth_login_button_column.dart';

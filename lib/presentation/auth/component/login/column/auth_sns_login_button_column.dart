@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/core/enum/app_router.dart';
-import 'package:meditong/presentation/auth/enum/auth_enum.dart';
-import 'package:meditong/service/auth/login/auth_social_login_provider.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/enum/app_router.dart';
+import 'package:mediport/presentation/auth/enum/auth_enum.dart';
+import 'package:mediport/service/auth/login/auth_social_login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

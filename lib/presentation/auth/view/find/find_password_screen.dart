@@ -1,8 +1,8 @@
-import 'package:meditong/core/component/buttons/common_button.dart';
-import 'package:meditong/core/component/label/common_label.dart';
-import 'package:meditong/core/component/text_fields/custom_form_builder_text_field.dart';
-import 'package:meditong/core/layout/default_layout.dart';
-import 'package:meditong/core/util/toast_utils.dart';
+import 'package:mediport/core/component/buttons/common_button.dart';
+import 'package:mediport/core/component/label/common_label.dart';
+import 'package:mediport/core/component/text_fields/custom_form_builder_text_field.dart';
+import 'package:mediport/core/layout/default_layout.dart';
+import 'package:mediport/core/util/toast_utils.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,4 +1,4 @@
-import 'package:meditong/core/extension/string_extentions.dart';
+import 'package:mediport/core/extension/string_extentions.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_login_form_model.g.dart';

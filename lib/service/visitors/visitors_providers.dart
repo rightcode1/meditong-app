@@ -1,5 +1,5 @@
-import 'package:meditong/core/exception/request_exception.dart';
-import 'package:meditong/domain/repository/visitors/visitors_repository.dart';
+import 'package:mediport/core/exception/request_exception.dart';
+import 'package:mediport/domain/repository/visitors/visitors_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

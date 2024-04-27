@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:meditong/core/component/label/common_label.dart';
-import 'package:meditong/core/component/text_fields/common_form_text_field.dart';
+import 'package:mediport/core/component/label/common_label.dart';
+import 'package:mediport/core/component/text_fields/common_form_text_field.dart';
 
 /// 로그인 기본 폼, 형태에 맞게 재정의하여 사용한다.
 class AuthLoginFormColumn extends ConsumerWidget {

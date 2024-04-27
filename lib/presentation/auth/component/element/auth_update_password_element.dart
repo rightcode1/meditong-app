@@ -1,6 +1,6 @@
-import 'package:meditong/core/component/buttons/common_button.dart';
-import 'package:meditong/core/component/label/common_label.dart';
-import 'package:meditong/core/component/text_fields/custom_form_builder_text_field.dart';
+import 'package:mediport/core/component/buttons/common_button.dart';
+import 'package:mediport/core/component/label/common_label.dart';
+import 'package:mediport/core/component/text_fields/custom_form_builder_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,6 +1,6 @@
 
 
-import 'package:meditong/presentation/auth/enum/auth_enum.dart';
+import 'package:mediport/presentation/auth/enum/auth_enum.dart';
 
 class AuthFindIdForm {
   final String? tel;

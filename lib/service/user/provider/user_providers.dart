@@ -1,7 +1,7 @@
-import 'package:meditong/core/exception/request_exception.dart';
+import 'package:mediport/core/exception/request_exception.dart';
 import 'package:flutter/material.dart';
-import 'package:meditong/core/constant/data.dart';
-import 'package:meditong/core/provider/secure_storage_provider.dart';
+import 'package:mediport/core/constant/data.dart';
+import 'package:mediport/core/provider/secure_storage_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

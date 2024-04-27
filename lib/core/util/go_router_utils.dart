@@ -1,10 +1,10 @@
-import 'package:meditong/core/constant/prefs_keys.dart';
-import 'package:meditong/core/provider/extra_provider.dart';
-import 'package:meditong/core/provider/shared_prefs_provider.dart';
+import 'package:mediport/core/constant/prefs_keys.dart';
+import 'package:mediport/core/provider/extra_provider.dart';
+import 'package:mediport/core/provider/shared_prefs_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meditong/core/enum/app_router.dart';
+import 'package:mediport/core/enum/app_router.dart';
 
 class GoRouterUtils {
   /// [tabIndex] 를 전달받아 루트 탭의 특정 탭 인덱스(tabIndex)로 이동한다.

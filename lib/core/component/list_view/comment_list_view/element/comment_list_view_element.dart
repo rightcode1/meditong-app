@@ -1,5 +1,5 @@
-import 'package:meditong/core/constant/app_color.dart';
-import 'package:meditong/domain/model/base_comment_res.dart';
+import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/domain/model/base_comment_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

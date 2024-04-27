@@ -1,4 +1,4 @@
-import 'package:meditong/core/enum/app_router.dart';
+import 'package:mediport/core/enum/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

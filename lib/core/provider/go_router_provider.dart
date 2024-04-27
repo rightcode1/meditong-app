@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meditong/core/component/tabbar/bottom_tab_bar.dart';
-import 'package:meditong/core/enum/app_router.dart';
-import 'package:meditong/core/provider/app_router_observer.dart';
-import 'package:meditong/core/view/web_view/term_web_view.dart';
-import 'package:meditong/presentation/auth/view/auth_screen.dart';
-import 'package:meditong/presentation/auth/view/find/find_id_screen.dart';
-import 'package:meditong/presentation/auth/view/find/find_password_screen.dart';
-import 'package:meditong/presentation/my/my_screen.dart';
-import 'package:meditong/presentation/splash_screen.dart';
+import 'package:mediport/core/component/tabbar/bottom_tab_bar.dart';
+import 'package:mediport/core/enum/app_router.dart';
+import 'package:mediport/core/provider/app_router_observer.dart';
+import 'package:mediport/core/view/web_view/term_web_view.dart';
+import 'package:mediport/presentation/auth/view/auth_screen.dart';
+import 'package:mediport/presentation/auth/view/find/find_id_screen.dart';
+import 'package:mediport/presentation/auth/view/find/find_password_screen.dart';
+import 'package:mediport/presentation/my/my_screen.dart';
+import 'package:mediport/presentation/splash_screen.dart';
 
 import '../../presentation/auth/view/join/join_screen.dart';
 import '../../presentation/home/view/component_view_screen.dart';
