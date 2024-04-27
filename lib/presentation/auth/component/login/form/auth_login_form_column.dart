@@ -30,6 +30,7 @@ class AuthLoginFormColumn extends ConsumerWidget {
         CommonForm.create(
           name: 'password',
           hintText: '비밀번호를 입력해주세요.',
+          obscureText: true,
           onChanged: (controller) => onPasswordChanged(controller.text),
         ),
       ],
