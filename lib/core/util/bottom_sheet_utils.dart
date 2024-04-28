@@ -1,9 +1,8 @@
-import 'package:mediport/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mediport/core/component/.etc/custom_will_pop_scope.dart';
-import 'package:mediport/core/component/buttons/common_button.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mediport/core/component/buttons/common_button.dart';
+import 'package:mediport/core/constant/app_color.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class BottomSheetUtils {
@@ -46,7 +45,8 @@ class BottomSheetUtils {
   }
 
   static double get _getButtonHeight => 50.0.h;
-  static double get _getButtonTextSize => 16.0.sp;
+
+  static double get _getButtonTextSize => 14.0.sp;
 
   static Future<void> showNoButton({
     required BuildContext context,
@@ -216,7 +216,7 @@ class BottomSheetUtils {
     bool isDismissible = true,
     bool isScrollControlled = true,
     bool enableDrag = true,
-    bool showCloseBtn = true,
+    bool showCloseBtn = false,
   }) async {
     if (title == null && titleWidget == null) {
       throw Exception('title, titleWidget 둘 중 하나는 반드시 명세되어야합니다.');
@@ -246,40 +246,37 @@ class BottomSheetUtils {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      /// 제목
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.0.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            if (title != null)
+                      if (showCloseBtn)
+                        Padding(
+                          padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 16.0.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    title,
-                                    style: TextStyle(
-                                      fontSize: 18.0.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColor.darkGrey500,
-                                    ),
-                                  ),
-                                  if (showCloseBtn)
-                                    GestureDetector(
-                                      onTap: context.pop,
-                                      child: Icon(Icons.close, size: 24.0.sp),
-                                    )
+                                  GestureDetector(
+                                    onTap: context.pop,
+                                    child: Icon(Icons.close, size: 24.0.sp),
+                                  )
                                 ],
                               ),
-                            if (titleWidget != null) titleWidget,
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Divider(
-                        thickness: 1.0.h,
-                        height: 0.0,
-                        color: AppColor.grey400,
-                      ),
+                      if (title != null)
+                        Padding(
+                          padding: contentPadding ?? EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: showCloseBtn ? 0.0 : 40.0.h, bottom: 4.0.h),
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16.0.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      if (titleWidget != null) titleWidget,
                       if (contentWidget != null)
                         Padding(
                           padding: contentPadding ?? EdgeInsets.symmetric(horizontal: 16.0.w),
@@ -288,7 +285,7 @@ class BottomSheetUtils {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 20.0.h),
+                    padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 34.0.h, bottom: 20.0.h),
                     child: Row(
                       children: [
                         Expanded(
@@ -299,7 +296,7 @@ class BottomSheetUtils {
                               borderRadius: BorderRadius.circular(10.0.r),
                               text: leftButtonText,
                               fontSize: _getButtonTextSize,
-                              buttonColor: AppColor.lightPrimary,
+                              buttonColor: AppColor.grey300,
                               textColor: AppColor.primary,
                               onPressed: onLeftButtonPressed,
                             ),

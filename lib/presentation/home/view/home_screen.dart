@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/layout/default_layout.dart';
-import 'package:mediport/core/util/toast_utils.dart';
 import 'package:mediport/presentation/home/component/element/home_advertisement_element.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -21,7 +20,7 @@ class HomeScreen extends ConsumerWidget {
         style: TextStyle(fontSize: 16.0.sp, fontWeight: FontWeight.w700, color: AppColor.primary),
       ),
       actions: [
-        IconButton(onPressed: () => ToastUtils.showToast(context, toastText: '기능 - ???'), icon: const Icon(Icons.person), visualDensity: VisualDensity.compact,),
+        IconButton(onPressed: () => context.pushNamed(AppRouter.my.name), icon: const Icon(Icons.person), visualDensity: VisualDensity.compact,),
         IconButton(onPressed: () => context.pushNamed(AppRouter.alert.name), icon: const Icon(Icons.notifications), visualDensity: VisualDensity.compact),
       ],
       child: SingleChildScrollView(

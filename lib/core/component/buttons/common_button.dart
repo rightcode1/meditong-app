@@ -66,7 +66,7 @@ class CommonButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: borderRadius ?? BorderRadius.circular(5.0.r)),
         elevation: elevation ?? 0.0,
         disabledBackgroundColor: AppColor.grey500,
-        foregroundColor: AppColor.primary
+        foregroundColor: AppColor.primary,
       ),
       child: isLoading
           ? SizedBox(width: 24.0.h, height: 24.0.h, child: const CircularProgressIndicator(color: Colors.white))

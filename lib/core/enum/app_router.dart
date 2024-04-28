@@ -27,8 +27,8 @@ enum AppRouter {
   // 홈 > 광고 라우터
   advertisementDetail(path: '/home/advertisement/detail', name: 'advertisementDetail', subPath: 'advertisement/detail'),
 
-  // 마이 탭 라우터
-  my(path: '/my', name: '/my', subPath: 'my'),
+  // 홈 > 마이 라우터
+  my(path: '/home/my', name: 'homeMy', subPath: 'my'),
 
   example2(path: '/example2', name: 'example2', subPath: 'example2'),
   exampleSub(path: '/example2/sub', name: 'exampleSub', subPath: 'exampleSub'),
