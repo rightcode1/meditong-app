@@ -6,6 +6,7 @@ import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/layout/default_layout.dart';
 import 'package:mediport/core/util/toast_utils.dart';
+import 'package:mediport/presentation/home/component/element/home_advertisement_element.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -25,7 +26,10 @@ class HomeScreen extends ConsumerWidget {
       ],
       child: SingleChildScrollView(
           child: Column(
-        children: [],
+        children: [
+          /* 광고 배너 엘리먼트 */
+          const HomeAdvertisementElement(),
+        ],
       )),
     );
   }

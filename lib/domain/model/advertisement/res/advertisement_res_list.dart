@@ -8,15 +8,15 @@ class AdvertisementResList {
   final String title;
   final String diff;
   final String location;
-  final String url;
-  final String thumbnail;
-  final String thumbnailOne;
+  final String? url;
+  final String? thumbnail;
+  final String? thumbnailOne;
   final bool active;
   final String createdAt;
   final int sortCode;
-  final String image;
+  final String? image;
   final int viewCount;
-  final int dataId;
+  final int? dataId;
 
   AdvertisementResList({
     required this.id,

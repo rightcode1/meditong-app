@@ -5,6 +5,7 @@ import 'package:mediport/core/component/tabbar/bottom_tab_bar.dart';
 import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/provider/app_router_observer.dart';
 import 'package:mediport/core/view/web_view/term_web_view.dart';
+import 'package:mediport/presentation/advertisement/view/advertisement_detail_screen.dart';
 import 'package:mediport/presentation/alert/view/alert_list_screen.dart';
 import 'package:mediport/presentation/alert/view/register/alert_register_screen.dart';
 import 'package:mediport/presentation/auth/view/auth_screen.dart';
@@ -116,27 +117,37 @@ final routerConfigProvider = Provider<GoRouter>(
         builder: (context, state, child) => BottomTabBar(state: state, child: child),
         routes: [
           GoRoute(
-            path: AppRouter.home.path,
-            name: AppRouter.home.name,
-            pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const HomeScreen()),
-            routes: [
-              /// 알림 스크린
-              GoRoute(
-                parentNavigatorKey: rootNavigatorKey,
-                path: AppRouter.alert.subPath,
-                name: AppRouter.alert.name,
-                builder: (context, state) => const AlertListScreen(),
-                routes: [
-                  GoRoute(
-                    parentNavigatorKey: rootNavigatorKey,
-                    path: AppRouter.alertRegister.subPath,
-                    name: AppRouter.alertRegister.name,
-                    builder: (context, state) => const AlertRegisterScreen(),
-                  ),
-                ],
-              ),
-            ]
-          ),
+              path: AppRouter.home.path,
+              name: AppRouter.home.name,
+              pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const HomeScreen()),
+              routes: [
+                /// 알림 스크린
+                GoRoute(
+                  parentNavigatorKey: rootNavigatorKey,
+                  path: AppRouter.alert.subPath,
+                  name: AppRouter.alert.name,
+                  builder: (context, state) => const AlertListScreen(),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: rootNavigatorKey,
+                      path: AppRouter.alertRegister.subPath,
+                      name: AppRouter.alertRegister.name,
+                      builder: (context, state) => const AlertRegisterScreen(),
+                    ),
+                  ],
+                ),
+
+                /// 광고 스크린
+                GoRoute(
+                  parentNavigatorKey: rootNavigatorKey,
+                  path: AppRouter.advertisementDetail.subPath,
+                  name: AppRouter.advertisementDetail.name,
+                  builder: (context, state) {
+                    final advertisementId = int.parse(state.uri.queryParameters['advertisementId']!);
+                    return AdvertisementDetailScreen(advertisementId: advertisementId);
+                  },
+                ),
+              ]),
           /* 마이 탭 */
           GoRoute(
             path: AppRouter.my.path,
