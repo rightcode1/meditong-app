@@ -154,6 +154,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                                   context.pop();
                                 },
                               );
+                              return;
                             }
                             ToastUtils.showToast(context, toastText: '로그인되었습니다.');
                             // 로그인 성공 시, 기존에 이동하려고 했던 페이지로 이동한다.
