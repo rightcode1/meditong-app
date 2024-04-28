@@ -24,6 +24,9 @@ enum AppRouter {
   alert(path: '/home/alert', name: 'alert', subPath: 'alert'),
   alertRegister(path: '/home/alert/register', name: 'alertRegister', subPath: 'register'),
 
+  // 홈 > 광고 라우터
+  advertisementDetail(path: '/home/advertisement/detail', name: 'advertisementDetail', subPath: 'advertisement/detail'),
+
   // 마이 탭 라우터
   my(path: '/my', name: '/my', subPath: 'my'),
 

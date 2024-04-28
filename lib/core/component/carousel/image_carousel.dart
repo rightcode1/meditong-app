@@ -62,8 +62,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: _height,
-      child: Stack(
+      height: _height + 30.0.h,
+      child: Column(
         children: [
           ClipRRect(
             borderRadius: widget.borderRadius ?? BorderRadius.circular(0.0),
@@ -82,7 +82,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
                     autoPlay: true,
                     viewportFraction: 1.0,
                     enableInfiniteScroll: widget.enableInfiniteScroll,
-                    autoPlayAnimationDuration: const Duration(milliseconds: 300),
+                    autoPlayInterval: const Duration(seconds: 5),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 1000),
                     onPageChanged: (int index, CarouselPageChangedReason reason) {
                       if (widget.onPageChanged != null) widget.onPageChanged!(index);
                       setState(() {
@@ -93,25 +94,20 @@ class _ImageCarouselState extends State<ImageCarousel> {
             ),
           ),
           if (widget.enableIndicator)
-            Align(
-              alignment: widget.alignment,
-              child: widget.indicatorWidget ??
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: widget.itemList.mapIndexed((int index, element) {
-                      return Container(
-                        width: _pageIndex == index ? 10.w : 5.w,
-                        height: 5.h,
-                        margin: EdgeInsets.only(right: 3.w, bottom: 15.h),
-                        decoration: BoxDecoration(
-                          borderRadius: _pageIndex == index ? BorderRadius.circular(10.r) : null,
-                          shape: _pageIndex == index ? BoxShape.rectangle : BoxShape.circle,
-                          color: _pageIndex == index ? AppColor.primary : AppColor.darkGrey500,
-                        ),
-                      );
-                    }).toList(),
-                  ),
-            ),
+            widget.indicatorWidget ??
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: widget.itemList.mapIndexed((int index, element) {
+                    return Container(
+                      width: MediaQuery.sizeOf(context).width / widget.itemList.length,
+                      height: 5.h,
+                      // margin: EdgeInsets.only(right: 3.w, bottom: 15.h),
+                      decoration: BoxDecoration(
+                        color: _pageIndex == index ? AppColor.primary : AppColor.lightPrimary,
+                      ),
+                    );
+                  }).toList(),
+                ),
         ],
       ),
     );
