@@ -12,7 +12,7 @@ import 'package:mediport/presentation/auth/view/auth_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_id_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_password_screen.dart';
 import 'package:mediport/presentation/home/view/home_screen.dart';
-import 'package:mediport/presentation/my/my_screen.dart';
+import 'package:mediport/presentation/my/view/my_screen.dart';
 import 'package:mediport/presentation/splash_screen.dart';
 
 import '../../presentation/auth/view/find/auth_update_password_screen.dart';
@@ -121,6 +121,13 @@ final routerConfigProvider = Provider<GoRouter>(
               name: AppRouter.home.name,
               pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const HomeScreen()),
               routes: [
+                /// 마이 스크린
+                GoRoute(
+                  parentNavigatorKey: rootNavigatorKey,
+                  path: AppRouter.my.subPath,
+                  name: AppRouter.my.name,
+                  builder: (context, state) => const MyScreen(),
+                ),
                 /// 알림 스크린
                 GoRoute(
                   parentNavigatorKey: rootNavigatorKey,
@@ -148,12 +155,6 @@ final routerConfigProvider = Provider<GoRouter>(
                   },
                 ),
               ]),
-          /* 마이 탭 */
-          GoRoute(
-            path: AppRouter.my.path,
-            name: AppRouter.my.name,
-            pageBuilder: (context, state) => buildPageWithDefaultTransition(context: context, state: state, child: const MyScreen()),
-          ),
         ],
       ),
     ];

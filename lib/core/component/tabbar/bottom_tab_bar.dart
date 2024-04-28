@@ -17,7 +17,7 @@ class _BottomTabBarState extends ConsumerState<BottomTabBar> {
   /// 탭 별 라우트 목록
   final List<List<dynamic>> _tabRoutes = [
     [AppRouter.home.path, '홈', const Icon(Icons.home)],
-    [AppRouter.my.path, '마이', const Icon(Icons.person)],
+    [AppRouter.home.path, '홈', const Icon(Icons.home)],
   ];
 
   /// 현재 탭 인덱스
