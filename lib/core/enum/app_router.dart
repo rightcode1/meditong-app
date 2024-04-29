@@ -29,6 +29,8 @@ enum AppRouter {
 
   // 홈 > 마이 라우터
   my(path: '/home/my', name: 'homeMy', subPath: 'my'),
+  notice(path: '/home/my/notice', name: 'homeMyNotice', subPath: 'my/notice'),
+  noticeDetail(path: '/home/my/notice/detail', name: 'homeMyNoticeDetail', subPath: 'my/notice/detail'),
 
   example2(path: '/example2', name: 'example2', subPath: 'example2'),
   exampleSub(path: '/example2/sub', name: 'exampleSub', subPath: 'exampleSub'),

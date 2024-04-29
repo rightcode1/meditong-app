@@ -252,7 +252,7 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
                 : null,
             backgroundColor: widget.backgroundColor ?? Colors.white,
             body: SafeArea(
-              bottom: true,
+              bottom: false,
               child: Padding(
                 padding: widget.padding == null
                     ? EdgeInsets.symmetric(
