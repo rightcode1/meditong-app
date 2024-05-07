@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mediport/core/component/buttons/common_icon_button.dart';
 import 'package:mediport/core/component/divider/thick_divider.dart';
 import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/layout/default_layout.dart';
 import 'package:mediport/core/util/bottom_sheet_utils.dart';
 import 'package:mediport/core/util/core_utils.dart';
@@ -45,13 +46,13 @@ class MyScreen extends ConsumerWidget {
                         CommonIconButton(
                           iconPath: 'assets/icons/common/notice@3x.png',
                           text: '공지사항',
-                          onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 공지사항'),
+                          onPressed: () => context.pushNamed(AppRouter.notice.name),
                         ),
                         SizedBox(height: 14.0.w),
                         CommonIconButton(
-                          iconPath: 'assets/icons/common/inquiry@3x.png',
+                          iconPath: 'assets/icons/common/inquiry_cyan@3x.png',
                           text: '1:1 문의',
-                          onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 1:1 문의'),
+                          onPressed: () => context.pushNamed(AppRouter.inquiry.name),
                         ),
                         SizedBox(height: 14.0.w),
                         CommonIconButton(
@@ -65,7 +66,7 @@ class MyScreen extends ConsumerWidget {
                   /* 로그아웃 버튼 */
                   if (user is UserRes)
                     Padding(
-                      padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 100.0.h),
+                      padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 100.0.h, bottom: 20.0.h),
                       child: Column(
                         children: [
                           Align(
@@ -104,10 +105,9 @@ class MyScreen extends ConsumerWidget {
               ),
             ),
             /* Footer */
-            SizedBox(height: 30.0.h),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 20.0.h, bottom: 84.0.h),
+                padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 20.0.h),
                 color: AppColor.grey400,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -39,13 +39,13 @@ class NoListWidget extends StatelessWidget {
           if (iconSrc != null)
             Image.asset(
               iconSrc!,
-              height: 76.0.h,
+              height: 46.0.h,
             )
           else
             if (icon == null && iconSrc == null)
             Image.asset(
             'assets/images/common/no_list_image_grey@3x.png',
-            height: 76.0.h,
+            height: 46.0.h,
             ),
         SizedBox(height: 6.0.h),
         Text(
@@ -65,7 +65,6 @@ class NoListWidget extends StatelessWidget {
               height: 40.0.h,
               child: CommonButton(
                 text: buttonText!,
-                fontSize: 14.0.sp,
                 onPressed: onButtonPressed!,
               ),
             ),

@@ -1,14 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/constant/data.dart';
 import 'package:mediport/domain/model/version/res/version_res.dart';
 import 'package:mediport/domain/repository/version/version_repository.dart';
 import 'package:mediport/service/version/version_providers.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
@@ -91,7 +91,7 @@ class DefaultLayout extends ConsumerStatefulWidget {
     this.bottomWidget,
     this.flexibleSpace,
     this.actionsRightPadding = 16,
-    this.appBarHeight = 40.0,
+    this.appBarHeight = 56.0,
     this.centerTitle,
     this.floatingActionButton,
     this.floatingActionButtonLocation = FloatingActionButtonLocation.endFloat,
