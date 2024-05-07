@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediport/core/constant/app_color.dart';
 
 class CommonLabel extends StatelessWidget {
   /// String 형태의 라벨
@@ -39,8 +40,9 @@ class CommonLabel extends StatelessWidget {
               ? Text(
                   label!,
                   style: TextStyle(
-                    fontSize: fontSize ?? 12.0.sp,
-                    fontWeight: fontWeight ?? FontWeight.w700,
+                    fontSize: fontSize ?? 14.0.sp,
+                    fontWeight: fontWeight ?? FontWeight.w600,
+                    color: AppColor.cyan700
                   ),
                 )
               : labelWidget,

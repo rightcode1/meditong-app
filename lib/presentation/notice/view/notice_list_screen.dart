@@ -1,15 +1,15 @@
-import 'package:mediport/core/component/.etc/no_list_widget.dart';
-import 'package:mediport/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:mediport/core/component/.etc/no_list_widget.dart';
+import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/layout/default_layout.dart';
 
-import '../../domain/model/notice/res/notice_res_list.dart';
-import '../../service/notice/notice_providers.dart';
+import '../../../domain/model/notice/res/notice_res_list.dart';
+import '../../../service/notice/notice_providers.dart';
 
 class NoticeListScreen extends ConsumerStatefulWidget {
   const NoticeListScreen({super.key});

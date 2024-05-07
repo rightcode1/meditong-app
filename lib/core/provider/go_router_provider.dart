@@ -17,8 +17,11 @@ import 'package:mediport/presentation/splash_screen.dart';
 
 import '../../presentation/auth/view/find/auth_update_password_screen.dart';
 import '../../presentation/auth/view/join/join_screen.dart';
-import '../../presentation/notice/notice_detail_screen.dart';
-import '../../presentation/notice/notice_list_screen.dart';
+import '../../presentation/inquiry/view/inquiry_detail_screen.dart';
+import '../../presentation/inquiry/view/inquiry_list_screen.dart';
+import '../../presentation/inquiry/view/inquiry_register_screen.dart';
+import '../../presentation/notice/view/notice_detail_screen.dart';
+import '../../presentation/notice/view/notice_list_screen.dart';
 import 'auth_provider.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -145,6 +148,30 @@ final routerConfigProvider = Provider<GoRouter>(
                             final int id = int.parse(state.uri.queryParameters['id']!);
                             return NoticeDetailScreen(id: id);
                           },
+                        ),
+                      ],
+                    ),
+                    /* 1:1 문의 */
+                    GoRoute(
+                      parentNavigatorKey: rootNavigatorKey,
+                      path: AppRouter.inquiry.name,
+                      name: AppRouter.inquiry.name,
+                      builder: (context, state) => const InquiryListScreen(),
+                      routes: [
+                        GoRoute(
+                          parentNavigatorKey: rootNavigatorKey,
+                          path: AppRouter.inquiryDetail.name,
+                          name: AppRouter.inquiryDetail.name,
+                          builder: (context, state) {
+                            final int inquiryId = int.parse(state.uri.queryParameters['inquiryId']!);
+                            return InquiryDetailScreen(inquiryId: inquiryId);
+                          },
+                        ),
+                        GoRoute(
+                          parentNavigatorKey: rootNavigatorKey,
+                          path: AppRouter.inquiryRegister.name,
+                          name: AppRouter.inquiryRegister.name,
+                          builder: (context, state) => const InquiryRegisterScreen(),
                         ),
                       ],
                     ),

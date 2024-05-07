@@ -1,11 +1,11 @@
-import 'package:mediport/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediport/core/component/.etc/no_list_widget.dart';
+import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/layout/default_layout.dart';
 
-import '../../service/notice/notice_providers.dart';
+import '../../../service/notice/notice_providers.dart';
 
 class NoticeDetailScreen extends ConsumerStatefulWidget {
   const NoticeDetailScreen({super.key, required this.id});

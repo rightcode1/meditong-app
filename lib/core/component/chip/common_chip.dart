@@ -1,6 +1,6 @@
-import 'package:mediport/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediport/core/constant/app_color.dart';
 
 class CommonChip extends StatelessWidget {
   /// 기본적으로 사용되는 칩을 렌더링한다.
@@ -47,14 +47,14 @@ class CommonChip extends StatelessWidget {
       padding: padding ?? EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 3.0.h),
       decoration: BoxDecoration(
         color: backgroundColor ?? const Color.fromRGBO(250, 250, 250, 1.0),
-        borderRadius: borderRadius ?? BorderRadius.circular(7.0.w),
+        borderRadius: borderRadius ?? BorderRadius.circular(5.0.r),
         border: !useBorder ? null : Border.all(color: AppColor.grey500, width: 1.0.w),
       ),
       child: textWidget ?? Text(
         text!,
         style: TextStyle(
-          fontSize: fontSize ?? 10.0.sp,
-          fontWeight: fontWeight ?? FontWeight.w500,
+          fontSize: fontSize ?? 14.0.sp,
+          fontWeight: fontWeight ?? FontWeight.w600,
           color: textColor ?? AppColor.darkGrey500,
         ),
         textAlign: TextAlign.center,

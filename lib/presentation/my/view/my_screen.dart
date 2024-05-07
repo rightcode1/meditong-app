@@ -50,9 +50,9 @@ class MyScreen extends ConsumerWidget {
                         ),
                         SizedBox(height: 14.0.w),
                         CommonIconButton(
-                          iconPath: 'assets/icons/common/inquiry@3x.png',
+                          iconPath: 'assets/icons/common/inquiry_cyan@3x.png',
                           text: '1:1 문의',
-                          onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 1:1 문의'),
+                          onPressed: () => context.pushNamed(AppRouter.inquiry.name),
                         ),
                         SizedBox(height: 14.0.w),
                         CommonIconButton(
@@ -107,7 +107,7 @@ class MyScreen extends ConsumerWidget {
             /* Footer */
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 20.0.h, bottom: 84.0.h),
+                padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 20.0.h),
                 color: AppColor.grey400,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
