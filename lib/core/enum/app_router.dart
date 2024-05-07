@@ -35,6 +35,9 @@ enum AppRouter {
   inquiryDetail(path: '/home/my/inquiry/detail', name: 'homeMyInquiryDetail', subPath: 'my/inquiry/detail'),
   inquiryRegister(path: '/home/my/inquiry/register', name: 'homeMyInquiryRegister', subPath: 'my/inquiry/register'),
 
+  // 경영/장비 게시글 리스트 라우터
+  contents(path: '/contents', name: 'contents', subPath: 'contents'),
+
   example2(path: '/example2', name: 'example2', subPath: 'example2'),
   exampleSub(path: '/example2/sub', name: 'exampleSub', subPath: 'exampleSub'),
   temp(path:'temp', name:'temp', subPath:'temp');

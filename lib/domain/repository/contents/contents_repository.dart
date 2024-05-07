@@ -24,10 +24,11 @@ abstract class ContentsRepository {
     @Query('limit') int? limit = 15,
     @Query('diff') String? diff,
     @Query('primary') String? primary,
-    @Query('name') String? name,
+    @Query('name') String? subCategory,
     @Query('search') String? search,
     @Query('startDate') String? startDate,
     @Query('endDate') String? endDate,
+    @Query('isHome') bool? isHome,
   });
 
   @GET('/detail')

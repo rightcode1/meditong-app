@@ -17,7 +17,7 @@ class CommonButton extends StatelessWidget {
   final bool isActive;
 
   /// 버튼 색상
-  final Color? buttonColor;
+  final Color? backgroundColor;
 
   /// 폰트 사이즈
   final double? fontSize;
@@ -34,18 +34,27 @@ class CommonButton extends StatelessWidget {
 
   final bool isLoading;
 
+  final EdgeInsets? padding;
+
+  final bool useBorder;
+
+  final Color? foregroundColor;
+
   const CommonButton({
     this.text,
     this.textWidget,
     required this.onPressed,
     this.isActive = true,
-    this.buttonColor = AppColor.primary,
+    this.backgroundColor = AppColor.primary,
     this.fontSize,
     this.fontWeight,
     this.textColor = Colors.white,
     this.elevation,
     this.borderRadius,
     this.isLoading = false,
+    this.padding,
+    this.useBorder = false,
+    this.foregroundColor,
     super.key,
   });
 
@@ -62,22 +71,26 @@ class CommonButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: isActive ? onPressed : null,
       style: ElevatedButton.styleFrom(
-        backgroundColor: isActive ? buttonColor : AppColor.grey500,
-        shape: RoundedRectangleBorder(borderRadius: borderRadius ?? BorderRadius.circular(5.0.r)),
+        backgroundColor: isActive ? backgroundColor : AppColor.grey500,
+        shape: RoundedRectangleBorder(
+            side: useBorder ? const BorderSide(color: AppColor.grey500) : const BorderSide(color: Colors.transparent),
+            borderRadius: borderRadius ?? BorderRadius.circular(5.0.r)),
         elevation: elevation ?? 0.0,
         disabledBackgroundColor: AppColor.grey500,
-        foregroundColor: AppColor.primary,
+        foregroundColor: foregroundColor ?? AppColor.primary,
+        padding: padding,
       ),
       child: isLoading
           ? SizedBox(width: 24.0.h, height: 24.0.h, child: const CircularProgressIndicator(color: Colors.white))
-          : textWidget ?? Text(
-              text!,
-              style: TextStyle(
-                fontSize: fontSize ?? 14.0.sp,
-                fontWeight: fontWeight ?? FontWeight.w500,
-                color: isActive ? textColor : AppColor.grey550,
+          : textWidget ??
+              Text(
+                text!,
+                style: TextStyle(
+                  fontSize: fontSize ?? 14.0.sp,
+                  fontWeight: fontWeight ?? FontWeight.w500,
+                  color: isActive ? textColor : AppColor.grey550,
+                ),
               ),
-            ),
     );
   }
 }

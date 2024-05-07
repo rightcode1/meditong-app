@@ -13,8 +13,8 @@ class ContentsResList {
   final int wishCount;
   final int commentCount;
   final bool isHome;
-  final String createdAt;
-  final String thumbnail;
+  final DateTime createdAt;
+  final String? thumbnail;
   final ContentsResListCategory category;
 
   ContentsResList({
@@ -42,7 +42,7 @@ class ContentsResList {
     int? wishCount,
     int? commentCount,
     bool? isHome,
-    String? createdAt,
+    DateTime? createdAt,
     String? thumbnail,
     ContentsResListCategory? category,
   }) =>

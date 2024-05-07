@@ -44,7 +44,7 @@ class CommonChip extends StatelessWidget {
     if (text != null && textWidget != null) throw Exception('text 및 textWidget 은 둘 중 한 개만 사용할 수 있습니다.');
 
     return Container(
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 3.0.h),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 10.0.h),
       decoration: BoxDecoration(
         color: backgroundColor ?? const Color.fromRGBO(250, 250, 250, 1.0),
         borderRadius: borderRadius ?? BorderRadius.circular(5.0.r),
