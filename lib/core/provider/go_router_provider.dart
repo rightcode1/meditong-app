@@ -39,6 +39,7 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
   return CustomTransitionPage<T>(
     key: state.pageKey,
     child: child,
+    transitionDuration: const Duration(milliseconds: 150),
     transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
   );
 }
