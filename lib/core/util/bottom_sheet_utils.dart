@@ -88,17 +88,47 @@ class BottomSheetUtils {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        _renderTitle(context: context, title: title, titleWidget: titleWidget, showCloseBtn: showCloseBtn),
-                        Divider(
-                          thickness: 1.0.h,
-                          height: 0.0,
-                          color: AppColor.grey400,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            if (showCloseBtn)
+                              Padding(
+                                padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 16.0.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: context.pop,
+                                          child: Icon(Icons.close, size: 24.0.sp),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            if (title != null)
+                              Padding(
+                                padding: contentPadding ?? EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: showCloseBtn ? 0.0 : 40.0.h, bottom: 4.0.h),
+                                child: Text(
+                                  title,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 16.0.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            if (titleWidget != null) titleWidget,
+                            if (contentWidget != null)
+                              Padding(
+                                padding: contentPadding ?? EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 20.0.h),
+                                child: contentWidget(bottomState),
+                              )
+                          ],
                         ),
-                        if (contentWidget != null)
-                          Padding(
-                            padding: contentPadding ?? EdgeInsets.symmetric(horizontal: 16.0.w),
-                            child: contentWidget(bottomState),
-                          )
                       ],
                     ),
                   ],
@@ -156,38 +186,56 @@ class BottomSheetUtils {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      _renderTitle(context: context, title: title, titleWidget: titleWidget, showCloseBtn: showCloseBtn),
-                      Divider(
-                        thickness: 1.0.h,
-                        height: 0.0,
-                        color: AppColor.grey400,
-                      ),
+                      if (showCloseBtn)
+                        Padding(
+                          padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 16.0.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: context.pop,
+                                    child: Icon(Icons.close, size: 24.0.sp),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      if (title != null)
+                        Padding(
+                          padding: contentPadding ?? EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: showCloseBtn ? 0.0 : 40.0.h, bottom: 4.0.h),
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16.0.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      if (titleWidget != null) titleWidget,
                       if (contentWidget != null)
                         Padding(
-                          padding: contentPadding ?? EdgeInsets.symmetric(horizontal: 16.0.h),
+                          padding: contentPadding ?? EdgeInsets.symmetric(horizontal: 16.0.w),
                           child: contentWidget(bottomState),
                         )
                     ],
                   ),
-
-                  /// 하단 버튼
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 20.0.h),
+                    padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 34.0.h, bottom: 20.0.h),
                     child: SizedBox(
                       width: double.infinity,
                       height: _getButtonHeight,
                       child: CommonButton(
-                        isActive: isButtonActive,
                         borderRadius: BorderRadius.circular(10.0.r),
-                        elevation: 0.0,
                         text: buttonText,
-                        textColor: textColor ?? Colors.white,
                         fontSize: _getButtonTextSize,
-                        backgroundColor: buttonColor ?? AppColor.primary,
-                        onPressed: onButtonPressed ??
-                            () {
-                              context.pop();
-                            },
+                        backgroundColor: AppColor.primary,
+                        textColor: Colors.white,
+                        onPressed: onButtonPressed ?? () => context.pop(),
                       ),
                     ),
                   ),

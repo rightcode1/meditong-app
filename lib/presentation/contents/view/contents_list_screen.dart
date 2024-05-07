@@ -2,12 +2,15 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mediport/core/component/.etc/no_list_widget.dart';
 import 'package:mediport/core/component/buttons/common_button.dart';
 import 'package:mediport/core/component/tabbar/common_tab_bar.dart';
 import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/layout/default_layout.dart';
+import 'package:mediport/core/util/toast_utils.dart';
 import 'package:mediport/presentation/contents/component/element/contents_home_element.dart';
+import 'package:mediport/presentation/contents/component/element/contents_sub_category_element.dart';
 import 'package:mediport/service/category/category_providers.dart';
 
 class ContentsListScreen extends ConsumerStatefulWidget {
@@ -36,12 +39,29 @@ class _ContentsListScreenState extends ConsumerState<ContentsListScreen> {
   int _selectedSubCategoryIdx = 0;
 
   @override
+  void didUpdateWidget(covariant ContentsListScreen oldWidget) {
+    if (oldWidget.diff != _diff) {
+      _selectedTabIdx = 0;
+      _selectedSubCategoryIdx = 0;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final categoryList = ref.watch(categoryListProvider(diff: _diff));
     return DefaultLayout(
       padding: EdgeInsets.zero,
       showAppBar: true,
       title: _diff,
+      actions: [
+        IconButton(
+          onPressed: () {
+            ToastUtils.showToast(context, toastText: '이동 - 검색');
+          },
+          icon: Image.asset('assets/icons/common/search_black@3x.png', height: 24.0.h),
+        ),
+      ],
       child: categoryList.when(
         data: (data) {
           // 탭 리스트
@@ -68,6 +88,7 @@ class _ContentsListScreenState extends ConsumerState<ContentsListScreen> {
                   labelPadding: EdgeInsets.symmetric(horizontal: 16.0.w),
                   onTap: (index) => setState(() {
                     _selectedTabIdx = index;
+                    _selectedSubCategoryIdx = 0;
                   }),
                 ),
                 SizedBox(height: 14.0.h),
@@ -100,13 +121,13 @@ class _ContentsListScreenState extends ConsumerState<ContentsListScreen> {
                         final eachSubCategory = subCategoryList[index - 1];
                         return CommonButton(
                           padding: EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 10.0.h),
-                          useBorder: _selectedSubCategoryIdx == index + 1,
+                          useBorder: _selectedSubCategoryIdx == index,
                           foregroundColor: AppColor.grey300,
-                          backgroundColor: _selectedSubCategoryIdx == index + 1 ? Colors.white : AppColor.grey300,
-                          textColor: _selectedSubCategoryIdx == index + 1 ? AppColor.primary : AppColor.grey550,
+                          backgroundColor: _selectedSubCategoryIdx == index ? Colors.white : AppColor.grey300,
+                          textColor: _selectedSubCategoryIdx == index ? AppColor.primary : AppColor.grey550,
                           text: eachSubCategory,
                           onPressed: () => setState(() {
-                            _selectedSubCategoryIdx = index + 1;
+                            _selectedSubCategoryIdx = index;
                           }),
                         );
                       },
@@ -122,13 +143,16 @@ class _ContentsListScreenState extends ConsumerState<ContentsListScreen> {
                     primary: tabList.elementAt(_selectedTabIdx),
                     onShowAllButtonClicked: (value) {
                       setState(() {
-                        _selectedSubCategoryIdx = subCategoryList.indexOf(value);
+                        _selectedSubCategoryIdx = subCategoryList.indexOf(value) + 1;
                       });
                     },
                   )
                 /* 홈 이외의 카테고리일 경우에 대한 엘리먼트 */
-                else
-                  SizedBox(),
+                else ...[
+                  SizedBox(height: 20.0.h),
+                  ContentsSubCategoryElement(
+                      diff: _diff, primary: tabList.elementAt(_selectedTabIdx), name: subCategoryList[_selectedSubCategoryIdx - 1]),
+                ],
               ],
             ),
           );

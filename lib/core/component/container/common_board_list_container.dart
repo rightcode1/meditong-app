@@ -72,6 +72,8 @@ class CommonBoardListContainer extends StatelessWidget {
                   children: [
                     Text(
                       title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w500),
                     ),
                     Row(
@@ -94,9 +96,79 @@ class CommonBoardListContainer extends StatelessWidget {
           ),
         );
       case CommonBoardListContainerMode.bigPic:
-        return SizedBox();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            thumbnail == null
+                ? Container(
+                    width: double.infinity,
+                    height: 150.0.h,
+                    decoration: BoxDecoration(
+                      color: AppColor.grey300,
+                      borderRadius: BorderRadius.circular(5.0.r),
+                    ),
+                  )
+                : CachedNetworkImage(
+                    imageUrl: thumbnail!,
+                    width: double.infinity,
+                    height: 150.0.h,
+                    fit: BoxFit.cover,
+                  ),
+            SizedBox(height: 10.0.h),
+            Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 6.0.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat('yyyy.MM.dd').format(createdAt),
+                  style: greyTextStyle,
+                ),
+                Row(
+                  children: [
+                    renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: wishCount.toString()),
+                    SizedBox(width: 10.0.w),
+                    renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: commentCount.toString()),
+                  ],
+                )
+              ],
+            )
+          ],
+        );
       case CommonBoardListContainerMode.onlyText:
-        return SizedBox();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 6.0.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat('yyyy.MM.dd').format(createdAt),
+                  style: greyTextStyle,
+                ),
+                Row(
+                  children: [
+                    renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: wishCount.toString()),
+                    SizedBox(width: 10.0.w),
+                    renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: commentCount.toString()),
+                  ],
+                )
+              ],
+            )
+          ],
+        );
       default:
         return SizedBox();
     }

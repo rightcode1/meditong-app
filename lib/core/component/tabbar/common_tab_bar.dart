@@ -61,7 +61,7 @@ class CommonTabBar extends StatelessWidget {
           fontSize: 14.0.sp,
           fontWeight: FontWeight.w500,
         ),
-        unselectedLabelColor: AppColor.grey700,
+        unselectedLabelColor: AppColor.cyan700,
         indicatorSize: indicatorSize,
         indicatorWeight: 3.0,
         indicatorColor: AppColor.primary,
