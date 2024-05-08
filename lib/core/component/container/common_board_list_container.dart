@@ -47,14 +47,7 @@ class CommonBoardListContainer extends StatelessWidget {
           child: Row(
             children: [
               thumbnail == null
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: AppColor.grey300,
-                        borderRadius: BorderRadius.circular(5.0.r),
-                      ),
-                      width: 70.0.h,
-                      height: 70.0.h,
-                    )
+                  ? Image.asset('assets/images/common/app_logo.png', height: 70.0.h)
                   : ClipRRect(
                       borderRadius: BorderRadius.circular(5.0.r),
                       child: CachedNetworkImage(
@@ -100,14 +93,7 @@ class CommonBoardListContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             thumbnail == null
-                ? Container(
-                    width: double.infinity,
-                    height: 150.0.h,
-                    decoration: BoxDecoration(
-                      color: AppColor.grey300,
-                      borderRadius: BorderRadius.circular(5.0.r),
-                    ),
-                  )
+                ? Image.asset('assets/images/common/app_logo.png', height: 150.0.h)
                 : CachedNetworkImage(
                     imageUrl: thumbnail!,
                     width: double.infinity,
