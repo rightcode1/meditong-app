@@ -41,6 +41,7 @@ class AppColor {
   /// 빨강 색상 계열
   static const red100 = Color.fromRGBO(253, 219, 219, 1.0);
   static const red300 = Color.fromRGBO(236, 123, 122, 1.0);
+  static const red400 = Color.fromRGBO(255, 0, 107, 1.0);
   static const red500 = Color.fromRGBO(255, 0, 0, 1.0);
 
   /// 주황 색상 계열

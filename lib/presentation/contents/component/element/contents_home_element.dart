@@ -102,10 +102,10 @@ class ContentsHomeElement extends ConsumerWidget {
                                 wishCount: eachData.wishCount,
                                 commentCount: eachData.commentCount,
                                 createdAt: eachData.createdAt,
-                                onClicked: () => context.pushNamed(AppRouter.contentsDetail.name, queryParameters: {
+                                onClicked: () async => await context.pushNamed(AppRouter.contentsDetail.name, queryParameters: {
                                   'contentsId': eachData.id.toString(),
                                   'diff': diff,
-                                }),
+                                }).then((value) => ref.invalidate(contentsListProvider)),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(height: 20.0.h),

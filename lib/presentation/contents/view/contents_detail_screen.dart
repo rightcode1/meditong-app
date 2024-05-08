@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:mediport/core/component/.etc/no_list_widget.dart';
 import 'package:mediport/core/component/buttons/common_button.dart';
@@ -9,6 +10,7 @@ import 'package:mediport/core/component/chip/common_chip.dart';
 import 'package:mediport/core/component/divider/thick_divider.dart';
 import 'package:mediport/core/component/text_fields/common_form_text_field.dart';
 import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/exception/request_exception.dart';
 import 'package:mediport/core/layout/default_layout.dart';
 import 'package:mediport/core/util/toast_utils.dart';
 import 'package:mediport/domain/model/contents/res/contents_res_detail.dart';
@@ -27,47 +29,55 @@ class ContentsDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final contentsDetail = ref.watch(contentsDetailProvider(contentsId: contentsId));
-    return DefaultLayout(
-      padding: EdgeInsets.zero,
-      showAppBar: true,
-      showBack: true,
-      title: '$diff 상세',
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, bottom: 20.0.h),
-        child: CommonForm.create(
-          hintText: '댓글을 입력해주세요.',
-          suffixIcon: Padding(
-            padding: EdgeInsets.only(right: 6.0.w),
-            child: SizedBox(
-              width: 52.0.w,
-              child: CommonButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {},
-                text: '등록',
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (didPop) return;
+        context.pop(true);
+      },
+      child: DefaultLayout(
+        padding: EdgeInsets.zero,
+        showAppBar: true,
+        showBack: true,
+        onBackPressed: () => context.pop(true),
+        title: '$diff 상세',
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, bottom: 20.0.h),
+          child: CommonForm.create(
+            hintText: '댓글을 입력해주세요.',
+            suffixIcon: Padding(
+              padding: EdgeInsets.only(right: 6.0.w),
+              child: SizedBox(
+                width: 52.0.w,
+                child: CommonButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {},
+                  text: '등록',
+                ),
               ),
             ),
           ),
         ),
-      ),
-      child: RefreshIndicator(
-        onRefresh: () async {},
-        child: contentsDetail.when(
-          data: (data) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  /* 댓글을 제외한 바디 렌더링 */
-                  renderBody(context, data),
-                  renderComment(),
-                ],
-              ),
-            );
-          },
-          error: (error, stackTrace) => Center(
-            child: NoListWidget(text: error.toString()),
-          ),
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
+        child: RefreshIndicator(
+          onRefresh: () async {},
+          child: contentsDetail.when(
+            data: (data) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    /* 댓글을 제외한 바디 렌더링 */
+                    renderBody(context, data),
+                    renderComment(),
+                  ],
+                ),
+              );
+            },
+            error: (error, stackTrace) => Center(
+              child: NoListWidget(text: (error as RequestException).message),
+            ),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
         ),
       ),
@@ -93,11 +103,11 @@ class ContentsDetailScreen extends ConsumerWidget {
                     style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w500, height: 1.2),
                   ),
                   SizedBox(height: 14.0.h),
-                  Text(
-                    '낭만닥터 (프로퍼티 필요)',
-                    style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: AppColor.darkGrey600),
-                  ),
-                  SizedBox(height: 6.0.h),
+                  // Text(
+                  //   '낭만닥터 (프로퍼티 필요)',
+                  //   style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: AppColor.darkGrey600),
+                  // ),
+                  // SizedBox(height: 6.0.h),
                   Row(
                     children: [
                       Text(
@@ -189,31 +199,35 @@ class ContentsDetailScreen extends ConsumerWidget {
                       ),
                     ),
                   /* 좋아요 (찜) */
-                  FittedBox(
-                    child: CommonButton(
-                      backgroundColor: AppColor.grey500,
-                      onPressed: () {
-                        // TODO: 좋아요 기능 구현하기
-                        ToastUtils.showToast(context, toastText: '기능 - 좋아요');
-                      },
-                      textWidget: Row(
-                        children: [
-                          Image.asset(
-                            'assets/icons/common/wish_icon_inactive_grey@3x.png',
-                            height: 18.0.h,
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final isLike = ref.watch(contentsDetailProvider(contentsId: data.id).select((value) => value.value!.isLike));
+                      return FittedBox(
+                        child: CommonButton(
+                          foregroundColor: AppColor.grey300,
+                          backgroundColor: isLike ? AppColor.red400 : AppColor.grey500,
+                          onPressed: () => ref.read(contentsDetailProvider(contentsId: data.id).notifier).changeLike(),
+                          textWidget: Row(
+                            children: [
+                              Image.asset(
+                                isLike ? 'assets/icons/common/wish_icon_active_white@3x.png' :
+                                'assets/icons/common/wish_icon_inactive_grey@3x.png',
+                                height: 18.0.h,
+                              ),
+                              SizedBox(width: 4.0.w),
+                              Text(
+                                data.wishCount.toString(),
+                                style: TextStyle(
+                                  fontSize: 14.0.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: isLike ? Colors.white : AppColor.darkGrey300,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 4.0.w),
-                          Text(
-                            data.wishCount.toString(),
-                            style: TextStyle(
-                              fontSize: 14.0.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColor.darkGrey300,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

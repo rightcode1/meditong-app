@@ -201,10 +201,10 @@ class _ContentsSubCategoryElementState extends ConsumerState<ContentsSubCategory
                         wishCount: each.wishCount,
                         commentCount: each.commentCount,
                         createdAt: each.createdAt,
-                        onClicked: () => context.pushNamed(AppRouter.contentsDetail.name, queryParameters: {
+                        onClicked: () async => await context.pushNamed(AppRouter.contentsDetail.name, queryParameters: {
                           'contentsId': each.id.toString(),
                           'diff': _diff,
-                        }),
+                        }).then((value) => _pagingController.refresh()),
                       );
                     },
                     noItemsFoundIndicatorBuilder: (context) => Padding(

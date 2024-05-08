@@ -18,6 +18,7 @@ class ContentsResDetail {
   final List<ContentsResDetailHashtag> hashtags;
   final List<ContentsResDetailContentsDetail> contentsDetails;
   final ContentsResDetailCategory category;
+  final bool isLike;
 
   ContentsResDetail({
     required this.id,
@@ -34,6 +35,7 @@ class ContentsResDetail {
     required this.hashtags,
     required this.contentsDetails,
     required this.category,
+    required this.isLike,
   });
 
   ContentsResDetail copyWith({
@@ -51,6 +53,7 @@ class ContentsResDetail {
     List<ContentsResDetailHashtag>? hashtags,
     List<ContentsResDetailContentsDetail>? contentsDetails,
     ContentsResDetailCategory? category,
+    bool? isLike,
   }) =>
       ContentsResDetail(
         id: id ?? this.id,
@@ -67,13 +70,14 @@ class ContentsResDetail {
         hashtags: hashtags ?? this.hashtags,
         contentsDetails: contentsDetails ?? this.contentsDetails,
         category: category ?? this.category,
+        isLike: isLike ?? this.isLike,
       );
 
   factory ContentsResDetail.fromJson(Map<String ,dynamic> json) => _$ContentsResDetailFromJson(json);
 
   @override
   String toString() {
-    return 'ContentsResDetail{id: $id, categoryId: $categoryId, userId: $userId, title: $title, diff: $diff, viewCount: $viewCount, wishCount: $wishCount, commentCount: $commentCount, isHome: $isHome, createdAt: $createdAt, thumbnail: $thumbnail, hashtags: $hashtags, contentsDetails: $contentsDetails, category: $category}';
+    return 'ContentsResDetail{id: $id, categoryId: $categoryId, userId: $userId, title: $title, diff: $diff, viewCount: $viewCount, wishCount: $wishCount, commentCount: $commentCount, isHome: $isHome, createdAt: $createdAt, thumbnail: $thumbnail, hashtags: $hashtags, contentsDetails: $contentsDetails, category: $category, isLike: $isLike}';
   }
 }
 
