@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediport/core/enum/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,11 +17,11 @@ class BottomTabBar extends ConsumerStatefulWidget {
 class _BottomTabBarState extends ConsumerState<BottomTabBar> {
   /// 탭 별 라우트 목록
   final List<List<dynamic>> _tabRoutes = [
-    [AppRouter.home.name, '홈', const Icon(Icons.home)],
-    [AppRouter.contents.name, '경영', const Icon(Icons.home)],
-    [AppRouter.home.name, '영상', const Icon(Icons.home)],
-    [AppRouter.contents.name, '장비', const Icon(Icons.home)],
-    [AppRouter.home.name, '메디通', const Icon(Icons.home)],
+    [AppRouter.home.name, '홈', Image.asset('assets/icons/bottom-navigation/home-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/home-active.png', height: 40.0.h)],
+    [AppRouter.contents.name, '경영', Image.asset('assets/icons/bottom-navigation/management-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/management-active.png', height: 40.0.h)],
+    [AppRouter.home.name, '영상', Image.asset('assets/icons/bottom-navigation/video-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/video-active.png', height: 40.0.h)],
+    [AppRouter.contents.name, '장비', Image.asset('assets/icons/bottom-navigation/equipment-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/equipment-active.png', height: 40.0.h)],
+    [AppRouter.home.name, '메디通', Image.asset('assets/icons/bottom-navigation/meditong-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/meditong-active.png', height: 40.0.h)],
   ];
 
   /// 현재 탭 인덱스
@@ -53,8 +54,9 @@ class _BottomTabBarState extends ConsumerState<BottomTabBar> {
         bottomNavigationBar: NavigationBar(
           indicatorColor: Colors.transparent,
           onDestinationSelected: _changeTab,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           selectedIndex: _currentIndex,
-          destinations: _tabRoutes.map((e) => NavigationDestination(label: e[1], icon: e[2])).toList(),
+          destinations: _tabRoutes.map((e) => NavigationDestination(label: '', icon: e[2], selectedIcon: e[3],),).toList(),
         ));
   }
 }

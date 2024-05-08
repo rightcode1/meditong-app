@@ -15,13 +15,17 @@ class HomeScreen extends ConsumerWidget {
     return DefaultLayout(
       showAppBar: true,
       padding: EdgeInsets.zero,
-      titleWidget: Text(
-        'medial treatment',
-        style: TextStyle(fontSize: 16.0.sp, fontWeight: FontWeight.w700, color: AppColor.primary),
-      ),
+      titleWidget: Image.asset('assets/images/common/logo.png', height: 22.0.h),
       actions: [
-        IconButton(onPressed: () => context.pushNamed(AppRouter.my.name), icon: const Icon(Icons.person), visualDensity: VisualDensity.compact,),
-        IconButton(onPressed: () => context.pushNamed(AppRouter.alert.name), icon: const Icon(Icons.notifications), visualDensity: VisualDensity.compact),
+        IconButton(
+          onPressed: () => context.pushNamed(AppRouter.my.name),
+          icon: Image.asset('assets/icons/common/my@3x.png', height: 20.0.h),
+          visualDensity: VisualDensity.compact,
+        ),
+        IconButton(
+            onPressed: () => context.pushNamed(AppRouter.alert.name),
+            icon: Image.asset('assets/icons/common/alert_bell_black.png', height: 20.0.h),
+            visualDensity: VisualDensity.compact),
       ],
       child: SingleChildScrollView(
           child: Column(
