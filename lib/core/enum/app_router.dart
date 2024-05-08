@@ -37,6 +37,7 @@ enum AppRouter {
 
   // 경영/장비 게시글 리스트 라우터
   contents(path: '/contents', name: 'contents', subPath: 'contents'),
+  contentsDetail(path: '/contents/detail', name: 'contentsDetail', subPath: 'contents/detail'),
 
   example2(path: '/example2', name: 'example2', subPath: 'example2'),
   exampleSub(path: '/example2/sub', name: 'exampleSub', subPath: 'exampleSub'),

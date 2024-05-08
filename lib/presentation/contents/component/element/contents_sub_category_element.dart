@@ -12,6 +12,8 @@ import 'package:mediport/core/util/bottom_sheet_utils.dart';
 import 'package:mediport/domain/model/contents/res/contents_res_list.dart';
 import 'package:mediport/service/contents/contents_providers.dart';
 
+import '../../../../core/enum/app_router.dart';
+
 class ContentsSubCategoryElement extends ConsumerStatefulWidget {
   const ContentsSubCategoryElement({
     super.key,
@@ -199,6 +201,10 @@ class _ContentsSubCategoryElementState extends ConsumerState<ContentsSubCategory
                         wishCount: each.wishCount,
                         commentCount: each.commentCount,
                         createdAt: each.createdAt,
+                        onClicked: () => context.pushNamed(AppRouter.contentsDetail.name, queryParameters: {
+                          'contentsId': each.id.toString(),
+                          'diff': _diff,
+                        }),
                       );
                     },
                     noItemsFoundIndicatorBuilder: (context) => Padding(

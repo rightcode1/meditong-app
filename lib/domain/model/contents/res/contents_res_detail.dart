@@ -13,7 +13,7 @@ class ContentsResDetail {
   final int wishCount;
   final int commentCount;
   final bool isHome;
-  final String createdAt;
+  final DateTime createdAt;
   final String? thumbnail;
   final List<ContentsResDetailHashtag> hashtags;
   final List<ContentsResDetailContentsDetail> contentsDetails;
@@ -46,7 +46,7 @@ class ContentsResDetail {
     int? wishCount,
     int? commentCount,
     bool? isHome,
-    String? createdAt,
+    DateTime? createdAt,
     String? thumbnail,
     List<ContentsResDetailHashtag>? hashtags,
     List<ContentsResDetailContentsDetail>? contentsDetails,

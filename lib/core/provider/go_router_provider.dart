@@ -11,6 +11,7 @@ import 'package:mediport/presentation/alert/view/register/alert_register_screen.
 import 'package:mediport/presentation/auth/view/auth_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_id_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_password_screen.dart';
+import 'package:mediport/presentation/contents/view/contents_detail_screen.dart';
 import 'package:mediport/presentation/contents/view/contents_list_screen.dart';
 import 'package:mediport/presentation/home/view/home_screen.dart';
 import 'package:mediport/presentation/my/view/my_screen.dart';
@@ -209,13 +210,24 @@ final routerConfigProvider = Provider<GoRouter>(
               ]),
           /* 경영/장비 탭 */
           GoRoute(
-            path: AppRouter.contents.path,
-            name: AppRouter.contents.name,
-            pageBuilder: (context, state) {
-              final diff = state.uri.queryParameters['diff']!;
-              return buildPageWithDefaultTransition(context: context, state: state, child: ContentsListScreen(diff: diff));
-            },
-          ),
+              path: AppRouter.contents.path,
+              name: AppRouter.contents.name,
+              pageBuilder: (context, state) {
+                final diff = state.uri.queryParameters['diff']!;
+                return buildPageWithDefaultTransition(context: context, state: state, child: ContentsListScreen(diff: diff));
+              },
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: rootNavigatorKey,
+                  path: AppRouter.contentsDetail.subPath,
+                  name: AppRouter.contentsDetail.name,
+                  builder: (context, state) {
+                    final contentsId = int.parse(state.uri.queryParameters['contentsId']!);
+                    final diff = state.uri.queryParameters['diff']!;
+                    return ContentsDetailScreen(contentsId: contentsId, diff: diff);
+                  },
+                )
+              ]),
         ],
       ),
     ];
