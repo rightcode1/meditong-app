@@ -17,7 +17,6 @@ abstract class CategoryRepository {
   factory CategoryRepository(Dio dio, { String baseUrl }) = _CategoryRepository;
 
   @GET('/list')
-  @Headers({'authorization': 'true'})
   Future<BaseResponse<List<CategoryResList>>> list({
     @Query('diff') required String diff,
     @Query('primary') String? primary,

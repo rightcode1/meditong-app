@@ -12,8 +12,10 @@ import 'package:mediport/core/component/container/common_comment_list_container.
 import 'package:mediport/core/component/divider/thick_divider.dart';
 import 'package:mediport/core/component/text_fields/common_form_text_field.dart';
 import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/exception/request_exception.dart';
 import 'package:mediport/core/layout/default_layout.dart';
+import 'package:mediport/core/util/go_router_utils.dart';
 import 'package:mediport/core/util/toast_utils.dart';
 import 'package:mediport/domain/model/contents/res/contents_res_detail.dart';
 import 'package:mediport/domain/model/user/res/user_res.dart';
@@ -92,7 +94,7 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
         onBackPressed: () => context.pop(true),
         title: '${widget.diff} 상세',
         /* 댓글 입력란 */
-        bottomNavigationBar: renderCommentTextField(),
+        bottomNavigationBar: _user == null ? null : renderCommentTextField(),
         child: RefreshIndicator(
           onRefresh: () async {
             ref.invalidate(contentsDetailProvider);
@@ -348,7 +350,18 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                         child: CommonButton(
                           foregroundColor: AppColor.grey300,
                           backgroundColor: isLike ? AppColor.pink700 : AppColor.grey500,
-                          onPressed: () => ref.read(contentsDetailProvider(contentsId: data.id).notifier).changeLike(),
+                          onPressed: () {
+                            if (_user == null) {
+                              GoRouterUtils.recordExpectedRouteAndGoToAuth(context, ref, expectedRoute: AppRouter.contentsDetail.name, queryParameters: {
+                                'contentsId': data.id.toString(),
+                                'diff': widget.diff,
+                              });
+
+                              return;
+                            }
+
+                            ref.read(contentsDetailProvider(contentsId: data.id).notifier).changeLike();
+                          },
                           textWidget: Row(
                             children: [
                               Image.asset(
