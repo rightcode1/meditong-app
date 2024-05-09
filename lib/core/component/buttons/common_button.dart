@@ -77,7 +77,7 @@ class CommonButton extends StatelessWidget {
             borderRadius: borderRadius ?? BorderRadius.circular(5.0.r)),
         elevation: elevation ?? 0.0,
         disabledBackgroundColor: AppColor.grey500,
-        foregroundColor: foregroundColor ?? AppColor.primary,
+        foregroundColor: AppColor.grey300,
         padding: padding,
       ),
       child: isLoading
