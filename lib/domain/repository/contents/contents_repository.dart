@@ -18,7 +18,6 @@ abstract class ContentsRepository {
   factory ContentsRepository(Dio dio, { String baseUrl }) = _ContentsRepository;
 
   @GET('/list')
-  @Headers({'authorization': 'true'})
   Future<BaseResponse<List<ContentsResList>>> list({
     @Query('page') int? page,
     @Query('limit') int? limit = 15,
@@ -33,7 +32,6 @@ abstract class ContentsRepository {
   });
 
   @GET('/detail')
-  @Headers({'authorization': 'true'})
   Future<BaseResponse<ContentsResDetail>> detail({
     @Query('id') required int id,
   });
