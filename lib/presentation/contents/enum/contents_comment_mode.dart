@@ -1,0 +1,4 @@
+enum ContentsCommentMode {
+  update,
+  reply
+}

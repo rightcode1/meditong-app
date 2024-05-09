@@ -21,7 +21,11 @@ import 'package:mediport/service/contents/contents_providers.dart';
 import 'package:mediport/service/contents_comment/contents_comment_providers.dart';
 import 'package:mediport/service/user/provider/user_providers.dart';
 
+import '../../../domain/model/contents_comment/res/contents_comment_res_list.dart';
+import '../enum/contents_comment_mode.dart';
+
 class ContentsDetailScreen extends ConsumerStatefulWidget {
+  /// FIXME: ViewModel 활용한 엘리먼트로 분리 대상 1순위
   const ContentsDetailScreen({
     super.key,
     required this.contentsId,
@@ -39,10 +43,19 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
   final _commentTextController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
+  UserRes? _user;
+
   // 댓글란 포커스 노드
   final FocusNode _commentFocusNode = FocusNode();
 
-  UserRes? _user;
+  /// 현재 텍스트 입력창 모드 (수정/답글)
+  ContentsCommentMode? _commentInputMode;
+
+  /// 답글 작성 대상 아이디 (답글 등록 취소 또는 등록 시 제거)
+  String? _replyingTargetUsername;
+
+  /// 현재 답글/수정 대상 댓글 모델
+  ContentsCommentResList? _targetCommentModel;
 
   @override
   void initState() {
@@ -51,6 +64,7 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
     if (user is UserRes) {
       _user = user;
     }
+
     super.initState();
   }
 
@@ -64,6 +78,7 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final contentsDetail = ref.watch(contentsDetailProvider(contentsId: widget.contentsId));
+
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -77,47 +92,12 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
         onBackPressed: () => context.pop(true),
         title: '${widget.diff} 상세',
         /* 댓글 입력란 */
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, bottom: MediaQuery.viewInsetsOf(context).bottom > 0 ? MediaQuery.viewInsetsOf(context).bottom :  20.0.h),
-          child: CommonForm.create(
-            controller: _commentTextController,
-            focusNode: _commentFocusNode,
-            onTap: () => _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-                duration: const Duration(seconds: 1), curve: Curves.fastLinearToSlowEaseIn),
-            onChanged: (controller) => setState(() {}),
-            hintText: '댓글을 입력해주세요.',
-            suffixIcon: Padding(
-              padding: EdgeInsets.only(right: 6.0.w),
-              child: SizedBox(
-                width: 52.0.w,
-                child: CommonButton(
-                  backgroundColor: _commentTextController.text.isEmpty ? AppColor.grey500 : AppColor.lightPrimary,
-                  textColor: AppColor.primary,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    if (_commentTextController.text.isEmpty) return;
-
-                    // 댓글을 전송한다.
-                    ref
-                        .read(contentsCommentProvider(contentsId: widget.contentsId).notifier)
-                        .register(content: _commentTextController.text)
-                        .then((result) {
-                      _commentTextController.clear();
-                      Future.delayed(const Duration(milliseconds: 300)).then((value) => _scrollController.animateTo(
-                          _scrollController.position.maxScrollExtent,
-                          duration: const Duration(seconds: 1),
-                          curve: Curves.fastLinearToSlowEaseIn));
-                      ToastUtils.showToast(context, toastText: result ? '댓글이 등록되었습니다.' : '댓글 등록 중 오류가 발생했습니다.');
-                    });
-                  },
-                  text: '등록',
-                ),
-              ),
-            ),
-          ),
-        ),
+        bottomNavigationBar: renderCommentTextField(),
         child: RefreshIndicator(
-          onRefresh: () async {},
+          onRefresh: () async {
+            ref.invalidate(contentsDetailProvider);
+            ref.invalidate(contentsCommentProvider);
+          },
           child: contentsDetail.when(
             data: (data) {
               return SingleChildScrollView(
@@ -140,6 +120,109 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  /// 댓글 입력창 렌더링 (bottomNavigationBar)
+  Widget renderCommentTextField() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        /* 댓글 답글/수정 컨테이너 */
+        if (_commentInputMode == ContentsCommentMode.update || _commentInputMode == ContentsCommentMode.reply)
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 5.0.h),
+            color: AppColor.grey500,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  _commentInputMode == ContentsCommentMode.update ? '댓글 수정 중' : '$_replyingTargetUsername님에게 답글 다는 중',
+                  style: TextStyle(fontSize: 12.0.sp, fontWeight: FontWeight.w400, color: AppColor.darkGrey300),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      _commentInputMode = null;
+                      _commentTextController.clear();
+                    });
+                  },
+                  icon: Icon(Icons.close, size: 16.0.sp),
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.compact,
+                ),
+              ],
+            ),
+          ),
+        /* 텍스트 필드 */
+        Padding(
+          padding: EdgeInsets.only(
+              left: 16.0.w,
+              right: 16.0.w,
+              top: 10.0.h,
+              bottom: MediaQuery.viewInsetsOf(context).bottom > 0 ? MediaQuery.viewInsetsOf(context).bottom : 20.0.h),
+          child: CommonForm.create(
+            controller: _commentTextController,
+            focusNode: _commentFocusNode,
+            onTap: () => _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+                duration: const Duration(seconds: 1), curve: Curves.fastLinearToSlowEaseIn),
+            onChanged: (controller) => setState(() {}),
+            hintText: '댓글을 입력해주세요.',
+            suffixIcon: Padding(
+              padding: EdgeInsets.only(right: 6.0.w),
+              child: SizedBox(
+                width: 52.0.w,
+                child: CommonButton(
+                  backgroundColor: _commentTextController.text.isEmpty ? AppColor.grey500 : AppColor.lightPrimary,
+                  textColor: AppColor.primary,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    if (_commentTextController.text.isEmpty) return;
+
+                    // 댓글을 전송한다. (등록/수정/답글 상태에 따라 다르게 분기한다.)
+                    if (_commentInputMode == null) {
+                      // 댓글을 등록한다.
+                      ref
+                          .read(contentsCommentProvider(contentsId: widget.contentsId).notifier)
+                          .register(content: _commentTextController.text)
+                          .then((result) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        _commentTextController.clear();
+                        Future.delayed(const Duration(milliseconds: 300)).then((value) => _scrollController.animateTo(
+                            _scrollController.position.maxScrollExtent,
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.fastLinearToSlowEaseIn));
+                        ToastUtils.showToast(context, toastText: result ? '댓글이 등록되었습니다.' : '댓글 등록 중 오류가 발생했습니다.');
+                      });
+                    } else if (_commentInputMode == ContentsCommentMode.update) {
+                      // 댓글을 수정한다.
+                      ref.read(contentsCommentProvider(contentsId: widget.contentsId).notifier).modify(commentId: _targetCommentModel!.id, content: _commentTextController.text).then((result) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        _commentTextController.clear();
+                        ToastUtils.showToast(context, toastText: result ? '댓글이 수정되었습니다.' : '댓글 수정 중 오류가 발생했습니다.');
+                        _commentInputMode = null;
+                      });
+                    } else {
+                      // 답글을 등록한다.
+                      ref
+                          .read(contentsCommentProvider(contentsId: widget.contentsId).notifier)
+                          .register(content: _commentTextController.text, contentsCommentId: _targetCommentModel!.id)
+                          .then((result) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        _commentTextController.clear();
+                        ToastUtils.showToast(context, toastText: result ? '답글이 등록되었습니다.' : '답글 등록 중 오류가 발생했습니다.');
+                        _commentInputMode = null;
+                      });
+                    }
+                  },
+                  text: '등록',
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -246,14 +329,14 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                         children: data.hashtags
                             .map(
                               (e) => CommonChip(
-                                useBorder: true,
-                                padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 4.0.h),
-                                backgroundColor: Colors.white,
-                                textColor: AppColor.primary,
-                                borderRadius: BorderRadius.circular(9999),
-                                text: e.content,
-                              ),
-                            )
+                            useBorder: true,
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 4.0.h),
+                            backgroundColor: Colors.white,
+                            textColor: AppColor.primary,
+                            borderRadius: BorderRadius.circular(9999),
+                            text: e.content,
+                          ),
+                        )
                             .toList(),
                       ),
                     ),
@@ -336,17 +419,32 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                       return CommonCommentListContainer.fromModel(
                         model: eachComment,
                         isMine: _user == null ? null : _user!.id == eachComment.userId,
-                        onReportClicked: () {},
-                        onReplyClicked: () {
+                        isReplied: eachComment.contentsCommentId != null,
+                        onReportClicked: () {
+                          ToastUtils.showToast(context, toastText: '기능 - 신고하기');
                         },
-                        onDeleteClicked: () => notifier.remove(commentId: eachComment.id).then((result) => ToastUtils.showToast(context, toastText: result ? '댓글이 삭제되었습니다.' : '댓글 삭제 중 오류가 발생했습니다.')),
+                        onReplyClicked: () {
+                          setState(() {
+                            _targetCommentModel = eachComment;
+                            _replyingTargetUsername = eachComment.user.name;
+                            _commentInputMode = ContentsCommentMode.reply;
+                            FocusScope.of(context).requestFocus(_commentFocusNode);
+                          });
+                        },
+                        onDeleteClicked: () => notifier
+                            .remove(commentId: eachComment.id)
+                            .then((result) => ToastUtils.showToast(context, toastText: result ? '댓글이 삭제되었습니다.' : '댓글 삭제 중 오류가 발생했습니다.')),
                         onUpdateClicked: () {
-                          _commentTextController.text = eachComment.content;
-                          FocusScope.of(context).requestFocus(_commentFocusNode);
+                          setState(() {
+                            _targetCommentModel = eachComment;
+                            _commentInputMode = ContentsCommentMode.update;
+                            _commentTextController.text = eachComment.content;
+                            FocusScope.of(context).requestFocus(_commentFocusNode);
+                          });
                         },
                       );
                     },
-                    separatorBuilder: (context, index) => SizedBox(height: 20.0.h),
+                    separatorBuilder: (context, index) => SizedBox(height: 0.0.h),
                     itemCount: data.length,
                   ),
                 ],

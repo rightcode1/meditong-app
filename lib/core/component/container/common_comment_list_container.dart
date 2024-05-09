@@ -11,6 +11,7 @@ class CommonCommentListContainer extends StatelessWidget {
   const CommonCommentListContainer({
     super.key,
     required this.isMine,
+    required this.isReplied,
     required this.thumbnail,
     required this.username,
     required this.content,
@@ -25,6 +26,7 @@ class CommonCommentListContainer extends StatelessWidget {
   factory CommonCommentListContainer.fromModel({
     required ContentsCommentResList model,
     required bool? isMine,
+    required bool isReplied,
     required VoidCallback onReportClicked,
     required VoidCallback onReplyClicked,
     required VoidCallback onDeleteClicked,
@@ -32,6 +34,7 @@ class CommonCommentListContainer extends StatelessWidget {
   }) {
     return CommonCommentListContainer(
       isMine: isMine,
+      isReplied: isReplied,
       // TODO: 썸네일 연동
       thumbnail: null,
       username: model.user.name,
@@ -49,6 +52,9 @@ class CommonCommentListContainer extends StatelessWidget {
   /// false : 회원, 내가 쓴 댓글 X
   /// true : 회원, 내가 쓴 댓글 O
   final bool? isMine;
+
+  /// 대댓글 여부
+  final bool isReplied;
 
   final String? thumbnail;
 
@@ -77,73 +83,76 @@ class CommonCommentListContainer extends StatelessWidget {
     final textButtonStyle =
         TextButton.styleFrom(foregroundColor: AppColor.darkGrey300, padding: EdgeInsets.zero, visualDensity: VisualDensity.compact);
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        thumbnail == null
-            ? Image.asset('assets/icons/common/default_profile.png', height: 36.0.h)
-            : CachedNetworkImage(
-                imageUrl: thumbnail!,
-                height: 36.0.h,
-                fit: BoxFit.cover,
-              ),
-        SizedBox(width: 6.0.w),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                username,
-                style: TextStyle(
-                  fontSize: 14.0.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColor.darkGrey600,
+    return Padding(
+      padding: isReplied ? EdgeInsets.only(left: 16.0.w, bottom: 10.0.h) : EdgeInsets.symmetric(vertical: 10.0.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          thumbnail == null
+              ? Image.asset('assets/icons/common/default_profile.png', height: 36.0.h)
+              : CachedNetworkImage(
+                  imageUrl: thumbnail!,
+                  height: 36.0.h,
+                  fit: BoxFit.cover,
                 ),
-              ),
-              SizedBox(height: 4.0.h),
-              Text(
-                !isDeletedByAdmin ? content : '정책상 삭제된 댓글입니다.',
-                style: TextStyle(fontSize: 16.0.sp, fontWeight: FontWeight.w400, color: !isDeletedByAdmin ? null : AppColor.grey600),
-              ),
-              SizedBox(height: 4.0.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(createdAt, style: smallTextStyle.copyWith(color: AppColor.darkGrey300)),
-                  Row(
-                    children: [
-                      if (isUser && isMine == false && !isDeletedByAdmin)
-                        TextButton(
-                          onPressed: onReportClicked,
-                          style: textButtonStyle,
-                          child: Text('신고하기', style: smallTextStyle.copyWith(color: AppColor.red400)),
-                        ),
-                      if (isUser && !isDeletedByAdmin)
-                        TextButton(
-                          onPressed: onReplyClicked,
-                          style: textButtonStyle,
-                          child: Text('답글달기', style: smallTextStyle.copyWith(color: AppColor.cyan700)),
-                        ),
-                      if (isUser && isMine == true && !isDeletedByAdmin) ...[
-                        TextButton(
-                          onPressed: onUpdateClicked,
-                          style: textButtonStyle,
-                          child: Text('수정하기', style: smallTextStyle.copyWith(color: AppColor.cyan700)),
-                        ),
-                        TextButton(
-                          onPressed: onDeleteClicked,
-                          style: textButtonStyle,
-                          child: Text('삭제하기', style: smallTextStyle.copyWith(color: AppColor.pink700)),
-                        ),
+          SizedBox(width: 6.0.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  username,
+                  style: TextStyle(
+                    fontSize: 14.0.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColor.darkGrey600,
+                  ),
+                ),
+                SizedBox(height: 4.0.h),
+                Text(
+                  !isDeletedByAdmin ? content : '정책상 삭제된 댓글입니다.',
+                  style: TextStyle(fontSize: 16.0.sp, fontWeight: FontWeight.w400, color: !isDeletedByAdmin ? null : AppColor.grey600),
+                ),
+                SizedBox(height: 4.0.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(createdAt, style: smallTextStyle.copyWith(color: AppColor.darkGrey300)),
+                    Row(
+                      children: [
+                        if (isUser && isMine == false && !isDeletedByAdmin)
+                          TextButton(
+                            onPressed: onReportClicked,
+                            style: textButtonStyle,
+                            child: Text('신고하기', style: smallTextStyle.copyWith(color: AppColor.red400)),
+                          ),
+                        if (isUser && !isReplied && !isDeletedByAdmin)
+                          TextButton(
+                            onPressed: onReplyClicked,
+                            style: textButtonStyle,
+                            child: Text('답글달기', style: smallTextStyle.copyWith(color: AppColor.cyan700)),
+                          ),
+                        if (isUser && isMine == true && !isDeletedByAdmin) ...[
+                          TextButton(
+                            onPressed: onUpdateClicked,
+                            style: textButtonStyle,
+                            child: Text('수정하기', style: smallTextStyle.copyWith(color: AppColor.cyan700)),
+                          ),
+                          TextButton(
+                            onPressed: onDeleteClicked,
+                            style: textButtonStyle,
+                            child: Text('삭제하기', style: smallTextStyle.copyWith(color: AppColor.pink700)),
+                          ),
+                        ],
                       ],
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
-        )
-      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
