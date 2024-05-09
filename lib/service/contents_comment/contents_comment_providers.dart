@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mediport/core/exception/request_exception.dart';
 import 'package:mediport/domain/model/contents_comment/req/contents_comment_req_register.dart';
+import 'package:mediport/domain/model/contents_comment/req/contents_comment_req_update.dart';
 import 'package:mediport/domain/model/contents_comment/res/contents_comment_res_list.dart';
 import 'package:mediport/domain/repository/contents_comment/contents_comment_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -50,10 +51,31 @@ class ContentsComment extends _$ContentsComment {
     }
   }
 
+  /// 댓글을 수정한다.
+  Future<bool> modify({
+    required int commentId,
+    required String content,
+  }) async {
+    try {
+      final requestDto = ContentsCommentReqUpdate(
+        content: content
+      );
+
+      await ref.read(contentsCommentRepositoryProvider).update(id: commentId, body: requestDto).then((value) => ref.invalidateSelf());
+
+      return true;
+    } catch (err, stack) {
+      debugPrint(err.toString());
+      debugPrint(stack.toString());
+
+      return false;
+    }
+  }
+
   /// 댓글을 삭제한다.
   Future<bool> remove({
     required int commentId,
-}) async {
+  }) async {
     try {
       await ref.read(contentsCommentRepositoryProvider).remove(id: commentId).then((value) => ref.invalidateSelf());
       return true;
