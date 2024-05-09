@@ -11,6 +11,8 @@ import 'package:mediport/presentation/alert/view/register/alert_register_screen.
 import 'package:mediport/presentation/auth/view/auth_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_id_screen.dart';
 import 'package:mediport/presentation/auth/view/find/find_password_screen.dart';
+import 'package:mediport/presentation/contents/view/contents_detail_screen.dart';
+import 'package:mediport/presentation/contents/view/contents_list_screen.dart';
 import 'package:mediport/presentation/home/view/home_screen.dart';
 import 'package:mediport/presentation/my/view/my_screen.dart';
 import 'package:mediport/presentation/splash_screen.dart';
@@ -38,6 +40,7 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
   return CustomTransitionPage<T>(
     key: state.pageKey,
     child: child,
+    transitionDuration: const Duration(milliseconds: 150),
     transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
   );
 }
@@ -121,6 +124,7 @@ final routerConfigProvider = Provider<GoRouter>(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) => BottomTabBar(state: state, child: child),
         routes: [
+          /* 홈 탭 */
           GoRoute(
               path: AppRouter.home.path,
               name: AppRouter.home.name,
@@ -128,55 +132,55 @@ final routerConfigProvider = Provider<GoRouter>(
               routes: [
                 /// 마이 스크린
                 GoRoute(
-                  parentNavigatorKey: rootNavigatorKey,
-                  path: AppRouter.my.subPath,
-                  name: AppRouter.my.name,
-                  builder: (context, state) => const MyScreen(),
-                  routes: [
-                    /* 공지사항 */
-                    GoRoute(
-                      parentNavigatorKey: rootNavigatorKey,
-                      path: AppRouter.notice.name,
-                      name: AppRouter.notice.name,
-                      builder: (context, state) => const NoticeListScreen(),
-                      routes: [
-                        GoRoute(
-                          parentNavigatorKey: rootNavigatorKey,
-                          path: AppRouter.noticeDetail.name,
-                          name: AppRouter.noticeDetail.name,
-                          builder: (context, state) {
-                            final int id = int.parse(state.uri.queryParameters['id']!);
-                            return NoticeDetailScreen(id: id);
-                          },
-                        ),
-                      ],
-                    ),
-                    /* 1:1 문의 */
-                    GoRoute(
-                      parentNavigatorKey: rootNavigatorKey,
-                      path: AppRouter.inquiry.name,
-                      name: AppRouter.inquiry.name,
-                      builder: (context, state) => const InquiryListScreen(),
-                      routes: [
-                        GoRoute(
-                          parentNavigatorKey: rootNavigatorKey,
-                          path: AppRouter.inquiryDetail.name,
-                          name: AppRouter.inquiryDetail.name,
-                          builder: (context, state) {
-                            final int inquiryId = int.parse(state.uri.queryParameters['inquiryId']!);
-                            return InquiryDetailScreen(inquiryId: inquiryId);
-                          },
-                        ),
-                        GoRoute(
-                          parentNavigatorKey: rootNavigatorKey,
-                          path: AppRouter.inquiryRegister.name,
-                          name: AppRouter.inquiryRegister.name,
-                          builder: (context, state) => const InquiryRegisterScreen(),
-                        ),
-                      ],
-                    ),
-                  ]
-                ),
+                    parentNavigatorKey: rootNavigatorKey,
+                    path: AppRouter.my.subPath,
+                    name: AppRouter.my.name,
+                    builder: (context, state) => const MyScreen(),
+                    routes: [
+                      /* 공지사항 */
+                      GoRoute(
+                        parentNavigatorKey: rootNavigatorKey,
+                        path: AppRouter.notice.name,
+                        name: AppRouter.notice.name,
+                        builder: (context, state) => const NoticeListScreen(),
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: rootNavigatorKey,
+                            path: AppRouter.noticeDetail.name,
+                            name: AppRouter.noticeDetail.name,
+                            builder: (context, state) {
+                              final int id = int.parse(state.uri.queryParameters['id']!);
+                              return NoticeDetailScreen(id: id);
+                            },
+                          ),
+                        ],
+                      ),
+                      /* 1:1 문의 */
+                      GoRoute(
+                        parentNavigatorKey: rootNavigatorKey,
+                        path: AppRouter.inquiry.name,
+                        name: AppRouter.inquiry.name,
+                        builder: (context, state) => const InquiryListScreen(),
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: rootNavigatorKey,
+                            path: AppRouter.inquiryDetail.name,
+                            name: AppRouter.inquiryDetail.name,
+                            builder: (context, state) {
+                              final int inquiryId = int.parse(state.uri.queryParameters['inquiryId']!);
+                              return InquiryDetailScreen(inquiryId: inquiryId);
+                            },
+                          ),
+                          GoRoute(
+                            parentNavigatorKey: rootNavigatorKey,
+                            path: AppRouter.inquiryRegister.name,
+                            name: AppRouter.inquiryRegister.name,
+                            builder: (context, state) => const InquiryRegisterScreen(),
+                          ),
+                        ],
+                      ),
+                    ]),
+
                 /// 알림 스크린
                 GoRoute(
                   parentNavigatorKey: rootNavigatorKey,
@@ -203,6 +207,26 @@ final routerConfigProvider = Provider<GoRouter>(
                     return AdvertisementDetailScreen(advertisementId: advertisementId);
                   },
                 ),
+              ]),
+          /* 경영/장비 탭 */
+          GoRoute(
+              path: AppRouter.contents.path,
+              name: AppRouter.contents.name,
+              pageBuilder: (context, state) {
+                final diff = state.uri.queryParameters['diff']!;
+                return buildPageWithDefaultTransition(context: context, state: state, child: ContentsListScreen(diff: diff));
+              },
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: rootNavigatorKey,
+                  path: AppRouter.contentsDetail.subPath,
+                  name: AppRouter.contentsDetail.name,
+                  builder: (context, state) {
+                    final contentsId = int.parse(state.uri.queryParameters['contentsId']!);
+                    final diff = state.uri.queryParameters['diff']!;
+                    return ContentsDetailScreen(contentsId: contentsId, diff: diff);
+                  },
+                )
               ]),
         ],
       ),

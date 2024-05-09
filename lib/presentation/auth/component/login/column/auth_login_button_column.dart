@@ -40,7 +40,7 @@ class AuthLoginButtonColumn extends ConsumerWidget {
           child: CommonButton(
             text: '회원가입',
             onPressed: onJoinBtnClicked,
-            buttonColor: AppColor.lightPrimary,
+            backgroundColor: AppColor.lightPrimary,
             textColor: AppColor.primary,
           ),
         ),

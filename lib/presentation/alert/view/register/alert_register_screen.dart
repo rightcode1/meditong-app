@@ -41,7 +41,7 @@ class _AlertRegisterScreenState extends ConsumerState<AlertRegisterScreen> {
             suffixIcon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 6.0.w, vertical: 6.0.h),
               child: CommonButton(
-                buttonColor: _keywordController.text.isEmpty ? AppColor.grey500 : AppColor.lightPrimary,
+                backgroundColor: _keywordController.text.isEmpty ? AppColor.grey500 : AppColor.lightPrimary,
                 textColor: _keywordController.text.isEmpty ? AppColor.cyan700 : AppColor.primary,
                 text: '등록',
                 onPressed: () async {

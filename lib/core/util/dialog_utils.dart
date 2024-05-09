@@ -159,7 +159,7 @@ class DialogUtils {
                           height: 50.0.h,
                           child: CommonButton(
                             text: leftButtonText,
-                            buttonColor: AppColor.grey600,
+                            backgroundColor: AppColor.grey600,
                             onPressed: onLeftButtonPressed,
                           ),
                         ),
@@ -172,7 +172,7 @@ class DialogUtils {
                           height: 50.0.h,
                           child: CommonButton(
                             text: rightButtonText,
-                            buttonColor: AppColor.primary,
+                            backgroundColor: AppColor.primary,
                             onPressed: onRightButtonPressed,
                           ),
                         ),

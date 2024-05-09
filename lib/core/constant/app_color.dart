@@ -25,10 +25,11 @@ class AppColor {
   static const grey200 = Color.fromRGBO(253, 253, 253, 1.0);
   static const grey300 = Color.fromRGBO(250, 250, 250, 1.0);
   static const grey400 = Color.fromRGBO(248, 248, 248, 1.0);
-  static const grey500 = Color.fromRGBO(237, 237, 237, 1.0);
+  static const grey500 = Color.fromRGBO(236, 239, 241, 1.0);
   static const grey550 = Color.fromRGBO(207, 216, 220, 1.0);
   static const grey600 = Color.fromRGBO(189, 189, 189, 1.0);
   static const grey700 = Color.fromRGBO(163, 166, 172, 1.0);
+  static const grey750 = Color.fromRGBO(158, 158, 158, 1.0);
 
   /// 파랑 색상 계열
   static const blue300 = Color.fromRGBO(222, 239, 255, 1.0);
@@ -40,7 +41,10 @@ class AppColor {
   /// 빨강 색상 계열
   static const red100 = Color.fromRGBO(253, 219, 219, 1.0);
   static const red300 = Color.fromRGBO(236, 123, 122, 1.0);
+  static const red400 = Color.fromRGBO(255, 66, 71, 1.0);
   static const red500 = Color.fromRGBO(255, 0, 0, 1.0);
+
+  static const pink700 = Color.fromRGBO(255, 0, 107, 1.0);
 
   /// 주황 색상 계열
   static const orange500 = Color.fromRGBO(255, 178, 7, 1.0);

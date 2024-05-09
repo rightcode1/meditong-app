@@ -8,7 +8,7 @@ import '../../constant/app_color.dart';
 /// 사용 시, 부모 위젯에서 탭 컨트롤러를 반드시 초기화시킨 후 파라미터로 넘겨주어야한다.
 class CommonTabBar extends StatelessWidget {
   /// 탭을 제어하기 위한 컨트롤러
-  final TabController tabController;
+  final TabController? tabController;
 
   /// 탭을 표현하기 위한 탭 리스트
   final List<Widget> tabList;
@@ -29,15 +29,15 @@ class CommonTabBar extends StatelessWidget {
   final Function(int index)? onTap;
 
   const CommonTabBar({
-    required this.tabController,
+    this.tabController,
     required this.tabList,
     this.isScrollable = true,
     this.labelPadding,
     this.indicatorSize = TabBarIndicatorSize.label,
     this.onTap,
     this.showDivider = true,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,19 @@ class CommonTabBar extends StatelessWidget {
         tabAlignment: isScrollable ? TabAlignment.start : null,
         padding: EdgeInsets.symmetric(horizontal: 0.0.w),
         labelPadding: labelPadding ?? EdgeInsets.symmetric(horizontal: 0.0.w),
-        labelColor: Colors.black,
+        labelColor: AppColor.primary,
         labelStyle: TextStyle(
-          fontSize: 14.0.spMin,
+          fontSize: 14.0.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 14.0.sp,
           fontWeight: FontWeight.w500,
         ),
-        unselectedLabelColor: AppColor.grey700,
+        unselectedLabelColor: AppColor.cyan700,
         indicatorSize: indicatorSize,
         indicatorWeight: 3.0,
+        indicatorColor: AppColor.primary,
         dividerColor: showDivider ? AppColor.grey500 : Colors.white,
         tabs: tabList,
       ),
