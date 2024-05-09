@@ -111,6 +111,9 @@ class _MediportState extends ConsumerState<Mediport> {
           bottomAppBarTheme: const BottomAppBarTheme(
             color: Colors.white,
           ),
+          splashFactory: NoSplash.splashFactory,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent
           // colorScheme: const ColorScheme.light(
           //   primary: AppColor.green500,
           //   surfaceTint: Colors.white,

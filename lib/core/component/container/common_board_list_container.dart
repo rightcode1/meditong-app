@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mediport/core/constant/app_color.dart';
+import 'package:mediport/core/util/data_utils.dart';
 
 enum CommonBoardListContainerMode {
   smallPic,
@@ -46,21 +47,27 @@ class CommonBoardListContainer extends StatelessWidget {
     switch (mode) {
       case CommonBoardListContainerMode.smallPic:
         return InkWell(
-          onTap:  onClicked,
+          onTap: onClicked,
           child: IntrinsicHeight(
             child: Row(
               children: [
-                thumbnail == null
-                    ? Image.asset('assets/images/common/app_logo.png', height: 70.0.h)
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0.r),
-                        child: CachedNetworkImage(
-                          width: 70.0.h,
-                          height: 70.0.h,
-                          imageUrl: thumbnail!,
-                          fit: BoxFit.cover,
+                Container(
+                  width: 70.0.h,
+                  height: 70.0.h,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0.r), border: Border.all(color: AppColor.grey500)),
+                  child: thumbnail == null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0.r),
+                          child: Image.asset('assets/images/common/app_logo.png'),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0.r),
+                          child: CachedNetworkImage(
+                            imageUrl: thumbnail!,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
+                ),
                 SizedBox(width: 10.0.w),
                 Expanded(
                   child: Column(
@@ -79,9 +86,13 @@ class CommonBoardListContainer extends StatelessWidget {
                           Text(DateFormat('yyyy.MM.dd').format(createdAt), style: greyTextStyle),
                           Row(
                             children: [
-                              renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: wishCount.toString()),
+                              renderIconContainer(
+                                  iconPath: 'assets/icons/common/wish_icon@3x.png',
+                                  text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
                               SizedBox(width: 10.0.w),
-                              renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: commentCount.toString()),
+                              renderIconContainer(
+                                  iconPath: 'assets/icons/common/comment_icon@3x.png',
+                                  text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
                             ],
                           )
                         ],
@@ -95,18 +106,22 @@ class CommonBoardListContainer extends StatelessWidget {
         );
       case CommonBoardListContainerMode.bigPic:
         return InkWell(
-          onTap:  onClicked,
+          onTap: onClicked,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              thumbnail == null
-                  ? Image.asset('assets/images/common/app_logo.png', height: 150.0.h)
-                  : CachedNetworkImage(
-                      imageUrl: thumbnail!,
-                      width: double.infinity,
-                      height: 150.0.h,
-                      fit: BoxFit.cover,
-                    ),
+              Container(
+                height: 150.0.h,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0.r), border: Border.all(color: AppColor.grey500)),
+                child: thumbnail == null
+                    ? Image.asset('assets/images/common/app_logo.png', height: 150.0.h)
+                    : CachedNetworkImage(
+                        imageUrl: thumbnail!,
+                        width: double.infinity,
+                        height: 150.0.h,
+                        fit: BoxFit.cover,
+                      ),
+              ),
               SizedBox(height: 10.0.h),
               Text(
                 title,
@@ -124,9 +139,9 @@ class CommonBoardListContainer extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: wishCount.toString()),
+                      renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
                       SizedBox(width: 10.0.w),
-                      renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: commentCount.toString()),
+                      renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
                     ],
                   )
                 ],
@@ -136,7 +151,7 @@ class CommonBoardListContainer extends StatelessWidget {
         );
       case CommonBoardListContainerMode.onlyText:
         return InkWell(
-          onTap:  onClicked,
+          onTap: onClicked,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -156,9 +171,9 @@ class CommonBoardListContainer extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: wishCount.toString()),
+                      renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
                       SizedBox(width: 10.0.w),
-                      renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: commentCount.toString()),
+                      renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
                     ],
                   )
                 ],
