@@ -1,8 +1,8 @@
-import 'package:mediport/core/constant/app_color.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediport/core/constant/app_color.dart';
 
 /// Carousel Image Component
 /// !! 높이 변경 시 반드시 Re-start 해야 정상적으로 보인다.
@@ -94,20 +94,24 @@ class _ImageCarouselState extends State<ImageCarousel> {
             ),
           ),
           if (widget.enableIndicator)
-            widget.indicatorWidget ??
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: widget.itemList.mapIndexed((int index, element) {
-                    return Container(
-                      width: MediaQuery.sizeOf(context).width / widget.itemList.length,
-                      height: 5.h,
-                      // margin: EdgeInsets.only(right: 3.w, bottom: 15.h),
-                      decoration: BoxDecoration(
-                        color: _pageIndex == index ? AppColor.primary : AppColor.lightPrimary,
-                      ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return widget.indicatorWidget ??
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: widget.itemList.mapIndexed((int index, element) {
+                        return Container(
+                          width: constraints.maxWidth / widget.itemList.length,
+                          height: 5.h,
+                          // margin: EdgeInsets.only(right: 3.w, bottom: 15.h),
+                          decoration: BoxDecoration(
+                            color: _pageIndex == index ? AppColor.primary : AppColor.lightPrimary,
+                          ),
+                        );
+                      }).toList(),
                     );
-                  }).toList(),
-                ),
+              },
+            ),
         ],
       ),
     );

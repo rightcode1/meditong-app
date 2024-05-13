@@ -29,6 +29,7 @@ class HomeSearchBySurgeryClickableContainer extends StatelessWidget {
           border: Border.all(color: AppColor.grey500),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(

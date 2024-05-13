@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -128,58 +130,60 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
     // AOS/IOS 환경으로 분기하여 처리한다.
     // 단, 스플래시 화면에서는 체크하지 않는다.
     // 또한, 현재 사용 중인 기기 OS 별 스토어 버전을 체크하여, 서버와 상이할 경우 업데이트한다.
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (GoRouterState.of(context).path != '/splash') {
-        late VersionRes versionModel;
-        late int version;
+    if (!kIsWeb) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        if (GoRouterState.of(context).path != '/splash') {
+          late VersionRes versionModel;
+          late int version;
 
-        if (Platform.isAndroid) {
-          versionModel = await ref.read(versionRepositoryProvider).version().then((value) => value.data!);
-          version = versionModel.aosVer;
-        } else if (Platform.isIOS) {
-          versionModel = await ref.read(versionRepositoryProvider).version().then((value) => value.data!);
-          version = versionModel.iosVer;
-        }
-
-        final int currentAppVersion = await PackageInfo.fromPlatform().then((info) => int.parse(info.buildNumber));
-
-        debugPrint('===> Version from server: $version');
-        debugPrint('===> Current app version: $currentAppVersion');
-
-        // 만일, 서버의 버전이 현재 앱의 빌드 버전보다 높을 경우, 스토어 또는 마켓으로 강제 이동시킨다.
-        // ex.)
-        //      currentAppVersion: 14
-        //      versionFromServer: 15
-        //      ===> Then move to app store or google market.
-        if (currentAppVersion < version) {
-          debugPrint('===> 서버 내 앱 버전이 현재 앱 버전보다 높습니다. 강제 업데이트가 필요합니다.');
-
-          if (context.mounted) {
-            await renderDialog(context);
-          }
-        }
-
-        /* 서버와 현재 OS 에 해당하는 스토어의 버전을 체크하여 상이할 경우, 서버 내 버전을 스토어 버전 기준으로 갱신한다. */
-        final storeVersionStatus = await NewVersionPlus().getVersionStatus();
-        final storeVersion = storeVersionStatus?.storeVersion;
-
-        if (storeVersion != null) {
           if (Platform.isAndroid) {
-            final aosStoreVerFromServer = versionModel.aosStoreVer;
-
-            if (storeVersion != aosStoreVerFromServer) {
-              ref.read(versionUpdateProvider(aosStoreVer: storeVersion));
-            }
+            versionModel = await ref.read(versionRepositoryProvider).version().then((value) => value.data!);
+            version = versionModel.aosVer;
           } else if (Platform.isIOS) {
-            final iosStoreVerFromServer = versionModel.iosStoreVer;
+            versionModel = await ref.read(versionRepositoryProvider).version().then((value) => value.data!);
+            version = versionModel.iosVer;
+          }
 
-            if (storeVersion != iosStoreVerFromServer) {
-              ref.read(versionUpdateProvider(iosStoreVer: storeVersion));
+          final int currentAppVersion = await PackageInfo.fromPlatform().then((info) => int.parse(info.buildNumber));
+
+          debugPrint('===> Version from server: $version');
+          debugPrint('===> Current app version: $currentAppVersion');
+
+          // 만일, 서버의 버전이 현재 앱의 빌드 버전보다 높을 경우, 스토어 또는 마켓으로 강제 이동시킨다.
+          // ex.)
+          //      currentAppVersion: 14
+          //      versionFromServer: 15
+          //      ===> Then move to app store or google market.
+          if (currentAppVersion < version) {
+            debugPrint('===> 서버 내 앱 버전이 현재 앱 버전보다 높습니다. 강제 업데이트가 필요합니다.');
+
+            if (context.mounted) {
+              await renderDialog(context);
+            }
+          }
+
+          /* 서버와 현재 OS 에 해당하는 스토어의 버전을 체크하여 상이할 경우, 서버 내 버전을 스토어 버전 기준으로 갱신한다. */
+          final storeVersionStatus = await NewVersionPlus().getVersionStatus();
+          final storeVersion = storeVersionStatus?.storeVersion;
+
+          if (storeVersion != null) {
+            if (Platform.isAndroid) {
+              final aosStoreVerFromServer = versionModel.aosStoreVer;
+
+              if (storeVersion != aosStoreVerFromServer) {
+                ref.read(versionUpdateProvider(aosStoreVer: storeVersion));
+              }
+            } else if (Platform.isIOS) {
+              final iosStoreVerFromServer = versionModel.iosStoreVer;
+
+              if (storeVersion != iosStoreVerFromServer) {
+                ref.read(versionUpdateProvider(iosStoreVer: storeVersion));
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
   }
 
   Future<void> renderDialog(BuildContext context) async {

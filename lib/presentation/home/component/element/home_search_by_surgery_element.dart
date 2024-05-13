@@ -19,7 +19,7 @@ class HomeSearchBySurgeryElement extends StatelessWidget {
           onAllButtonClicked: () => ToastUtils.showToast(context, toastText: '이동 - 시술별 검색 전체보기'),
         ),
         SizedBox(
-          height: 100.0.h,
+          height: 110.0.h,
           child: ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: 16.0.w),
             scrollDirection: Axis.horizontal,
