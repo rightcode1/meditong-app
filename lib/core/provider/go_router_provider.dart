@@ -208,7 +208,7 @@ final routerConfigProvider = Provider<GoRouter>(
                   },
                 ),
               ]),
-          /* 경영/장비 탭 */
+          /* 경영/영상/장비/메디통 탭 */
           GoRoute(
               path: AppRouter.contents.path,
               name: AppRouter.contents.name,
