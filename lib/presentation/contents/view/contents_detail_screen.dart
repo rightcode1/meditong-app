@@ -337,6 +337,8 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 24.0.h),
                       child: Wrap(
+                        spacing: 10.0.w,
+                        runSpacing: 4.0.h,
                         children: data.hashtags
                             .map(
                               (e) => CommonChip(
