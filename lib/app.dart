@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mediport/core/constant/data.dart';
 import 'package:mediport/core/provider/go_router_provider.dart';
+import 'package:mediport/core/util/core_utils.dart';
 
 import 'core/config/custom_scroll_behavior.dart';
 import 'core/constant/app_color.dart';
@@ -80,7 +81,7 @@ class _MediportState extends ConsumerState<Mediport> {
     // ScreenUtils 활성화
     return ScreenUtilInit(
       // 기준이 될 초기 디바이스 크기를 세팅한다.
-      designSize: MediaQuery.of(context).size.shortestSide < 600 ? const Size(360, 720) : kIsWeb ? const Size(1000, 1000) : const Size(600, 900),
+      designSize: CoreUtils.checkIfMobile(context) ? const Size(360, 720) : kIsWeb ? const Size(1000, 1000) : const Size(600, 900), // 각각의 비율 왼쪽부터 모바일 기기, 웹앱, 태블릿
       // designSize: const Size(360, 720),
       fontSizeResolver: (fontSize, instance) {
         return kIsWeb ? fontSize.toDouble() * 1.1 : fontSize.toDouble() * 1.1;

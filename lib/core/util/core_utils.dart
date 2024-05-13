@@ -50,6 +50,11 @@ class CoreUtils {
     return isFold;
   }
 
+  /// 현재 기기가 태블릿인지 확인하는 메소드
+  static bool checkIfMobile(BuildContext context) {
+    return MediaQuery.sizeOf(context).shortestSide < 600;
+  }
+
   /// FCM/딥링크 등 데이터를 전달받아 적절한 화면으로 분기처리한다.
   static void deepLinkMoveToSpecificScreen(BuildContext context, Map<String, dynamic> data, { WidgetRef? widgetRef, Ref? ref }) async {
     if (ref == null && widgetRef == null) {

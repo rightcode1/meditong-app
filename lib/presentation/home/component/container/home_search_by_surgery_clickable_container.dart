@@ -23,7 +23,7 @@ class HomeSearchBySurgeryClickableContainer extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: 102.0.w,
-        padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.0.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.0.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0.r),
           border: Border.all(color: AppColor.grey500),
