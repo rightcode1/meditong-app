@@ -109,7 +109,7 @@ class _ContentsListScreenState extends ConsumerState<ContentsListScreen> {
                             text: e,
                           ))
                       .toList(),
-                  labelPadding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                  labelPadding: EdgeInsets.symmetric(horizontal: 16.0.w,),
                   onTap: (index) => setState(() {
                     _selectedTabIdx = index;
                     _selectedSubCategoryIdx = 0;
@@ -130,7 +130,7 @@ class _ContentsListScreenState extends ConsumerState<ContentsListScreen> {
                         /* 홈 카테고리 고정 */
                         if (index == 0) {
                           return CommonButton(
-                            padding: EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 10.0.h),
+                            padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                             useBorder: _selectedSubCategoryIdx == 0,
                             foregroundColor: AppColor.grey300,
                             backgroundColor: _selectedSubCategoryIdx == 0 ? Colors.white : AppColor.grey300,
@@ -144,7 +144,7 @@ class _ContentsListScreenState extends ConsumerState<ContentsListScreen> {
 
                         final eachSubCategory = subCategoryList[index - 1];
                         return CommonButton(
-                          padding: EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 10.0.h),
+                          padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                           useBorder: _selectedSubCategoryIdx == index,
                           foregroundColor: AppColor.grey300,
                           backgroundColor: _selectedSubCategoryIdx == index ? Colors.white : AppColor.grey300,
