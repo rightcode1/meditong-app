@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/core/constant/data.dart';
+import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/domain/model/version/res/version_res.dart';
 import 'package:mediport/domain/repository/version/version_repository.dart';
 import 'package:mediport/service/version/version_providers.dart';
@@ -328,9 +329,11 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
             icon: Image.asset('assets/icons/common/arrow_back_black@3x.png', height: 24.0.h),
             onPressed: widget.onBackPressed ??
                 () {
-                  // 스택에 남아있는 페이지가 없을 경우, 에외를 발생시킨다.
+                  // 스택에 남아있는 페이지가 없을 경우, 홈으로 이동한다.
                   if (!context.canPop()) {
-                    throw Exception('뒤로갈 수 있는 페이지가 존재하지 않습니다. 코드를 다시 확인해주세요.');
+                    context.goNamed(AppRouter.home.name);
+                    return;
+                    // throw Exception('뒤로갈 수 있는 페이지가 존재하지 않습니다. 코드를 다시 확인해주세요.');
                   }
                   context.pop();
                 },

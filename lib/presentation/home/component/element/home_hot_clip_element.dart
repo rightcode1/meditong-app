@@ -36,9 +36,9 @@ class _HomeHotClipElementState extends State<HomeHotClipElement> {
           options: CarouselOptions(
             height: 250.0.h,
             enableInfiniteScroll: false,
-            // enlargeCenterPage: kIsWeb,
+            enlargeCenterPage: kIsWeb,
             // disableCenter: true,
-            padEnds: false,
+            padEnds: kIsWeb,
             viewportFraction: CoreUtils.checkIfMobile(context) ? 0.9 : kIsWeb ? 0.7 : 0.85, // 각각의 비율 왼쪽부터 모바일 기기, 웹앱, 태블릿
           ),
         ),

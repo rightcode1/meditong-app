@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,24 +43,29 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   }
 
   Future<void> getInitialData() async {
-    ref.read(versionRepositoryProvider).version().then((value) async {
-      late int socialVersion;
-      final data = value.data!;
+    // 웹 환경일 경우, 다르게 분기처리한다.
+    if (kIsWeb) {
 
-      if (Platform.isAndroid) {
-        socialVersion = data.aosSocialVer;
-      } else if (Platform.isIOS) {
-        socialVersion = data.iosSocialVer;
-      }
-      final int currentAppVersion = await PackageInfo.fromPlatform().then((info) => int.parse(info.buildNumber));
-      debugPrint('===> Current app version: $currentAppVersion');
-      debugPrint('===> Social version: $socialVersion');
+    } else {
+      ref.read(versionRepositoryProvider).version().then((value) async {
+        late int socialVersion;
+        final data = value.data!;
 
-      _enableSocialLogin = currentAppVersion <= socialVersion;
+        if (Platform.isAndroid) {
+          socialVersion = data.aosSocialVer;
+        } else if (Platform.isIOS) {
+          socialVersion = data.iosSocialVer;
+        }
+        final int currentAppVersion = await PackageInfo.fromPlatform().then((info) => int.parse(info.buildNumber));
+        debugPrint('===> Current app version: $currentAppVersion');
+        debugPrint('===> Social version: $socialVersion');
 
-      // _enableSocialLogin = true;
-      setState(() {});
-    });
+        _enableSocialLogin = currentAppVersion <= socialVersion;
+
+        // _enableSocialLogin = true;
+        setState(() {});
+      });
+    }
   }
 
   @override
