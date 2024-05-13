@@ -17,11 +17,36 @@ class BottomTabBar extends ConsumerStatefulWidget {
 class _BottomTabBarState extends ConsumerState<BottomTabBar> {
   /// 탭 별 라우트 목록
   final List<List<dynamic>> _tabRoutes = [
-    [AppRouter.home.name, '홈', Image.asset('assets/icons/bottom-navigation/home-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/home-active.png', height: 40.0.h)],
-    [AppRouter.contents.name, '경영', Image.asset('assets/icons/bottom-navigation/management-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/management-active.png', height: 40.0.h)],
-    [AppRouter.home.name, '영상', Image.asset('assets/icons/bottom-navigation/video-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/video-active.png', height: 40.0.h)],
-    [AppRouter.contents.name, '장비', Image.asset('assets/icons/bottom-navigation/equipment-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/equipment-active.png', height: 40.0.h)],
-    [AppRouter.home.name, '메디通', Image.asset('assets/icons/bottom-navigation/meditong-inactive.png', height: 40.0.h), Image.asset('assets/icons/bottom-navigation/meditong-active.png', height: 40.0.h)],
+    [
+      AppRouter.home.name,
+      '홈',
+      Image.asset('assets/icons/bottom-navigation/home-inactive.png', height: 40.0.h),
+      Image.asset('assets/icons/bottom-navigation/home-active.png', height: 40.0.h)
+    ],
+    [
+      AppRouter.contents.name,
+      '경영',
+      Image.asset('assets/icons/bottom-navigation/management-inactive.png', height: 40.0.h),
+      Image.asset('assets/icons/bottom-navigation/management-active.png', height: 40.0.h)
+    ],
+    [
+      AppRouter.contents.name,
+      '영상',
+      Image.asset('assets/icons/bottom-navigation/video-inactive.png', height: 40.0.h),
+      Image.asset('assets/icons/bottom-navigation/video-active.png', height: 40.0.h)
+    ],
+    [
+      AppRouter.contents.name,
+      '장비',
+      Image.asset('assets/icons/bottom-navigation/equipment-inactive.png', height: 40.0.h),
+      Image.asset('assets/icons/bottom-navigation/equipment-active.png', height: 40.0.h)
+    ],
+    [
+      AppRouter.contents.name,
+      '메디通',
+      Image.asset('assets/icons/bottom-navigation/meditong-inactive.png', height: 40.0.h),
+      Image.asset('assets/icons/bottom-navigation/meditong-active.png', height: 40.0.h)
+    ],
   ];
 
   /// 현재 탭 인덱스
@@ -29,9 +54,20 @@ class _BottomTabBarState extends ConsumerState<BottomTabBar> {
 
   /// 탭 변경 메소드
   ///
-  /// 경영 또는 장비 탭일 경우, QueryParameter 에 별도의 diff 값을 넣어 처리한다. (due to 스크린 공용화)
+  /// 경영 또는 장비, 영상, 메디통 탭일 경우, QueryParameter 에 별도의 diff 값을 넣어 처리한다. (due to 스크린 공용화)
   void _changeTab(int index) {
-    context.goNamed(_tabRoutes[index][0] as String, queryParameters: index == 1 || index == 3 ? {'diff': index == 1 ? '경영' : '장비'} : {});
+    context.goNamed(_tabRoutes[index][0] as String,
+        queryParameters: index == 1 || index == 2 || index == 3 || index == 4
+            ? {
+                'diff': index == 1
+                    ? '경영'
+                    : index == 2
+                        ? '영상'
+                        : index == 3
+                            ? '장비'
+                            : '메디통'
+              }
+            : {});
     setState(() {
       _currentIndex = index;
     });
@@ -56,7 +92,15 @@ class _BottomTabBarState extends ConsumerState<BottomTabBar> {
           onDestinationSelected: _changeTab,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           selectedIndex: _currentIndex,
-          destinations: _tabRoutes.map((e) => NavigationDestination(label: '', icon: e[2], selectedIcon: e[3],),).toList(),
+          destinations: _tabRoutes
+              .map(
+                (e) => NavigationDestination(
+                  label: '',
+                  icon: e[2],
+                  selectedIcon: e[3],
+                ),
+              )
+              .toList(),
         ));
   }
 }

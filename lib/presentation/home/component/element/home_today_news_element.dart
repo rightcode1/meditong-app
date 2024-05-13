@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mediport/core/constant/app_color.dart';
 import 'package:mediport/presentation/home/component/container/home_element_title_container.dart';
 
+import '../../../../core/util/core_utils.dart';
 import '../../../../core/util/toast_utils.dart';
 import '../container/home_element_carousel_clickable_container.dart';
 
@@ -29,10 +31,10 @@ class HomeTodayNewsElement extends StatelessWidget {
               onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 핫클립 상세'),
             ),
             options: CarouselOptions(
-                height: 250.0.h,
-                enableInfiniteScroll: false,
-                padEnds: false,
-                viewportFraction: 0.9
+              height: 250.0.h,
+              enableInfiniteScroll: false,
+              padEnds: false,
+              viewportFraction: CoreUtils.checkIfMobile(context) ? 0.9 : kIsWeb ? 0.7 : 0.85, // 각각의 비율 왼쪽부터 모바일 기기, 웹앱, 태블릿
             ),
           ),
         ],

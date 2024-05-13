@@ -310,10 +310,19 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                       isLoading: _isRegisterLoading,
                       onPressed: () async {
                         // 현재 Form 데이터를 Model 로 변환 후, 서버로 전송한다..
-                        await ref.read(authJoinProvider.notifier).join();
-                        if (context.mounted) {
-                          ToastUtils.showToast(context, toastText: '회원가입이 완료되었습니다.');
-                          context.pop();
+                        try {
+                          setState(() {
+                            _isRegisterLoading = true;
+                          });
+                          await ref.read(authJoinProvider.notifier).join();
+                          if (context.mounted) {
+                            ToastUtils.showToast(context, toastText: '회원가입이 완료되었습니다.');
+                            context.pop();
+                          }
+                        } finally {
+                          setState(() {
+                            _isRegisterLoading = false;
+                          });
                         }
                       },
                     );

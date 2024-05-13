@@ -94,7 +94,7 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
         onBackPressed: () => context.pop(true),
         title: '${widget.diff} 상세',
         /* 댓글 입력란 */
-        bottomNavigationBar: _user == null ? null : renderCommentTextField(),
+        bottomNavigationBar: renderCommentTextField(isUser: _user is UserRes),
         child: RefreshIndicator(
           onRefresh: () async {
             ref.invalidate(contentsDetailProvider);
@@ -126,7 +126,7 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
   }
 
   /// 댓글 입력창 렌더링 (bottomNavigationBar)
-  Widget renderCommentTextField() {
+  Widget renderCommentTextField({ required bool isUser }) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -167,8 +167,17 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
           child: CommonForm.create(
             controller: _commentTextController,
             focusNode: _commentFocusNode,
-            onTap: () => _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-                duration: const Duration(seconds: 1), curve: Curves.fastLinearToSlowEaseIn),
+            onTap: () {
+              if (isUser) {
+                _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+                    duration: const Duration(seconds: 1), curve: Curves.fastLinearToSlowEaseIn);
+              } else {
+                GoRouterUtils.recordExpectedRouteAndGoToAuth(context, ref, expectedRoute: AppRouter.contentsDetail.name, queryParameters: {
+                  'contentsId': widget.contentsId.toString(),
+                  'diff': widget.diff,
+                });
+              }
+            },
             onChanged: (controller) => setState(() {}),
             hintText: '댓글을 입력해주세요.',
             suffixIcon: Padding(

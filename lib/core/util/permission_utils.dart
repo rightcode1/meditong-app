@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -14,32 +15,37 @@ class PermissionUtils {
   /// AOS 권한 리스트: https://github.com/Baseflow/flutter-permission-handler/blob/main/permission_handler/example/android/app/src/main/AndroidManifest.xml
   /// IOS 권한 리스트: https://github.com/Baseflow/flutter-permission-handler/blob/main/permission_handler/example/ios/Runner/Info.plist
   static Future<void> checkAndRequestPermission(BuildContext context, Permission permission) async {
-    // 각 OS 별로 특정 기능을 사용하기 위한 Permission 이 다르므로 각 OS 에서 필요 없는 권한은 건너뛴다.
-    if (Platform.isIOS) {
-      if (permission == Permission.activityRecognition || permission == Permission.storage || permission == Permission.systemAlertWindow) return;
-      debugPrint('IOS: ${permission.toString()} 에 대한 권한 설정을 수행합니다.');
+    // 웹일 경우, 조건 분기한다.
+    if (kIsWeb) {
+
     } else {
-      if (permission == Permission.photos || permission == Permission.sensors) return;
-      debugPrint('AOS: ${permission.toString()} 에 대한 권한 설정을 수행합니다.');
-    }
+      // 각 OS 별로 특정 기능을 사용하기 위한 Permission 이 다르므로 각 OS 에서 필요 없는 권한은 건너뛴다.
+      if (Platform.isIOS) {
+        if (permission == Permission.activityRecognition || permission == Permission.storage || permission == Permission.systemAlertWindow) return;
+        debugPrint('IOS: ${permission.toString()} 에 대한 권한 설정을 수행합니다.');
+      } else {
+        if (permission == Permission.photos || permission == Permission.sensors) return;
+        debugPrint('AOS: ${permission.toString()} 에 대한 권한 설정을 수행합니다.');
+      }
 
-    // 이미 권한이 부여된 경우에는 바로 return
-    if (await permission.isGranted) {
-      debugPrint('${permission.toString()} 에 대한 권한이 이미 허용되었습니다.');
-      return;
-    }
+      // 이미 권한이 부여된 경우에는 바로 return
+      if (await permission.isGranted) {
+        debugPrint('${permission.toString()} 에 대한 권한이 이미 허용되었습니다.');
+        return;
+      }
 
-    final PermissionStatus status = await permission.request();
+      final PermissionStatus status = await permission.request();
 
-    if (status == PermissionStatus.granted) {
-      // 권한이 부여된 경우
-      debugPrint('${permission.toString()} 권한이 부여되었습니다.');
-    } else {
-      // 권한이 거절된 경우
-      debugPrint('${permission.toString()} 권한이 거절되었습니다.');
-      debugPrint('isDenied: ${await permission.isDenied}');
-      debugPrint('isPermanentlyDenied: ${await permission.isPermanentlyDenied}');
-      // openAppSettings();
+      if (status == PermissionStatus.granted) {
+        // 권한이 부여된 경우
+        debugPrint('${permission.toString()} 권한이 부여되었습니다.');
+      } else {
+        // 권한이 거절된 경우
+        debugPrint('${permission.toString()} 권한이 거절되었습니다.');
+        debugPrint('isDenied: ${await permission.isDenied}');
+        debugPrint('isPermanentlyDenied: ${await permission.isPermanentlyDenied}');
+        // openAppSettings();
+      }
     }
   }
 }

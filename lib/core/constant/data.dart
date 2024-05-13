@@ -11,3 +11,6 @@ final IOS_APP_ID = 'id0000000000';
 
 /// S3 호스트
 const S3_IMAGE_HOST = 'https://example.com';
+
+/// 앱 최대 크기 (웹앱 포함)
+const maxWidth = 500.0;

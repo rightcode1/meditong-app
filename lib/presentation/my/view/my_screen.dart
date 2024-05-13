@@ -33,6 +33,7 @@ class MyScreen extends ConsumerWidget {
           children: [
             SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /* 내 정보 및 개인정보 수정 */
                   const MyInfoElement(),
@@ -100,9 +101,11 @@ class MyScreen extends ConsumerWidget {
                           )
                         ],
                       ),
-                    ),
+                    )
+                  else
+                    SizedBox(height: 30.0.h),
                 ],
-              ),
+              )
             ),
             /* Footer */
             Expanded(

@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mediport/core/util/core_utils.dart';
 import 'package:mediport/core/util/toast_utils.dart';
 import 'package:mediport/presentation/home/component/container/home_element_carousel_clickable_container.dart';
 import 'package:mediport/presentation/home/component/container/home_element_title_container.dart';
@@ -34,10 +36,10 @@ class _HomeHotClipElementState extends State<HomeHotClipElement> {
           options: CarouselOptions(
             height: 250.0.h,
             enableInfiniteScroll: false,
-            // enlargeCenterPage: true,
+            // enlargeCenterPage: kIsWeb,
             // disableCenter: true,
             padEnds: false,
-            viewportFraction: 0.9,
+            viewportFraction: CoreUtils.checkIfMobile(context) ? 0.9 : kIsWeb ? 0.7 : 0.85, // 각각의 비율 왼쪽부터 모바일 기기, 웹앱, 태블릿
           ),
         ),
       ],

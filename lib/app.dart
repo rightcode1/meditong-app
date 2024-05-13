@@ -1,9 +1,12 @@
-import 'package:mediport/core/provider/go_router_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:mediport/core/constant/data.dart';
+import 'package:mediport/core/provider/go_router_provider.dart';
+import 'package:mediport/core/util/core_utils.dart';
 
 import 'core/config/custom_scroll_behavior.dart';
 import 'core/constant/app_color.dart';
@@ -78,7 +81,16 @@ class _MediportState extends ConsumerState<Mediport> {
     // ScreenUtils 활성화
     return ScreenUtilInit(
       // 기준이 될 초기 디바이스 크기를 세팅한다.
-      designSize: MediaQuery.of(context).size.shortestSide < 600 ? const Size(360, 720) : const Size(1024, 720),
+      designSize: CoreUtils.checkIfMobile(context) ? const Size(360, 720) : kIsWeb ? const Size(1000, 1000) : const Size(600, 900), // 각각의 비율 왼쪽부터 모바일 기기, 웹앱, 태블릿
+      // designSize: const Size(360, 720),
+      fontSizeResolver: (fontSize, instance) {
+        return kIsWeb ? fontSize.toDouble() * 1.1 : fontSize.toDouble() * 1.1;
+      },
+      /* 웹앱일 경우, ScreenUtils 를 통한 동적 사이즈를 지정하지 않는다. */
+      rebuildFactor: (old, data) {
+        return !kIsWeb;
+      },
+      useInheritedMediaQuery: true,
       minTextAdapt: true,
       // MaterialApp.router 를 통해 GoRouter 를 적용한다.
       builder: (_, child) => MaterialApp.router(
@@ -90,7 +102,13 @@ class _MediportState extends ConsumerState<Mediport> {
             ),
             child: ScrollConfiguration(
               behavior: CustomScrollBehavior(),
-              child: child!,
+              child: Container(
+                alignment: Alignment.center,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: maxWidth),
+                  child: child!,
+                ),
+              ),
             ),
           );
         },
@@ -98,27 +116,27 @@ class _MediportState extends ConsumerState<Mediport> {
         routerConfig: routerConfig,
         // 기본 폰트 지정
         theme: ThemeData(
-          fontFamily: 'Pretendard',
-          progressIndicatorTheme: const ProgressIndicatorThemeData(color: AppColor.primary),
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.white,
-            surface: Colors.white,
-            surfaceTint: Colors.white,
-            background: Colors.white,
-          ),
-          canvasColor: Colors.white,
-          dividerColor: AppColor.grey500,
-          bottomAppBarTheme: const BottomAppBarTheme(
-            color: Colors.white,
-          ),
-          splashFactory: NoSplash.splashFactory,
-          hoverColor: Colors.transparent,
-          highlightColor: Colors.transparent
-          // colorScheme: const ColorScheme.light(
-          //   primary: AppColor.green500,
-          //   surfaceTint: Colors.white,
-          // ),
-        ),
+            fontFamily: 'Pretendard',
+            progressIndicatorTheme: const ProgressIndicatorThemeData(color: AppColor.primary),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.white,
+              surface: Colors.white,
+              surfaceTint: Colors.white,
+              background: Colors.white,
+            ),
+            canvasColor: Colors.white,
+            dividerColor: AppColor.grey500,
+            bottomAppBarTheme: const BottomAppBarTheme(
+              color: Colors.white,
+            ),
+            splashFactory: NoSplash.splashFactory,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent
+            // colorScheme: const ColorScheme.light(
+            //   primary: AppColor.green500,
+            //   surfaceTint: Colors.white,
+            // ),
+            ),
       ),
     );
   }

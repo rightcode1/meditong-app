@@ -59,8 +59,15 @@ class _ContentsSubCategoryElementState extends ConsumerState<ContentsSubCategory
   }
 
   @override
+  void didUpdateWidget(covariant ContentsSubCategoryElement oldWidget) {
+    if (oldWidget.name != _name) {
+      _pagingController.refresh();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _pagingController.refresh();
     return Expanded(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w),
