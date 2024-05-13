@@ -29,15 +29,15 @@ enum AppRouter {
 
   // 홈 > 마이 라우터
   my(path: '/home/my', name: 'homeMy', subPath: 'my'),
-  notice(path: '/home/my/notice', name: 'homeMyNotice', subPath: 'my/notice'),
-  noticeDetail(path: '/home/my/notice/detail', name: 'homeMyNoticeDetail', subPath: 'my/notice/detail'),
-  inquiry(path: '/home/my/inquiry', name: 'homeMyInquiry', subPath: 'my/inquiry'),
-  inquiryDetail(path: '/home/my/inquiry/detail', name: 'homeMyInquiryDetail', subPath: 'my/inquiry/detail'),
-  inquiryRegister(path: '/home/my/inquiry/register', name: 'homeMyInquiryRegister', subPath: 'my/inquiry/register'),
+  notice(path: '/home/my/notice', name: 'homeMyNotice', subPath: 'notice'),
+  noticeDetail(path: '/home/my/notice/detail', name: 'homeMyNoticeDetail', subPath: 'detail'),
+  inquiry(path: '/home/my/inquiry', name: 'homeMyInquiry', subPath: 'inquiry'),
+  inquiryDetail(path: '/home/my/inquiry/detail', name: 'homeMyInquiryDetail', subPath: 'detail'),
+  inquiryRegister(path: '/home/my/inquiry/register', name: 'homeMyInquiryRegister', subPath: 'register'),
 
   // 경영/장비 게시글 리스트 라우터
   contents(path: '/contents', name: 'contents', subPath: 'contents'),
-  contentsDetail(path: '/contents/detail', name: 'contentsDetail', subPath: 'contents/detail'),
+  contentsDetail(path: '/contents/detail', name: 'contentsDetail', subPath: 'detail'),
 
   example2(path: '/example2', name: 'example2', subPath: 'example2'),
   exampleSub(path: '/example2/sub', name: 'exampleSub', subPath: 'exampleSub'),

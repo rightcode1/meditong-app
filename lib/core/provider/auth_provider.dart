@@ -52,6 +52,7 @@ class AuthChangeNotifier extends ChangeNotifier {
     /// 로그인 필요 라우트 리스트 (로그인 후, 원래 이동하려고 했던 페이지로 이동한다.)
     final List<String> loginNeededRouteList = [
       AppRouter.alert.path,
+      AppRouter.inquiry.path,
     ];
 
     // User 정보가 없는 (UserResLoading, UserResError, Null) 상태

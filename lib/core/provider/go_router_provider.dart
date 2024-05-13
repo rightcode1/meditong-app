@@ -140,13 +140,13 @@ final routerConfigProvider = Provider<GoRouter>(
                       /* 공지사항 */
                       GoRoute(
                         parentNavigatorKey: rootNavigatorKey,
-                        path: AppRouter.notice.name,
+                        path: AppRouter.notice.subPath,
                         name: AppRouter.notice.name,
                         builder: (context, state) => const NoticeListScreen(),
                         routes: [
                           GoRoute(
                             parentNavigatorKey: rootNavigatorKey,
-                            path: AppRouter.noticeDetail.name,
+                            path: AppRouter.noticeDetail.subPath,
                             name: AppRouter.noticeDetail.name,
                             builder: (context, state) {
                               final int id = int.parse(state.uri.queryParameters['id']!);
@@ -158,13 +158,13 @@ final routerConfigProvider = Provider<GoRouter>(
                       /* 1:1 문의 */
                       GoRoute(
                         parentNavigatorKey: rootNavigatorKey,
-                        path: AppRouter.inquiry.name,
+                        path: AppRouter.inquiry.subPath,
                         name: AppRouter.inquiry.name,
                         builder: (context, state) => const InquiryListScreen(),
                         routes: [
                           GoRoute(
                             parentNavigatorKey: rootNavigatorKey,
-                            path: AppRouter.inquiryDetail.name,
+                            path: AppRouter.inquiryDetail.subPath,
                             name: AppRouter.inquiryDetail.name,
                             builder: (context, state) {
                               final int inquiryId = int.parse(state.uri.queryParameters['inquiryId']!);
@@ -173,7 +173,7 @@ final routerConfigProvider = Provider<GoRouter>(
                           ),
                           GoRoute(
                             parentNavigatorKey: rootNavigatorKey,
-                            path: AppRouter.inquiryRegister.name,
+                            path: AppRouter.inquiryRegister.subPath,
                             name: AppRouter.inquiryRegister.name,
                             builder: (context, state) => const InquiryRegisterScreen(),
                           ),
