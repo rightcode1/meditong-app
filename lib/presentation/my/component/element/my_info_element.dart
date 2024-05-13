@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,66 +19,67 @@ class MyInfoElement extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userInfoProvider);
     return Padding(
-        padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 24.0.h, bottom: 32.0.h),
-        child: user is UserRes
-            ? Builder(
-                builder: (context) {
-                  return IntrinsicHeight(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 60.0.h,
-                              height: 60.0.h,
-                              child: const CircleAvatar(
-                                backgroundColor: AppColor.grey300,
+      padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 24.0.h, bottom: 32.0.h),
+      child: user is UserRes
+          ? Builder(
+              builder: (context) {
+                return IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 60.0.h,
+                            height: 60.0.h,
+                            child: const CircleAvatar(
+                              backgroundColor: AppColor.grey300,
+                            ),
+                          ),
+                          SizedBox(width: 10.0.w),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    user.name,
+                                    style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(width: 6.0.w),
+                                  Text(
+                                    '님',
+                                    style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
+                                  )
+                                ],
                               ),
-                            ),
-                            SizedBox(width: 10.0.w),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      user.name,
-                                      style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w700),
-                                    ),
-                                    SizedBox(width: 6.0.w),
-                                    Text(
-                                      '님',
-                                      style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
-                                    )
-                                  ],
-                                ),
-                                Text(
-                                  '반가워요!',
-                                  style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 34.0.h,
-                          child: OutlinedButton(
-                            onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 개인정보 수정'),
-                            style: OutlinedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 4.0.h),
-                              foregroundColor: AppColor.primary,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0.r)),
-                              side: const BorderSide(color: AppColor.grey500),
-                              textStyle: TextStyle(
-                                fontSize: 14.0.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColor.primary,
+                              Text(
+                                '반가워요!',
+                                style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
                               ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 34.0.h,
+                        child: OutlinedButton(
+                          onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 개인정보 수정'),
+                          style: OutlinedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 4.0.h),
+                            foregroundColor: AppColor.primary,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0.r)),
+                            side: const BorderSide(color: AppColor.grey500),
+                            textStyle: TextStyle(
+                              fontSize: 14.0.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.primary,
                             ),
-                            child: Text('개인정보 수정',
+                          ),
+                          child: Text(
+                            '개인정보 수정',
                           ),
                           // child: CommonButton(
                           //   fontSize: 14.0.sp,
@@ -87,22 +89,51 @@ class MyInfoElement extends ConsumerWidget {
                           //   text: '개인정보 수정',
                           //   onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 개인정보 수정'),
                           // ),
-                                                  ),
-                        )],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            )
+          : IntrinsicHeight(
+            child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '메디포트 로그인',
+                          style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          '하고 서비스를 이용해보세요!',
+                          style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w500),
+                        )
+                        // CommonButton(
+                        //   onPressed: () {
+                        //     context.pushNamed(AppRouter.auth.name);
+                        //   },
+                        //   text: '임시 로그인',
+                        // ),
+                      ],
                     ),
-                  );
-                },
-              )
-            : Column(
-              children: [
-                const Text('비로그인 시 디자인 요청 필요'),
-                CommonButton(
-                  onPressed: () {
-                    context.pushNamed(AppRouter.auth.name);
-                  },
-                  text: '임시 로그인',
-                ),
-              ],
-            ));
+                  ),
+                  SizedBox(
+                    height: double.infinity,
+                    child: CommonButton(
+                      useBorder: true,
+                      foregroundColor: AppColor.grey300,
+                      backgroundColor: Colors.white,
+                      textColor: AppColor.primary,
+                      onPressed: () => context.pushNamed(AppRouter.auth.name),
+                      text: '로그인',
+                    ),
+                  ),
+                ],
+              ),
+          ),
+    );
   }
 }
