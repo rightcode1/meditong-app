@@ -22,6 +22,7 @@ Future<void> contentPagingList(
   String? subCategory,
   bool? isHome,
   String? sort,
+  int? hashtagId,
 }) async {
   try {
     final currentPage = pagingController.nextPageKey;
@@ -34,6 +35,7 @@ Future<void> contentPagingList(
           subCategory: subCategory,
           isHome: isHome,
           sort: sort,
+          hashtagId: hashtagId,
         );
 
     final data = response.data!;
@@ -63,6 +65,7 @@ Future<List<ContentsResList>> contentsList(
   String? primary,
   String? subCategory,
   bool? isHome,
+  int? hashtagId,
 }) async {
   try {
     final response = await ref.read(contentsRepositoryProvider).list(
@@ -70,6 +73,7 @@ Future<List<ContentsResList>> contentsList(
           primary: primary,
           subCategory: subCategory,
           isHome: isHome,
+          hashtagId: hashtagId,
         );
 
     return response.data!;

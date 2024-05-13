@@ -29,6 +29,7 @@ abstract class ContentsRepository {
     @Query('endDate') String? endDate,
     @Query('isHome') bool? isHome,
     @Query('sort') String? sort,
+    @Query('hashtagId') int? hashtagId,
   });
 
   @GET('/detail')

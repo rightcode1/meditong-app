@@ -214,7 +214,15 @@ final routerConfigProvider = Provider<GoRouter>(
               name: AppRouter.contents.name,
               pageBuilder: (context, state) {
                 final diff = state.uri.queryParameters['diff']!;
-                return buildPageWithDefaultTransition(context: context, state: state, child: ContentsListScreen(diff: diff));
+                final initialHashtagIdx =
+                    state.uri.queryParameters['initialHashtagIdx'] != null ? int.parse(state.uri.queryParameters['initialHashtagIdx']!) : null;
+                return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: ContentsListScreen(
+                      diff: diff,
+                      initialHashtagIdx: initialHashtagIdx,
+                    ));
               },
               routes: [
                 GoRoute(
