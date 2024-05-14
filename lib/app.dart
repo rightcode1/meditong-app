@@ -94,6 +94,7 @@ class _MediportState extends ConsumerState<Mediport> {
       minTextAdapt: true,
       // MaterialApp.router 를 통해 GoRouter 를 적용한다.
       builder: (_, child) => MaterialApp.router(
+        title: '메디포트',
         builder: (context, child) {
           // AOS 환경에서 ScrollView 에 대한 상단 파란색 Glow 를 해제한다. 필요 없을 경우 해제하고, child 를 return 하면 된다.
           return MediaQuery(

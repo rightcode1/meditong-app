@@ -23,13 +23,13 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="meditong_app">
+  <meta name="apple-mobile-web-app-title" content="메디포트">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>meditong_app</title>
+  <title>메디포트</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
@@ -38,19 +38,31 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+<div class="relative h-screen flex justify-center items-center">
+  <div class="flex flex-col items-center justify-center text-2xl">
+    <span class="loading loading-dots loading-lg text-[rgb(0_70_207)]"></span>
+    <span id="loading-text"></span>
+    <span>잠시만 기다려주세요</span>
+  </div>
+</div>
   <script>
     window.addEventListener('load', function(ev) {
+      const loadingText = document.getElementById('loading-text');
+      loadingText.textContent = '리소스 다운로드 중...';
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
+        onEntrypointLoaded: async function(engineInitializer) {
+          loadingText.textContent = '엔진 로딩 중...';
+          const appRunner = await engineInitializer.initializeEngine();
+          loadingText.textContent = '웹앱 실행 중...';
+          await appRunner.runApp();
         }
       });
     });
