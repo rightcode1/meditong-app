@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -246,7 +247,7 @@ final routerConfigProvider = Provider<GoRouter>(
     return GoRouter(
       navigatorKey: rootNavigatorKey,
       routes: routes,
-      initialLocation: AppRouter.splash.path,
+      initialLocation: kIsWeb ? AppRouter.home.path : AppRouter.splash.path,
       observers: <NavigatorObserver>[AppRouterObserver()],
       refreshListenable: provider,
       redirect: provider.redirectLogic,
