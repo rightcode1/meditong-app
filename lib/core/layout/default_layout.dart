@@ -77,6 +77,9 @@ class DefaultLayout extends ConsumerStatefulWidget {
   /// 로딩 Dimmer 활성화 여부
   final bool isLoading;
 
+  final bool safeAreaTop;
+  final bool safeAreaBottom;
+
   const DefaultLayout({
     required this.child,
     this.backgroundColor,
@@ -99,6 +102,8 @@ class DefaultLayout extends ConsumerStatefulWidget {
     this.floatingActionButton,
     this.floatingActionButtonLocation = FloatingActionButtonLocation.endFloat,
     this.isLoading = false,
+    this.safeAreaTop = true,
+    this.safeAreaBottom = true,
     super.key,
   });
 
@@ -257,7 +262,8 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
                 : null,
             backgroundColor: widget.backgroundColor ?? Colors.white,
             body: SafeArea(
-              bottom: true,
+              top: widget.safeAreaTop,
+              bottom: widget.safeAreaBottom,
               child: Padding(
                 padding: widget.padding == null
                     ? EdgeInsets.symmetric(
