@@ -96,43 +96,47 @@ class MyInfoElement extends ConsumerWidget {
                 );
               },
             )
-          : IntrinsicHeight(
-            child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          : Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
                         Text(
-                          '메디포트 로그인',
+                          '메디포트',
                           style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          '하고 서비스를 이용해보세요!',
-                          style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w500),
-                        )
-                        // CommonButton(
-                        //   onPressed: () {
-                        //     context.pushNamed(AppRouter.auth.name);
-                        //   },
-                        //   text: '임시 로그인',
-                        // ),
+                          '를 이용하려면',
+                          style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
+                        ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: double.infinity,
-                    child: CommonButton(
-                      useBorder: true,
-                      foregroundColor: AppColor.grey300,
-                      backgroundColor: Colors.white,
-                      textColor: AppColor.primary,
-                      onPressed: () => context.pushNamed(AppRouter.auth.name),
-                      text: '로그인',
-                    ),
-                  ),
-                ],
+                    Text(
+                      '로그인이 필요합니다!',
+                      style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
+                    )
+                    // CommonButton(
+                    //   onPressed: () {
+                    //     context.pushNamed(AppRouter.auth.name);
+                    //   },
+                    //   text: '임시 로그인',
+                    // ),
+                  ],
+                ),
               ),
+              CommonButton(
+                useBorder: true,
+                foregroundColor: AppColor.grey300,
+                backgroundColor: Colors.white,
+                textColor: AppColor.primary,
+                onPressed: () => context.pushNamed(AppRouter.auth.name),
+                text: '로그인',
+              ),
+            ],
           ),
     );
   }
