@@ -3,6 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mediport/core/enum/app_router.dart';
 import 'package:mediport/core/util/core_utils.dart';
 import 'package:mediport/core/util/toast_utils.dart';
 import 'package:mediport/presentation/home/component/container/home_element_carousel_clickable_container.dart';
@@ -25,7 +27,9 @@ class _HomeHotClipElementState extends State<HomeHotClipElement> {
         HomeElementTitleContainer(
           title: 'Hot Clip',
           content: '인기있는 영상을 소개해드립니다.',
-          onAllButtonClicked: () => ToastUtils.showToast(context, toastText: '이동 - 핫 클립 전체보기'),
+          onAllButtonClicked: () => context.goNamed(AppRouter.contents.name, queryParameters: {
+            'diff': '영상'
+          }),
         ),
         /* 핫 클립 캐러셀 */
         CarouselSlider.builder(

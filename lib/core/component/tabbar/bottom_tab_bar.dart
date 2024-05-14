@@ -77,10 +77,23 @@ class _BottomTabBarState extends ConsumerState<BottomTabBar> {
   Widget build(BuildContext context) {
     // 현재 탭 경로가 변경될 경우, _tabRoutes 내의 항목에 맞게 _currentIndex 를 변경한다.
     final currentLocation = widget.state.fullPath;
+    final queryParameters = widget.state.uri.queryParameters;
     if (currentLocation != null) {
-      final currentTab = _tabRoutes.indexWhere((element) => element[0] == currentLocation);
+      final foundRoute = AppRouter.values.firstWhere((element) => element.path == currentLocation).name;
+      final currentTab = _tabRoutes.indexWhere((element) => element[0] == foundRoute);
       if (currentTab != -1) {
-        _currentIndex = currentTab;
+        // 만일, foundRoute 가 contents 라우트일 경우, diff 값에 따라 탭을 변경한다.
+        if (foundRoute == AppRouter.contents.name) {
+          final diff = queryParameters['diff'];
+          if (diff != null) {
+            final diffIndex = _tabRoutes.indexWhere((element) => element[1] == diff);
+            if (diffIndex != -1) {
+              _currentIndex = diffIndex;
+            }
+          }
+        } else {
+          _currentIndex = currentTab;
+        }
       }
     }
 
