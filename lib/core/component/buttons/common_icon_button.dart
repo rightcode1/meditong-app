@@ -35,11 +35,10 @@ class CommonIconButton extends StatelessWidget {
             SizedBox(width: 4.0.w),
             Text(
               text,
-              style: TextStyle(
-                fontSize: 14.0.sp,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w600,
                 color: AppColor.cyan700,
-              ),
+              )
             ),
           ],
         ),

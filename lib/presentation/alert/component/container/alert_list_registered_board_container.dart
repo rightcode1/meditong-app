@@ -23,23 +23,21 @@ class AlertListRegisteredBoardContainer extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 14.0.sp,
-            fontWeight: FontWeight.w500,
-            color: AppColor.primary,
-          ),
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                fontSize: 14.0.sp,
+                color: AppColor.primary,
+              ),
         ),
         Text(
           '"$content" 게시글이 등록되었습니다.',
-          style: TextStyle(
-            fontSize: 14.0.sp,
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         SizedBox(height: 14.0.h),
         Text(
           DateFormat('yyyy.MM.dd').format(createdAt),
-          style: TextStyle(fontSize: 12.0.sp, color: AppColor.darkGrey300),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: AppColor.darkGrey300,
+              ),
         ),
       ],
     );

@@ -29,7 +29,7 @@ class HomeElementTitleContainer extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w700),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               SizedBox(
                 height: 34.0.h,
@@ -50,7 +50,7 @@ class HomeElementTitleContainer extends StatelessWidget {
           SizedBox(height: 2.0.h),
           Text(
             content,
-            style: TextStyle(fontSize: 16.0.sp, fontWeight: FontWeight.w500, color: AppColor.cyan700),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColor.cyan700),
           ),
         ],
       ),

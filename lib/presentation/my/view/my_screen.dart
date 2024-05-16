@@ -32,81 +32,83 @@ class MyScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /* 내 정보 및 개인정보 수정 */
-                  const MyInfoElement(),
-                  const ThickDivider(),
-                  SizedBox(height: 20.0.h),
-                  /* 공지사항, 1:1 문의 등 버튼 */
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /* 내 정보 및 개인정보 수정 */
+                const MyInfoElement(),
+                const ThickDivider(),
+                SizedBox(height: 20.0.h),
+                /* 공지사항, 1:1 문의 등 버튼 */
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                  child: Column(
+                    children: [
+                      CommonIconButton(
+                        iconPath: 'assets/icons/common/notice@3x.png',
+                        text: '공지사항',
+                        onPressed: () => context.pushNamed(AppRouter.notice.name),
+                      ),
+                      SizedBox(height: 14.0.w),
+                      CommonIconButton(
+                        iconPath: 'assets/icons/common/inquiry_cyan@3x.png',
+                        text: '1:1 문의',
+                        onPressed: () => context.pushNamed(AppRouter.inquiry.name),
+                      ),
+                      SizedBox(height: 14.0.w),
+                      CommonIconButton(
+                        iconPath: 'assets/icons/common/notification@3x.png',
+                        text: '푸시알림',
+                        onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 푸시알림'),
+                      ),
+                    ],
+                  ),
+                ),
+                /* 로그아웃 버튼 */
+                if (user is UserRes)
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 100.0.h, bottom: 20.0.h),
                     child: Column(
                       children: [
-                        CommonIconButton(
-                          iconPath: 'assets/icons/common/notice@3x.png',
-                          text: '공지사항',
-                          onPressed: () => context.pushNamed(AppRouter.notice.name),
-                        ),
-                        SizedBox(height: 14.0.w),
-                        CommonIconButton(
-                          iconPath: 'assets/icons/common/inquiry_cyan@3x.png',
-                          text: '1:1 문의',
-                          onPressed: () => context.pushNamed(AppRouter.inquiry.name),
-                        ),
-                        SizedBox(height: 14.0.w),
-                        CommonIconButton(
-                          iconPath: 'assets/icons/common/notification@3x.png',
-                          text: '푸시알림',
-                          onPressed: () => ToastUtils.showToast(context, toastText: '이동 - 푸시알림'),
-                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              BottomSheetUtils.showTwoButton(
+                                context: context,
+                                title: '로그아웃',
+                                contentWidget: (bottomState) {
+                                  return Text(
+                                    '로그아웃 하시겠습니까?',
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  );
+                                },
+                                leftButtonText: '취소',
+                                onLeftButtonPressed: () => context.pop(),
+                                rightButtonText: '로그아웃',
+                                onRightButtonPressed: () {
+                                  context.pop();
+                                  ref.read(userLogoutProvider);
+                                },
+                              );
+                            },
+                            child: Text(
+                              '로그아웃',
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.cyan700,
+                                  ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                  /* 로그아웃 버튼 */
-                  if (user is UserRes)
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, top: 100.0.h, bottom: 20.0.h),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: () {
-                                BottomSheetUtils.showTwoButton(
-                                  context: context,
-                                  title: '로그아웃',
-                                  contentWidget: (bottomState) {
-                                    return Text(
-                                      '로그아웃 하시겠습니까?',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 16.0.sp, fontWeight: FontWeight.w400),
-                                    );
-                                  },
-                                  leftButtonText: '취소',
-                                  onLeftButtonPressed: () => context.pop(),
-                                  rightButtonText: '로그아웃',
-                                  onRightButtonPressed: () {
-                                    context.pop();
-                                    ref.read(userLogoutProvider);
-                                  },
-                                );
-                              },
-                              child: Text(
-                                '로그아웃',
-                                style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: AppColor.cyan700),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  else
-                    SizedBox(height: 30.0.h),
-                ],
-              )
-            ),
+                  )
+                else
+                  SizedBox(height: 30.0.h),
+              ],
+            )),
             /* Footer */
             Expanded(
               child: Container(
@@ -117,12 +119,17 @@ class MyScreen extends ConsumerWidget {
                   children: [
                     Text(
                       '의료 플랫폼',
-                      style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: AppColor.darkGrey300),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.darkGrey300,
+                          ),
                     ),
                     SizedBox(height: 10.0.h),
                     Text(
                       '대표: 홍길동\n사업자 번호: 00-000-0000\n주소: 서울특별시 강남구 테헤란 00-0000',
-                      style: TextStyle(fontSize: 12.0.sp, fontWeight: FontWeight.w400, color: AppColor.darkGrey300),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: AppColor.darkGrey300,
+                      ),
                     ),
                   ],
                 ),

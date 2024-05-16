@@ -69,12 +69,12 @@ class HomeAdvertisementElement extends ConsumerWidget {
                             children: [
                               Text(
                                 e.title,
-                                style: TextStyle(fontSize: 18.0.sp, fontWeight: FontWeight.w600, color: Colors.white),
+                                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
                               ),
                               SizedBox(height: 8.0.h),
                               Text(
                                 '비침습적 기기 텍스트 퍼블리싱... API 프로퍼티 필요...',
-                                style: TextStyle(fontSize: 11.0.sp, fontWeight: FontWeight.w600, color: Colors.white),
+                                style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 11.0.sp, fontWeight: FontWeight.w600, color: Colors.white),
                               ),
                               // Text(e.),
                             ],

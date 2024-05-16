@@ -81,7 +81,12 @@ class _MediportState extends ConsumerState<Mediport> {
     // ScreenUtils 활성화
     return ScreenUtilInit(
       // 기준이 될 초기 디바이스 크기를 세팅한다.
-      designSize: CoreUtils.checkIfMobile(context) ? const Size(360, 720) : kIsWeb ? const Size(1000, 1000) : const Size(600, 900), // 각각의 비율 왼쪽부터 모바일 기기, 웹앱, 태블릿
+      designSize: CoreUtils.checkIfMobile(context)
+          ? const Size(360, 720)
+          : kIsWeb
+              ? const Size(1000, 1000)
+              : const Size(600, 900),
+      // 각각의 비율 왼쪽부터 모바일 기기, 웹앱, 태블릿
       // designSize: const Size(360, 720),
       fontSizeResolver: (fontSize, instance) {
         return kIsWeb ? fontSize.toDouble() * 1.1 : fontSize.toDouble() * 1.1;
@@ -129,6 +134,32 @@ class _MediportState extends ConsumerState<Mediport> {
             dividerColor: AppColor.grey500,
             bottomAppBarTheme: const BottomAppBarTheme(
               color: Colors.white,
+            ),
+            textTheme: TextTheme(
+              titleLarge: TextStyle(
+                fontSize: 20.0.sp,
+                fontWeight: FontWeight.w700,
+              ),
+              titleMedium: TextStyle(
+                fontSize: 18.0.sp,
+                fontWeight: FontWeight.w600,
+              ),
+              titleSmall: TextStyle(
+                fontSize: 16.0.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              bodyLarge: TextStyle(
+                fontSize: 16.0.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              bodyMedium: TextStyle(
+                fontSize: 14.0.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              bodySmall: TextStyle(
+                fontSize: 12.0.sp,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             splashFactory: NoSplash.splashFactory,
             hoverColor: Colors.transparent,

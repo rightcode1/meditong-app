@@ -38,12 +38,6 @@ class CommonBoardListContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final greyTextStyle = TextStyle(
-      fontSize: 12.0.sp,
-      fontWeight: FontWeight.w400,
-      color: AppColor.darkGrey300,
-    );
-
     switch (mode) {
       case CommonBoardListContainerMode.smallPic:
         return InkWell(
@@ -78,19 +72,21 @@ class CommonBoardListContainer extends StatelessWidget {
                         title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w500),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 14.0.sp),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(DateFormat('yyyy.MM.dd').format(createdAt), style: greyTextStyle),
+                          Text(DateFormat('yyyy.MM.dd').format(createdAt), style: Theme.of(context).textTheme.bodySmall!.copyWith()),
                           Row(
                             children: [
                               renderIconContainer(
+                                  context: context,
                                   iconPath: 'assets/icons/common/wish_icon@3x.png',
                                   text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
                               SizedBox(width: 10.0.w),
                               renderIconContainer(
+                                  context: context,
                                   iconPath: 'assets/icons/common/comment_icon@3x.png',
                                   text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
                             ],
@@ -127,7 +123,7 @@ class CommonBoardListContainer extends StatelessWidget {
                 title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 14.0.sp),
               ),
               SizedBox(height: 6.0.h),
               Row(
@@ -135,13 +131,23 @@ class CommonBoardListContainer extends StatelessWidget {
                 children: [
                   Text(
                     DateFormat('yyyy.MM.dd').format(createdAt),
-                    style: greyTextStyle,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+
+                          fontWeight: FontWeight.w400,
+                          color: AppColor.darkGrey300,
+                        ),
                   ),
                   Row(
                     children: [
-                      renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
+                      renderIconContainer(
+                        context: context,
+                          iconPath: 'assets/icons/common/wish_icon@3x.png',
+                          text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
                       SizedBox(width: 10.0.w),
-                      renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
+                      renderIconContainer(
+                          context: context,
+                          iconPath: 'assets/icons/common/comment_icon@3x.png',
+                          text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
                     ],
                   )
                 ],
@@ -159,7 +165,7 @@ class CommonBoardListContainer extends StatelessWidget {
                 title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 14.0.sp),
               ),
               SizedBox(height: 6.0.h),
               Row(
@@ -167,13 +173,23 @@ class CommonBoardListContainer extends StatelessWidget {
                 children: [
                   Text(
                     DateFormat('yyyy.MM.dd').format(createdAt),
-                    style: greyTextStyle,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+
+                          fontWeight: FontWeight.w400,
+                          color: AppColor.darkGrey300,
+                        ),
                   ),
                   Row(
                     children: [
-                      renderIconContainer(iconPath: 'assets/icons/common/wish_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
+                      renderIconContainer(
+                          context: context,
+                          iconPath: 'assets/icons/common/wish_icon@3x.png',
+                          text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: wishCount)),
                       SizedBox(width: 10.0.w),
-                      renderIconContainer(iconPath: 'assets/icons/common/comment_icon@3x.png', text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
+                      renderIconContainer(
+                          context: context,
+                          iconPath: 'assets/icons/common/comment_icon@3x.png',
+                          text: DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: commentCount)),
                     ],
                   )
                 ],
@@ -187,12 +203,12 @@ class CommonBoardListContainer extends StatelessWidget {
   }
 
   /// 아이콘 컨테이너를 렌더링한다. (좋아요 및 댓글 컨테이너로서 사용)
-  Widget renderIconContainer({required String iconPath, required String text}) {
+  Widget renderIconContainer({required BuildContext context, required String iconPath, required String text}) {
     return Row(
       children: [
         Image.asset(iconPath, height: 18.0.h),
         SizedBox(width: 4.0.w),
-        Text(text, style: TextStyle(fontSize: 12.0.sp, fontWeight: FontWeight.w400, color: AppColor.darkGrey300)),
+        Text(text, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColor.darkGrey300)),
       ],
     );
   }

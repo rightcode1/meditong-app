@@ -27,7 +27,7 @@ class AlertListMyKeywordElement extends ConsumerWidget {
             children: [
               Text(
                 '나의 키워드',
-                style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: AppColor.cyan700),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600, color: AppColor.cyan700),
               ),
               IconButton(
                 onPressed: onRegisterPressed,

@@ -126,7 +126,7 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
   }
 
   /// 댓글 입력창 렌더링 (bottomNavigationBar)
-  Widget renderCommentTextField({ required bool isUser }) {
+  Widget renderCommentTextField({required bool isUser}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -140,7 +140,9 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
               children: [
                 Text(
                   _commentInputMode == ContentsCommentMode.update ? '댓글 수정 중' : '$_replyingTargetUsername님에게 답글 다는 중',
-                  style: TextStyle(fontSize: 12.0.sp, fontWeight: FontWeight.w400, color: AppColor.darkGrey300),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppColor.darkGrey300,
+                      ),
                 ),
                 IconButton(
                   onPressed: () {
@@ -208,7 +210,10 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                       });
                     } else if (_commentInputMode == ContentsCommentMode.update) {
                       // 댓글을 수정한다.
-                      ref.read(contentsCommentProvider(contentsId: widget.contentsId).notifier).modify(commentId: _targetCommentModel!.id, content: _commentTextController.text).then((result) {
+                      ref
+                          .read(contentsCommentProvider(contentsId: widget.contentsId).notifier)
+                          .modify(commentId: _targetCommentModel!.id, content: _commentTextController.text)
+                          .then((result) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         _commentTextController.clear();
                         ToastUtils.showToast(context, toastText: result ? '댓글이 수정되었습니다.' : '댓글 수정 중 오류가 발생했습니다.');
@@ -253,7 +258,7 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                 children: [
                   Text(
                     data.title,
-                    style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w500, height: 1.2),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 14.0.h),
                   // Text(
@@ -265,28 +270,25 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                     children: [
                       Text(
                         DateFormat('yyyy.MM.dd').format(data.createdAt),
-                        style: TextStyle(
-                          fontSize: 14.0.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.darkGrey300,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.darkGrey300,
+                            ),
                       ),
                       SizedBox(width: 14.0.w),
                       Text(
                         '조회수 ',
-                        style: TextStyle(
-                          fontSize: 14.0.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.grey750,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.grey750,
+                            ),
                       ),
                       Text(
                         data.viewCount.toString(),
-                        style: TextStyle(
-                          fontSize: 14.0.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.darkGrey300,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.darkGrey300,
+                            ),
                       ),
                     ],
                   ),
@@ -321,10 +323,10 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                           ],
                           Text(
                             eachContentDetail.content,
-                            style: TextStyle(
-                              fontSize: 16.0.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2,
+                                ),
                           ),
                         ],
                       );
@@ -342,14 +344,14 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                         children: data.hashtags
                             .map(
                               (e) => CommonChip(
-                            useBorder: true,
-                            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 4.0.h),
-                            backgroundColor: Colors.white,
-                            textColor: AppColor.primary,
-                            borderRadius: BorderRadius.circular(9999),
-                            text: e.content,
-                          ),
-                        )
+                                useBorder: true,
+                                padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 4.0.h),
+                                backgroundColor: Colors.white,
+                                textColor: AppColor.primary,
+                                borderRadius: BorderRadius.circular(9999),
+                                text: e.content,
+                              ),
+                            )
                             .toList(),
                       ),
                     ),
@@ -363,10 +365,12 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                           backgroundColor: isLike ? AppColor.pink700 : AppColor.grey500,
                           onPressed: () {
                             if (_user == null) {
-                              GoRouterUtils.recordExpectedRouteAndGoToAuth(context, ref, expectedRoute: AppRouter.contentsDetail.name, queryParameters: {
-                                'contentsId': data.id.toString(),
-                                'diff': widget.diff,
-                              });
+                              GoRouterUtils.recordExpectedRouteAndGoToAuth(context, ref,
+                                  expectedRoute: AppRouter.contentsDetail.name,
+                                  queryParameters: {
+                                    'contentsId': data.id.toString(),
+                                    'diff': widget.diff,
+                                  });
 
                               return;
                             }
@@ -380,14 +384,11 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                                 height: 18.0.h,
                               ),
                               SizedBox(width: 4.0.w),
-                              Text(
-                                data.wishCount.toString(),
-                                style: TextStyle(
-                                  fontSize: 14.0.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: isLike ? Colors.white : AppColor.darkGrey300,
-                                ),
-                              ),
+                              Text(data.wishCount.toString(),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: isLike ? Colors.white : AppColor.darkGrey300,
+                                      )),
                             ],
                           ),
                         ),
@@ -430,7 +431,10 @@ class _ContentsDetailScreenState extends ConsumerState<ContentsDetailScreen> {
                 children: [
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: Colors.black),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
                       children: [const TextSpan(text: '댓글 '), TextSpan(text: '+${data.length}', style: const TextStyle(color: AppColor.primary))],
                     ),
                   ),

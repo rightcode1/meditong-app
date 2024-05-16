@@ -52,8 +52,8 @@ class CommonChip extends StatelessWidget {
       ),
       child: textWidget ?? Text(
         text!,
-        style: TextStyle(
-          fontSize: fontSize ?? 14.0.sp,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          fontSize: fontSize,
           fontWeight: fontWeight ?? FontWeight.w600,
           color: textColor ?? AppColor.darkGrey500,
         ),
