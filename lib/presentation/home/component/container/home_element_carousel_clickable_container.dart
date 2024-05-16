@@ -16,11 +16,6 @@ class HomeElementCarouselClickableContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final smallIconHeight = 18.0.h;
-    final smallTextStyle = TextStyle(
-      fontSize: 14.0.sp,
-      fontWeight: FontWeight.w400,
-      color: AppColor.darkGrey300,
-    );
 
     return InkWell(
       onTap: onPressed,
@@ -35,7 +30,8 @@ class HomeElementCarouselClickableContainer extends StatelessWidget {
                 width: double.infinity,
                 height: double.infinity,
                 child: CachedNetworkImage(
-                  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Medical_sampling_equipment.jpg/1200px-Medical_sampling_equipment.jpg',
+                  imageUrl:
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Medical_sampling_equipment.jpg/1200px-Medical_sampling_equipment.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -69,22 +65,20 @@ class HomeElementCarouselClickableContainer extends StatelessWidget {
                     '낭만닥터',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 14.0.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                   ),
                   SizedBox(height: 2.0.h),
                   Text(
                     '40년 만에 새 기전 고혈압약',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 14.0.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                   ),
                   SizedBox(height: 6.0.h),
                   Row(
@@ -92,7 +86,10 @@ class HomeElementCarouselClickableContainer extends StatelessWidget {
                     children: [
                       Text(
                         '2024.03.21',
-                        style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w400, color: Colors.white),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
                       ),
                       Row(
                         children: [
@@ -100,14 +97,20 @@ class HomeElementCarouselClickableContainer extends StatelessWidget {
                           SizedBox(width: 4.0.w),
                           Text(
                             DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: 10),
-                            style: smallTextStyle,
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.darkGrey300,
+                            ),
                           ),
                           SizedBox(width: 10.0.w),
                           Image.asset('assets/icons/common/comment_icon@3x.png', height: smallIconHeight),
                           SizedBox(width: 4.0.w),
                           Text(
                             DataUtils.convertNumericIntoCommaFormatted(numberToBeFormatted: 1458),
-                            style: smallTextStyle,
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.darkGrey300,
+                            ),
                           ),
                         ],
                       )

@@ -85,11 +85,11 @@ class CommonButton extends StatelessWidget {
           : textWidget ??
               Text(
                 text!,
-                style: TextStyle(
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: fontSize ?? 14.0.sp,
                   fontWeight: fontWeight ?? FontWeight.w500,
                   color: isActive ? textColor : AppColor.grey550,
-                ),
+                )
               ),
     );
   }

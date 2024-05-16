@@ -35,29 +35,24 @@ class NoListWidget extends StatelessWidget {
       children: [
         if (icon != null)
           icon!
-        else
-          if (iconSrc != null)
-            Image.asset(
-              iconSrc!,
-              height: 46.0.h,
-            )
-          else
-            if (icon == null && iconSrc == null)
-            Image.asset(
+        else if (iconSrc != null)
+          Image.asset(
+            iconSrc!,
+            height: 46.0.h,
+          )
+        else if (icon == null && iconSrc == null)
+          Image.asset(
             'assets/images/common/no_list_image_grey@3x.png',
             height: 46.0.h,
-            ),
-        SizedBox(height: 6.0.h),
-        Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 16.0.sp,
-            fontWeight: FontWeight.w400,
-            color: AppColor.grey600,
           ),
-        ),
-        if(isButton)
+        SizedBox(height: 6.0.h),
+        Text(text,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: AppColor.grey600,
+                )),
+        if (isButton)
           Padding(
             padding: EdgeInsets.only(top: 10.0.h),
             child: SizedBox(

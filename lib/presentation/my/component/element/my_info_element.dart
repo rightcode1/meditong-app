@@ -46,18 +46,18 @@ class MyInfoElement extends ConsumerWidget {
                                 children: [
                                   Text(
                                     user.name,
-                                    style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w700),
+                                    style: Theme.of(context).textTheme.titleLarge,
                                   ),
                                   SizedBox(width: 6.0.w),
                                   Text(
                                     '님',
-                                    style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
+                                    style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400),
                                   )
                                 ],
                               ),
                               Text(
                                 '반가워요!',
-                                style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
+                                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400),
                               ),
                             ],
                           ),
@@ -72,11 +72,10 @@ class MyInfoElement extends ConsumerWidget {
                             foregroundColor: AppColor.primary,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0.r)),
                             side: const BorderSide(color: AppColor.grey500),
-                            textStyle: TextStyle(
-                              fontSize: 14.0.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColor.primary,
-                            ),
+                            textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.primary,
+                                ),
                           ),
                           child: Text(
                             '개인정보 수정',
@@ -97,47 +96,47 @@ class MyInfoElement extends ConsumerWidget {
               },
             )
           : Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          '메디포트',
-                          style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          '를 이용하려면',
-                          style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      '로그인이 필요합니다!',
-                      style: TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.w400),
-                    )
-                    // CommonButton(
-                    //   onPressed: () {
-                    //     context.pushNamed(AppRouter.auth.name);
-                    //   },
-                    //   text: '임시 로그인',
-                    // ),
-                  ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            '메디포트',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            '를 이용하려면',
+                            style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        '로그인이 필요합니다!',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400),
+                      )
+                      // CommonButton(
+                      //   onPressed: () {
+                      //     context.pushNamed(AppRouter.auth.name);
+                      //   },
+                      //   text: '임시 로그인',
+                      // ),
+                    ],
+                  ),
                 ),
-              ),
-              CommonButton(
-                useBorder: true,
-                foregroundColor: AppColor.grey300,
-                backgroundColor: Colors.white,
-                textColor: AppColor.primary,
-                onPressed: () => context.pushNamed(AppRouter.auth.name),
-                text: '로그인',
-              ),
-            ],
-          ),
+                CommonButton(
+                  useBorder: true,
+                  foregroundColor: AppColor.grey300,
+                  backgroundColor: Colors.white,
+                  textColor: AppColor.primary,
+                  onPressed: () => context.pushNamed(AppRouter.auth.name),
+                  text: '로그인',
+                ),
+              ],
+            ),
     );
   }
 }

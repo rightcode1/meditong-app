@@ -41,14 +41,18 @@ class HomeSearchBySurgeryClickableContainer extends StatelessWidget {
               hashtag,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: AppColor.primary),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 14.0.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColor.primary,
+                  ),
             ),
             SizedBox(height: 1.0.h),
             Text(
               description,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12.0.sp, fontWeight: FontWeight.w400, color: AppColor.cyan700),
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColor.cyan700),
             )
           ],
         ),
